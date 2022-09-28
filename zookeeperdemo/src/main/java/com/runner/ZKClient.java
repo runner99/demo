@@ -12,7 +12,7 @@ public class ZKClient implements Watcher {
 
     private ZooKeeper zookeeper;
     // 集群连接地址
-    private static final String ZOOKEEPER_ADDRES = "192.168.152.133:2181";
+    private static final String ZOOKEEPER_ADDRES = "47.93.26.215:2181";
     private CountDownLatch countDownLatch = new CountDownLatch(1);
 
     /**
@@ -59,7 +59,7 @@ public class ZKClient implements Watcher {
         exists(nodePath, true);
         try {
             zookeeper.setData(nodePath, data.getBytes(), -1);
-        } catch (KeeperException | InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -69,7 +69,7 @@ public class ZKClient implements Watcher {
      * 列出指定path下的孩子
      */
     private void list(String path) throws InterruptedException, KeeperException {
-        System.out.print(path+":");
+        System.out.print(path+":           ");
         byte[] data = zookeeper.getData(path, new ZKClient(), new Stat());
         if (data!=null){
             System.out.println(new String(data));
@@ -80,7 +80,7 @@ public class ZKClient implements Watcher {
         List<String> list = null;
         try {
             list = zookeeper.getChildren(path,this);
-        } catch (KeeperException | InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if(list == null || list.isEmpty()){
@@ -144,12 +144,12 @@ public class ZKClient implements Watcher {
     public void main() throws InterruptedException, KeeperException {
         ZKClient zkClient = new ZKClient();
         zkClient.createConnection(ZOOKEEPER_ADDRES, 5000);
-//        zkClient.createNode("/zk_test_parent", "main_node");
+//        zkClient.createNode("/testdemo01", "ga");
 //        zkClient.createNode("/zk_test_parent/zk_test_child", "child_node");
 //        zkClient.updateNode("/zk_test_parent","farther_node");
 //        zkClient.createNode("/zk_test_parent/zk_test_child/zk_test_cc", "cc_node");
 
-        zkClient.list("/");
+        zkClient.list("/testwork.mrworlds.cn");
 
     }
 }
