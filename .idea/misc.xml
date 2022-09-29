@@ -5,6 +5,8 @@
       <list>
         <option value="$PROJECT_DIR$/zookeeperdemo/pom.xml" />
         <option value="$PROJECT_DIR$/testworks/pom.xml" />
+        <option value="$PROJECT_DIR$/springbeantest/pom.xml" />
+        <option value="$PROJECT_DIR$/testjavase/pom.xml" />
       </list>
     </option>
   </component>

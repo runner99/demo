@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/demo.iml" filepath="$PROJECT_DIR$/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springbeantest/springbeantest.iml" filepath="$PROJECT_DIR$/springbeantest/springbeantest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testjavase/testjavase.iml" filepath="$PROJECT_DIR$/testjavase/testjavase.iml" />
       <module fileurl="file://$PROJECT_DIR$/testworks/testworks.iml" filepath="$PROJECT_DIR$/testworks/testworks.iml" />
       <module fileurl="file://$PROJECT_DIR$/zookeeperdemo/zookeeperdemo.iml" filepath="$PROJECT_DIR$/zookeeperdemo/zookeeperdemo.iml" />
     </modules>
