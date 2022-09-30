@@ -1,0 +1,233 @@
+一个用户要想使用编辑器编辑内容并更新
+为了快速推广业务
+用户服务模块：只有注册成为公司的用户才能使用公司的产品。该模块负责用户的注册登录，权限授予，产品处理，邀请码处理
+
+
+子服务器模块：减轻流量压力和快速扩大业务范围，公司与行业领域的企业合作，给企业部署了一个个子服务器，这些子服务器上存储着用户制作的内容和制作内容所需的素材。 
+该模块负责子服务器的注册、维护。
+注册流程： 
+1.首先到用户模块注册一个子服务器的管理账号
+2.创建企业客户，注册企业客户的信息,并给企业客户设置管理员账号。包括名称和地址；
+3.初始化一个子服务器，确定其域名；
+3.明确需要部署的服务器的各个属性：内网服务器还是外网 ，是否支持使用OSS，域名 ，IP 地址 ，管理账号，服务器状态，最大用户数，服务器结束时间
+子服务器项目中定义好服务器配置，在用户模块中注册服务器配置，在zookeeper中创建一个节点名称为域名的永久节点，并将配置写到zookeeper中。 
+用户模块重启时像zookeeper里面写入配置项
+4.子服务器项目中将域名写死，项目初始化时将zookeeper中的配置载入项目。如果节点有变动则会自动更新配置。
+5.将所有的postConstruct 检查，将这些操作设置为互斥.
+6.将子服务器的项目部署到服务器上。先配置好nginx+redis+mysql的环境 ，配置好nginx 的路由转向。设置好mysql 数据表和redis 数据库
+7.redis里面的老数据需要修改
+8.mysql的结构更新
+9.将controller里面的接口识别，删除没必要的接口，需要将接口重置 ，调用接口初始化或者惊醒结构转变  【"/material/v1/admin/user/meterial/initial"】
+存疑【"/material/hash/quote/works/records"】【TagApi -> /a】【userMaterialApi ->PostConstruct】  【materialController的init()】  
+【QuartzConfiguation】 【SystemController】
+10. 
+
+----------------------------------------------------------------------------------------------------------------------------------
+1.服务器的内网域名；
+2.服务器的
+内容服务模块：为每一个企业用户单独部署子服务器，每一个子服务器与服务端挂钩，内网和外网
+ 服务器上有哪些功能，云服务器上存储的
+
+需要从云端获取的属性有：       CORPORATION （法人）； deadline ;serverType;serverName;serverIp(域名) ；素材的配置
+需要初始化的动作，只一次的： 创建存放图片的默认空间【"/materiaSpace/create"】  
+
+ 
+去掉租赁模块，素材的controller层，去除定時任務 
+[PRI] `activing_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '激活时间',
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+1. userServer 表新增 region,port,ossSupport 三个字段
+alter table server add `region` varchar(255) not null default "" Comment '域名';
+alter table server add `port` int  Comment '端口号';
+alter table server add `osssupported` int Comment '是否支持OSS，0为不支持，1为支持';
+alter table serverconfiguration add environment  varchar(255);
+部署userAdmin
+2.向服务器注册子服务器相关信息【注意产品版本】，激活的时候 tjxfs_player 没有升级
+3.内容项目写死 域名 ，打包上传
+4.新增 video里的level 和 thumbnail 
+alter table material add `level` int(11) DEFAULT NULL;
+alter table material add `thumbnail` varchar(255) DEFAULT NULL;
+
+DROP TABLE IF EXISTS `materiallevel`;
+
+CREATE TABLE `materiallevel` (
+  `level` int(11) NOT NULL,
+  `decription` varchar(255) DEFAULT NULL,
+  `weight` int(11) DEFAULT NULL,
+  `beginttime` date DEFAULT NULL,
+  `endtime` date DEFAULT NULL,
+  PRIMARY KEY (`level`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `rolerouter`;
+
+CREATE TABLE `rolerouter` (
+  `rolename` char(30) NOT NULL,
+  `routerid` int(11) NOT NULL,
+  PRIMARY KEY (`rolename`,`routerid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `router`;
+
+CREATE TABLE `router` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '路由ID',
+  `creatime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `path` varchar(255) NOT NULL COMMENT '路由地址',
+  `component` varchar(255) NOT NULL COMMENT 'vue组件',
+  `name` varchar(255) NOT NULL COMMENT '路由名称',
+  `redirect` varchar(255) DEFAULT NULL COMMENT '重定向地址',
+  `alwaysShow` tinyint(1) DEFAULT NULL COMMENT '是否显示根路由',
+  `hidden` tinyint(1) DEFAULT '0' COMMENT '是否在侧边栏隐藏',
+  `title` varchar(255) NOT NULL COMMENT '标题',
+  `icon` varchar(255) DEFAULT NULL COMMENT '页面侧边导航栏对应icon',
+  `noCache` tinyint(1) DEFAULT '0' COMMENT '是否会被keep-live缓存',
+  `breadcrumb` tinyint(1) DEFAULT '1' COMMENT '是否显示在面包屑导航中',
+  `affix` tinyint(1) DEFAULT '0' COMMENT '是否固定在tags-view中',
+  `activeMenu` varchar(255) DEFAULT NULL COMMENT '高亮路由',
+  `parent` int(11) DEFAULT NULL COMMENT '父级目录',
+  `description` varchar(255) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `systemconfig`;
+
+CREATE TABLE `systemconfig` (
+  `configkey` varchar(255) NOT NULL,
+  `configvaule` varchar(255) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`configkey`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `userrole`;
+
+CREATE TABLE `userrole` (
+  `userid` int(11) NOT NULL,
+  `rolename` char(30) DEFAULT NULL,
+  `expireTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `account` char(30) DEFAULT NULL,
+  PRIMARY KEY (`userid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('-1', '2021-02-24 20:15:13', 'materiallevel', '/material/materiallevel', 'materiallevel', '', NULL, '0', '素材等级', 'level', NULL, '1', '0', NULL, '46', '素材等级');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('25', '2021-01-21 10:21:26', '/system', 'Layout', 'system', '/system/router', NULL, '0', '系统配置', 'systemset', NULL, '1', '0', NULL, NULL, NULL);
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('26', '2021-01-21 10:22:55', 'router', '/system/router', 'router', '', NULL, '0', '路由列表', 'router', NULL, '1', '0', NULL, '25', NULL);
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('27', '2021-01-21 10:24:25', 'routerrole', '/system/rolerouter', 'routerrole', '', NULL, '0', '路由-角色列表', 'routerrole', NULL, '1', '0', NULL, '25', NULL);
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('28', '2021-01-21 11:22:28', '/personal', 'Layout', 'personal', '/personal/worktable', NULL, '0', '个人中心', 'personal', NULL, '1', '0', NULL, NULL, NULL);
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('29', '2021-01-21 11:42:28', 'worktable', '/personal/operatework', 'worktable', '', NULL, '0', '个人作品管理', 'work', NULL, '1', '0', NULL, '28', '不能转为企业作品');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('30', '2021-01-21 11:41:39', 'worktable', '/personal/nonoperatework', 'worktable', '', NULL, '0', '个人作品管理', 'work', NULL, '1', '0', NULL, '28', '可执行一切个人作品的管理操作');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('31', '2021-01-21 11:42:15', 'equipmenttable', '/personal/equipmenttable', 'equipmenttable', '', NULL, '0', '设备管理', 'equipment', NULL, '1', '0', NULL, '28', NULL);
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('34', '2021-01-21 11:53:18', 'spacetable', '/personal/nonoperatespace', 'spacetable', '', NULL, '0', '空间管理', 'personalspace', NULL, '1', '0', NULL, '28', '可查看所有加入的空间、退出空间、修改拥有的空间属性');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('35', '2021-01-21 11:55:01', 'spacetable', '/personal/operatespace', 'spacetable', '', NULL, '0', '空间管理', 'personalspace', NULL, '1', '0', NULL, '28', '查看并修改本用户管理的私人空间，不可退出空间');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('36', '2021-01-21 11:56:30', 'materialp', '/personal/material', 'materialp', '/personal/materialp/materialtable', NULL, '0', '素材管理', 'personalmaterial', NULL, '1', '0', NULL, '28', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('37', '2021-01-21 11:57:30', 'materialtable', '/personal/materialtable', 'materialtable', '', NULL, '0', '素材管理', 'materiallist', NULL, '1', '0', NULL, '36', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('38', '2021-01-21 11:58:25', 'addmaterial', '/material/addmaterial', 'addmaterial', '', NULL, '0', '上传素材', 'materialup', NULL, '1', '0', NULL, '36', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('39', '2021-01-21 13:50:16', 'personalspaceworks/:id/:name/:owner', '/personal/space/personalspaceworks', 'personalspaceworks', '', NULL, '1', '空间作品列表', NULL, NULL, '1', '0', NULL, '28', '与/personal/nonoperatespace和/personal/operatespace配合使用');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('40', '2021-01-21 13:51:50', 'personalspacemembers/:id/:name/:open', '/personal/space/personalspacemembers', 'personalspacemembers', '', NULL, '1', '空间成员列表', NULL, NULL, '1', '0', NULL, '28', '与personal/operatespace配合使用');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('41', '2021-01-21 13:53:03', 'personaljoinspacemembers/:id/:name/:open/:owner', '/personal/space/personaljoinspacemembers', 'personaljoinspacemembers', '', NULL, '1', '空间成员列表', NULL, NULL, '1', '0', NULL, '28', '与/personal/nonoperatespace配合使用');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('42', '2021-01-21 14:58:34', '/user', 'Layout', 'user', '/user/table', NULL, '0', '用户管理', 'users', NULL, '1', '0', NULL, NULL, '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('43', '2021-01-21 15:00:15', 'table', '/user/nonoperateuser', 'usertable', '', NULL, '0', '用户管理列表', 'userlist', NULL, '1', '0', NULL, '42', '可进行用户的所有操作');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('44', '2021-01-21 15:01:11', 'table', '/user/operateuser', 'usertable', '', NULL, '0', '用户管理列表', 'userlist', NULL, '1', '0', NULL, '42', '不可添加、删除用户');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('45', '2021-01-21 15:03:43', 'userrole', '/user/userrole', 'userrole', '', NULL, '0', '用户-角色列表', 'admins', NULL, '1', '0', NULL, '42', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('46', '2021-01-21 15:08:58', '/material', 'Layout', 'material', '/material/panorama', NULL, '0', '素材管理', 'material', NULL, '1', '0', NULL, NULL, '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('57', '2021-01-21 15:37:35', '/work', 'Layout', 'work', '/work/worklist', NULL, '0', '作品管理', 'workmanagement', NULL, '1', '0', NULL, NULL, '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('58', '2021-01-21 15:38:38', 'worklist', '/work/operatework', 'worklist', '', NULL, '0', '作品列表', 'workslist', NULL, '1', '0', NULL, '57', '可管理法人所有的作品');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('59', '2021-01-21 15:42:15', 'worklist', '/work/nonoperatework', 'worklist', '', NULL, '0', '作品列表', 'workslist', NULL, '1', '0', NULL, '57', '可管理所有公开的作品，并删除法人作品');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('60', '2021-01-21 15:41:00', 'worklist', '/work/superadminwork', 'worklist', '', NULL, '0', '作品列表', 'workslist', NULL, '1', '0', NULL, '57', '可管理所有作品，并可修改作品属性、预览图，获取作品ID、删除所有作品');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('61', '2021-01-21 15:42:43', 'productlist', '/work/producttable', 'productlist', '', NULL, '0', '商品列表', 'productlist', NULL, '1', '0', NULL, '57', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('62', '2021-01-21 15:47:18', '/space', 'Layout', 'space', '/space/spacelist', NULL, '0', '空间管理', 'space', NULL, '1', '0', NULL, NULL, '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('63', '2021-01-21 15:49:43', 'spacelist', '/space/adminspace', 'spacelist', '', NULL, '0', '空间列表', 'spacelist', NULL, '1', '0', NULL, '62', '可管理公开空间');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('64', '2021-01-21 15:50:18', 'spacelist', '/space/superadminspace', 'spacelist', '', NULL, '0', '空间列表', 'spacelist', NULL, '1', '0', NULL, '62', '可管理全部空间');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('65', '2021-01-21 15:51:19', 'rotationspace', '/space/rotationspace', 'rotationspace', '', NULL, '0', '轮换空间规则', 'rotationspace', NULL, '1', '0', NULL, '62', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('66', '2021-01-21 15:53:18', 'spaceworks/:id/:name/:owner', '/space/spaceworks', 'spaceworks', '', NULL, '1', '空间作品列表', NULL, NULL, '1', '0', NULL, '62', '与/space/adminspace配合使用');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('67', '2021-01-21 15:54:52', 'superadminspacework/:id/:name/:owner', '/space/superadminspacework', 'superadminspacework', '', NULL, '1', '空间作品列表', NULL, NULL, '1', '0', NULL, '62', '与/space/superadminspace配合使用');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('68', '2021-01-21 15:55:26', 'spacemembers/:id/:name', '/space/spacemembers', 'spacemembers', '', NULL, '1', '空间成员列表', NULL, NULL, '1', '0', NULL, '62', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('70', '2021-01-21 15:57:46', '/serialnumber', 'Layout', 'serialnumber', '/serialnumber/table', NULL, '0', '授权码管理', 'serialnumber', NULL, '1', '0', NULL, NULL, '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('71', '2021-01-21 15:59:26', 'table', '/serialnumber/serialnumbertable', 'serialnumbertable', '', NULL, '0', '授权码列表', 'serialnumbers', NULL, '1', '0', NULL, '70', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('72', '2021-01-21 16:00:24', '/feedback', 'Layout', 'feedback', '/feedback/table', NULL, '0', '反馈管理', 'feedback', NULL, '1', '0', NULL, NULL, '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('73', '2021-01-21 16:00:57', 'table', '/feedback/feedbacktable', 'feedbacktable', '', NULL, '0', '反馈列表', 'feedbacklist', NULL, '1', '0', NULL, '72', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('74', '2021-01-21 16:01:39', '/userdata', 'Layout', 'userdata', '/userdata/user_scenarios', NULL, '0', '用户行为数据统计', 'data', NULL, '1', '0', NULL, NULL, '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('75', '2021-01-21 16:02:27', 'user_scenarios', '/userdata/user_scenarios', 'user_scenarios', '', NULL, '0', '用户行为记录汇总', 'datassum', NULL, '1', '0', NULL, '74', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('76', '2021-01-21 16:02:54', 'user_behaviour_spacedata', '/userdata/user_behaviour_spacedata', 'user_behaviour_spacedata', '', NULL, '0', '用户-行为-空间记录', 'data2', NULL, '1', '0', NULL, '74', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('77', '2021-01-21 16:03:20', 'user_behaviour_workdata', '/userdata/user_behaviour_workdata', 'user_behaviour_workdata', '', NULL, '0', '用户-行为-场景记录', 'data3', NULL, '1', '0', NULL, '74', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('79', '2021-02-08 16:10:21', '/journal', 'Layout', 'journal', '/journal/error', NULL, '0', '日志解析', 'journal', NULL, '1', '0', NULL, NULL, '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('80', '2021-02-08 16:10:56', 'error', '/journal/error', 'error', '', NULL, '0', '错误日志', 'error', NULL, '1', '0', NULL, '79', '');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('82', '2021-03-06 17:34:02', 'levelmaterial/:level', '/material/levelmaterial', 'levelmaterial', NULL, NULL, '1', '等级下素材', 'levelmaterial', '0', '1', '0', NULL, '46', '与素材等级配合使用');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('83', '2021-03-06 19:37:47', 'materialrecords/:id/:name', '/material/materialrecords', 'materialrecords', NULL, NULL, '1', '素材记录', '', '0', '1', '0', NULL, '46', '与各个类型素材等级联合使用');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('84', '2021-03-10 02:45:53', 'materialretrieval', '/material/materialretrieval', 'materialretrieval', NULL, NULL, '0', '素材检索', 'materialretrieval', NULL, '1', '0', NULL, '46', '素材检索');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('85', '2021-03-25 11:21:45', '/rent', 'Layout', 'rent', '/rent/rentserver', NULL, '0', '租赁管理', 'rent', NULL, '1', '0', NULL, NULL, NULL);
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('86', '2021-03-25 11:22:38', 'rentserver', '/rent/rentserver', 'rentserver', NULL, NULL, '0', '租赁服务', 'rentserver', NULL, '1', '0', NULL, '85', NULL);
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('87', '2021-03-25 16:56:17', 'rentworks/:id/:name', '/rent/rentworks', 'rentworks', NULL, NULL, '1', '租赁空间模板', NULL, NULL, '1', '0', NULL, '85', '与/rent/rentserver配合使用');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('89', '2021-07-20 16:32:18', 'materialtag', '/material/materialtag', 'materialtag', NULL, NULL, '0', '标签管理', 'tag', NULL, '1', '0', NULL, '46', '素材的标签管理');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('90', '2021-07-20 16:34:58', 'materialtype', '/material/materialtype', 'materialtype', NULL, NULL, '0', '类别管理', 'type', NULL, '1', '0', NULL, '46', '素材的类别管理');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('91', '2021-07-20 16:43:17', 'materialtypetags/:id/:name', '/material/materialtypetags', 'materialtypetags', NULL, NULL, '1', '类别下的标签', NULL, '0', '1', '0', NULL, '46', '别下的标签与类别管理配合使用');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('92', '2021-09-22 16:06:13', 'reporttable', '/feedback/reporttable', 'reporttable', NULL, NULL, '0', '举报管理', 'report', NULL, '1', '0', NULL, '72', '举报管理');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('93', '2021-09-22 15:57:11', 'materialQuoteRecords/:id/:name/:type', '/material/materialQuoteRecords', 'materialQuoteRecords', NULL, NULL, '1', '素材引用记录', NULL, '0', '1', '0', NULL, '46', '素材引用记录');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('94', '2021-09-22 15:58:55', 'materialOrderRecords/:id/:name/:type', '/material/materialOrderRecords', 'materialOrderRecords', NULL, NULL, '1', '素材订单记录', NULL, '0', '1', '0', NULL, '46', '素材订单记录');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('95', '2021-09-22 16:06:17', '/manage', 'Layout', 'manage', '/manage/onlineuser', NULL, '0', '在线用户', 'online', NULL, '1', '0', NULL, NULL, '在线用户');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('96', '2021-09-22 16:06:19', 'onlineuser', '/user/onlineuser', 'onlineuser', NULL, NULL, '0', '在线用户', 'online', NULL, '1', '0', NULL, '95', '在线用户');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('97', '2021-09-22 16:08:01', '/order', 'Layout', 'order', '/order/ordertable', NULL, '0', '订单管理', 'order', NULL, '1', '0', NULL, NULL, '订单记录');
+INSERT INTO `router` (`id`, `creatime`, `path`, `component`, `name`, `redirect`, `alwaysShow`, `hidden`, `title`, `icon`, `noCache`, `breadcrumb`, `affix`, `activeMenu`, `parent`, `description`) VALUES ('98', '2021-09-22 16:07:39', 'ordertable', '/order/ordertable', 'ordertable', NULL, NULL, '0', '订单管理', 'order', NULL, '1', '0', NULL, '97', '订单记录');
+
+INSERT INTO `systemconfig` (`configkey`, `configvaule`, `time`, `description`) VALUES ('VideoExpirationDate    ', '1', '2021-05-28 17:58:12', NULL);
+
+//@CrossOrigin   (origins = "http://tjxfs.mrworlds.cn", maxAge = 3600,allowCredentials="true")//
+//@CrossOrigin   (origins = {"http://http://tjxfslanfir.mrworlds.cn:8080","http://tjxfslanfw.mrworlds.cn","http://tjxfslanfw.mrworlds.cn:7980"}, maxAge = 3600,allowCredentials="true")//
+
+邀请码部分，产品升级部分
+
+开启nginx 设置space/Virtual 
+调用转移素材接口 ，调用user-material初始化接口
+firewall 开启端口 1077 ，1199
+开启httpd
+把 mysql 中的privatematerial 文件 拷贝进去
+阿里云开域名映射
+调用userRole 接口：/initial/userrole
+INSERT INTO `category` (`id`, `name`, `time`, `level`, `parent`, `builtin`, `dimension`, `searchtimes`, `sortindex`, `symbol`) VALUES ('10', '视频', '2021-06-29', '0', NULL, '1', 'big', '0', '0', NULL);
+INSERT INTO `category` (`id`, `name`, `time`, `level`, `parent`, `builtin`, `dimension`, `searchtimes`, `sortindex`, `symbol`) VALUES ('11', '模型', '2021-06-29', '0', NULL, '0', 'big', '0', '0', NULL);
+INSERT INTO `category` (`id`, `name`, `time`, `level`, `parent`, `builtin`, `dimension`, `searchtimes`, `sortindex`, `symbol`) VALUES ('12', '背景', '2021-06-29', '0', NULL, '0', 'big', '0', '0', 'pano');
+INSERT INTO `category` (`id`, `name`, `time`, `level`, `parent`, `builtin`, `dimension`, `searchtimes`, `sortindex`, `symbol`) VALUES ('13', '图片', '2021-06-29', '0', NULL, '1', 'big', '0', '0', NULL);
+INSERT INTO `category` (`id`, `name`, `time`, `level`, `parent`, `builtin`, `dimension`, `searchtimes`, `sortindex`, `symbol`) VALUES ('15', '2D视频', '2021-06-29', '0', '10', '0', 'big', '0', '0', NULL);
+INSERT INTO  `category` (`id`, `name`, `time`, `level`, `parent`, `builtin`, `dimension`, `searchtimes`, `sortindex`, `symbol`) VALUES ('16', '3D视频', '2021-06-29', '0', '10', '0', 'big', '0', '0', '3d video');
+INSERT INTO  `category` (`id`, `name`, `time`, `level`, `parent`, `builtin`, `dimension`, `searchtimes`, `sortindex`, `symbol`) VALUES ('20', '音乐', '2021-07-06', '1', NULL, '0', '', '0', '111', NULL);
+INSERT INTO  `category` (`id`, `name`, `time`, `level`, `parent`, `builtin`, `dimension`, `searchtimes`, `sortindex`, `symbol`) VALUES ('24', '高清图片', '2021-06-29', '0', '13', '0', 'big', '0', '0', 'nice');
+
+INSERT INTO  `label` (`name`, `level`, `time`, `type`, `searchtimes`, `hot`, `enabled`, `sortindex`, `recommend`, `usagetimes`, `builtin`, `parent`) VALUES ('消防', '1', '2021-07-20', '1', '0', '0', '1', '0', '0', '0', '0', NULL);
+INSERT INTO  `label` (`name`, `level`, `time`, `type`, `searchtimes`, `hot`, `enabled`, `sortindex`, `recommend`, `usagetimes`, `builtin`, `parent`) VALUES ('旅游', '1', '2021-07-20', '1', '0', '0', '1', '0', '0', '0', '0', NULL);
+INSERT INTO  `label` (`name`, `level`, `time`, `type`, `searchtimes`, `hot`, `enabled`, `sortindex`, `recommend`, `usagetimes`, `builtin`, `parent`) VALUES ('其他', '1', '2021-07-20', '1', '0', '0', '1', '0', '0', '0', '0', NULL);
+
+调用素材转移接口
+update material set isosation = 1;
+update material set spaceID = 2;
+update material set delflag=1;
+配置系统配置项：
+server_prefix 配置正确
+http://tjxfslansec.mrworlds.cn:7980/sserver/material_moudel
+http://tjxfslan01.mrworlds.cn:8080/ljManage
+http://tjxfslansec.mrworlds.cn:7980/sserver
+
+
+INSERT INTO `userServer`.`mashinecode_user` (`mashine_code`, `user_id`, `serial_number`, `end_time`, `attribuation`, `source`) VALUES ('0C9D9216DC42', '175', 'dillxud3iqof', '2027-11-30 00:00:00', NULL, 'MRCreator-TFRI_Windows');
+INSERT INTO `userServer`.`mashinecode_user` (`mashine_code`, `user_id`, `serial_number`, `end_time`, `attribuation`, `source`) VALUES ('80FA5B86F930', '176', 'ysnqv63tybb5', '2027-11-30 00:00:00', NULL, 'MRMixer-TFRI_Windows');
+INSERT INTO `userServer`.`mashinecode_user` (`mashine_code`, `user_id`, `serial_number`, `end_time`, `attribuation`, `source`) VALUES ('80FA5B86F930', '176', 'ysnqv63tybb5', '2027-11-30 00:00:00', NULL, 'MRCreator-TFRI_Windows');
+INSERT INTO `userServer`.`mashinecode_user` (`mashine_code`, `user_id`, `serial_number`, `end_time`, `attribuation`, `source`) VALUES ('E86A6420DA43', '152', 'zh9bryupsaqc', '2027-11-30 00:00:00', NULL, 'MRMixer-TFRI_Windows');
+INSERT INTO `userServer`.`mashinecode_user` (`mashine_code`, `user_id`, `serial_number`, `end_time`, `attribuation`, `source`) VALUES ('E86A6420DA43', '152', 'zh9bryupsaqc', '2028-11-13 00:00:00', NULL, 'MRCreator-TFRI_Windows');
+
+serverID 从 6变为8
+
+INSERT INTO `managementconfig` 
+(`serverID`, `material_server_region`, `material_server_prefix`, `material_cloud_prefix`, `manage_system_name`, `manage_system_version`, `manage_system_product_name`, `pay_url`, `network`, `manage_system_directory`, `companyID`, `rentage_server_prefix`, `material_moudel_prefix`, `works_moudel_predix`, `user_moudel_prefix`) 
+VALUES 
+('7', 'tjxfs.mrworlds.cn', 'http://tjxfs.mrworlds.cn:7980/sserver', 'http://gammauser.mrworlds.cn:7980/ljManage', '天津消防所VR管理系统', '0.0.0', 'TJ_WEB_PAGE', 'https://gammauser.mrworlds.cn/sserver', 'web', '/var/www/html/manage', '2', NULL, 'http://tjxfs.mrworlds.cn:7980/sserver/material_moudel', 'http://tjxfs.mrworlds.cn:7980/sserver', 'http://gammauser.mrworlds.cn:7980/ljManage');
+
+
+新建 、software文件夹
+现在线，将software 数据存放
+
+update userrole set rolename = '管理员(非运营)' where account ='tfri';
+update expireTime ='2027-05-06 14:09:09' ;
+
+Thumbnail文件夹权限的授予
+
+firewall-cmd --zone=public --add-port=10001/tcp --permanent
+firewall-cmd --zone=public --add-port=20002/tcp --permanent

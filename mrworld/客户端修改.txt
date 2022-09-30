@@ -1,0 +1,12 @@
+1.客户端前往云端登录，如果云端不能登录，则转到本地务器登录 
+2. 客户端如果检测到离线就不用前往云端同步授权记录，直接使用授权证书进行验证，如果没有授权证书则设定为未激活，如果授权证书无法解析，则认定为盗版
+3.软件都需要有一个默认的服务器，如果连不上网就默认使用默认服务器
+4.如果是离线，则将反馈上报到本地服务器
+4. 服务器上有软件安装包
+5.软件都需要有一个默认的服务器，如果连不上网就默认使用默认服务器
+6.如果是离线，则将反馈上报到本地服务器
+
+sshd:39.107.254.51:deny
+firewall-cmd --permanent --add-rich-rule='rule family=ipv4 source address="39.107.254.51" drop'
+firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="172.17.148.14" port protocol="tcp" port="2181" reject"
+firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="39.107.254.51" port protocol="tcp" port="2181" reject"

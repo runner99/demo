@@ -1,0 +1,37 @@
+索引：索引会提升查询速度，影响where 和order by
+什么是索引，索引在什么位置，优缺点是
+聚簇索引和非聚簇索引的区别，主键索引和辅助索引的区别。聚簇索引和主键索引之间的联系？
+B树和B+树的区别
+二叉查找树，hash(一次查询)
+索引分类：
+按照存储结构 Btree,hash,
+,R Tree索引
+按照应用层次： 普通索引【普通字段构成的索引】，唯一索引，主键索引（不允许有空值），复合索引
+按照索引键值类型 主键索引，辅助索引（二级索引）
+按照存储和索引键值逻辑关系： 聚集索引（聚簇索引），非聚                集索引
+索引对order by 有影响 
+explain 
+select_type [查询类型，常用的simple,primary,union,dependent union ,union result,subquery,dependent subquery]
+type [连接类型，数据库引擎查找数据时采用的方式，可以判断出查询是全表扫描还是部分扫描 ALL,index,rangeref,e_ref,const,null,查询效率由低到高]
+mysql like 语句是否会起作用
+keys
+key_len
+Extra:[Using where ,Using index,Using filesort,Using temprorary]
+最左前缀原则【复合索引】
+索引和排序有无关系？filesort 和 index  ,index 效率比较高.
+filesort 排序算法： 双路排序【需要两次磁盘扫描，拿到最后的数据】和单路排序【数据量很大时，会导致多次的磁盘读取，并创建临时表，最后产生了多次IO,】
+Extra 显示了 using filesort 可以有优化空间。显示using index 表示覆盖索引，也表示所有操作在这个索引上能完成
+哪些情况下可以使用索引来进行排序。
+where 和order by 同时存在，可以创建复合索引来提升效率
+慢查询： sql 执行时间比long_query_time 参数作比较
+慢查询和索引之间没有必然的联系
+使用索引时，不要只关注索引是否被使用，还要关心索引是否减少了扫描行数
+索引过滤性：与字段，数据量，设计结构都有关系
+产生慢查询的原因：全表扫描，全索引扫描，索引过滤性不好（索引字段选型），表设计，频繁的回表查询开销（尽量少用select,使用覆盖索引）
+分页查询优化： limit (ofset,row) [偏移量，结果行数]
+索引的设计原则：where 语句中最频繁的字段，基数较大的，更改不频繁的，数据库的最左前缀匹配原则建立复合索引
+
+事务和锁：
+ACID 原子性：事务是一个原子操作单元，对数据的修改要么全部执行要么全都不执行
+修改-》bufferpool 修改-》刷盘。
+redolog 、undolog 日志系统
