@@ -1,0 +1,29 @@
+1.获取作品有哪些分类 ，返回分类信息          CatalogController      （/catalog/works）
+2.为作品添加一个类别，（名字+类型）         CatalogController      （/catalog/works）     
+3.作品引用一个素材       （名字+类型）         
+4.将模板添加到租赁中心                              rentageController                                               （ /rentage/add/template）
+5.据空间ID获取空间信息                              SpaceController           （/get/space/id）
+6.询问空间容量是否足够            
+7、 SpaceController 所有
+8、作品top10                                         SystemController            （/get/user/top10/works/downloadnum)
+9、TagController 涉及作品-标签
+10、插入账户  			UserController 	    （/post/user）
+11、获取成员可以上传作品的空间列表   	UserController 	    （/get/attend/spaces/tool/{cloudID}）
+12、删除用户                                   	UserController 	    （/delete/user）
+13、获取用户有所有权的作品的ID   	UserController 	    （/get/owner/worksID/{cloudID}）
+14、把用户加到某个空间                	UserController 	    （/add/user/space）
+15、获取用户拥有的空间                	UserController 	    （/get/user/spaces）
+16、访问商店                	                UserController 	    （/get/user/access/works）
+17、获取成员所管理的空间列表                  UserController 	    （/get/user/{cloudID}/own/spaces）
+18、获取成员所加入的空间列表                 UserController 	    （/get/user/{cloudID}/attend/spaces）
+19、获取成员所管理的空间列表                 UserController 	    （/get/user/own/spaces/{account}）
+20、获取成员所加入的空间列表                 UserController 	    （/get/user/attend/spaces/{account}）
+21、用户购买产品                                    UserController 	    （/put/user/product）
+22、获取用户已购买的作品                       UserController 	    （/get/purchased/worksID/{clodID}）
+23、用户拥有的空间（不包含过期空间）    UserController 	    （/user/space/all/{account}/real）
+24、上传一个录制好的视频                       VideoController 	    （/post/file）
+25、上传一个录制图片                              VideoController 	    （/post/image）
+26、Workscontroller 全部
+---------------------------------------------------
+1.素材的TOP10接口未写+未接
+

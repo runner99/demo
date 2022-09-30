@@ -47,7 +47,11 @@
             <version>4.12</version>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.11</version>
+        </dependency>
     </dependencies>
 
 
