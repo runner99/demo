@@ -10,4 +10,17 @@ public class TestString {
         String c= new String("jkl");
         System.out.println(a==b);
     }
+
+    @Test
+    public void demo02(){
+        String filename = "jklj.jpg";
+        String filetype = filename.substring(filename.lastIndexOf("."));
+        System.out.println(filetype);
+        if(!filetype.equals(".png") && !filetype.equals(".PNG") && !filetype.equals(".JPG") && !filetype.equals(".jpg") && !filetype.equals(".JPEG") && !filetype.equals(".jpeg")){
+            System.out.println("格式有误");
+        }
+        if(!(filetype.equals(".png") || filetype.equals(".PNG") || filetype.equals(".JPG") || filetype.equals(".jpg") || filetype.equals(".JPEG") || filetype.equals(".jpeg"))){
+            System.out.println("格式有误");
+        }
+    }
 }
