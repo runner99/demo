@@ -151,5 +151,14 @@ public class ZKClient implements Watcher {
 
         zkClient.list("/testwork.mrworlds.cn");
 
+//        System.out.println("-------------------------------------------------------------------");
+//        System.out.println("-------------------------------------------------------------------");
+//        System.out.println("-------------------------------------------------------------------");
+//        System.out.println("-------------------------------------------------------------------");
+//        zkClient.list("/beta");
+        zkClient.list("/alpha");
+        zkClient.list("/beta");
+        zkClient.list("/gamma");
+
     }
 }
