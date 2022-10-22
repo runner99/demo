@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="dubbo-samples-rest:war">
+    <output-path>$PROJECT_DIR$/dubbo-samples/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>dubbo-samples-rest</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="dubbo-samples-rest-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="dubbo-samples-rest:war exploded" />
+    </root>
+  </artifact>
+</component>
