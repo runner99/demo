@@ -8,15 +8,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="testjavase" />
+        <module name="dubbo-samples-spring-boot-consumer" />
         <module name="threadlocal" />
         <module name="provider" />
         <module name="zookeeperdemo" />
-        <module name="dubbo-samples-spring-boot-consumer" />
         <module name="locks" />
-        <module name="dubbo-samples-spring-boot-interface" />
+        <module name="springbeantest" />
         <module name="testworks" />
         <module name="dubbo-samples-spring-boot-provider" />
-        <module name="springbeantest" />
+        <module name="dubbo-samples-spring-boot-interface" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
