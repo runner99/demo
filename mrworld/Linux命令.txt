@@ -1,0 +1,15 @@
+查看服务器磁盘空间命令：
+根目录
+df -h
+
+防火墙:
+查看开放端口 firewall-cmd --permanent --list-port 
+开放指定端口 firewall-cmd --zone=public --add-port=80/tcp --permanent
+开启防火墙命令：systemctl start firewalld.service
+重启防火墙命令：firewall-cmd --reload  或者   service firewalld restart
+禁用防火墙 systemctl stop firewalld
+Firewall关闭常见端口命令：firewall-cmd --zone=public --remove-port=80/tcp --permanent 
+
+
+1.  用户服务器 tomcat 配置 SSL 证书  ；开通一个新接口  （防火墙 ， 安全组）；
+2.  页面的访问由HTTP 变成 HTTPS  （ 原来的 http://gammauser.mrworlds.cn:7980/ljManage/user/login   变成   https://gammauser.mrworlds.cn:****/ljManage/user/login ）
