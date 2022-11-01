@@ -7,15 +7,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="testjavase" />
-        <module name="dubbo-samples-spring-boot-consumer" />
-        <module name="threadlocal" />
         <module name="provider" />
-        <module name="zookeeperdemo" />
-        <module name="locks" />
+        <module name="testjavase" />
         <module name="springbeantest" />
         <module name="testworks" />
         <module name="dubbo-samples-spring-boot-provider" />
+        <module name="zookeeperdemo" />
+        <module name="locks" />
+        <module name="dubbo-samples-spring-boot-consumer" />
+        <module name="threadlocal" />
         <module name="dubbo-samples-spring-boot-interface" />
       </profile>
     </annotationProcessing>
@@ -219,7 +219,7 @@
       <module name="testworks" target="1.8" />
       <module name="testzkuitl" target="1.5" />
       <module name="threadlocal" target="1.8" />
-      <module name="zookeeperdemo" target="6" />
+      <module name="zookeeperdemo" target="1.6" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

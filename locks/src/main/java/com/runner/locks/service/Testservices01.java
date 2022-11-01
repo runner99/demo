@@ -10,6 +10,7 @@ public class Testservices01 {
     @Autowired
     private RedisTemplate redisTemplate;
 
-
-
+    public void test01() {
+        redisTemplate.opsForValue().set("jkl","阿萨");
+    }
 }
