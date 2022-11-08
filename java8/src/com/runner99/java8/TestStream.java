@@ -1,7 +1,7 @@
 package com.runner99.java8;
 
 import com.runner99.java8.pojo.User;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
