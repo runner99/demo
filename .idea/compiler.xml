@@ -215,7 +215,7 @@
       <module name="servicediscovery-transfer-provider" target="1.5" />
       <module name="servicediscovery-transfer-provider-instance" target="1.5" />
       <module name="springbeantest" target="1.8" />
-      <module name="testjavase" target="1.8" />
+      <module name="testjavase" target="1.5" />
       <module name="testworks" target="1.8" />
       <module name="testzkuitl" target="1.5" />
       <module name="threadlocal" target="1.8" />

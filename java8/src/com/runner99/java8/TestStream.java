@@ -137,6 +137,7 @@ public class TestStream {
         List<User> list = new ArrayList<>();
         for (int i=0;i<10;i++){
             list.add(new User(i,"渣渣辉"+i+"号"));
+
         }
 //        list.stream()
 //                .map(user -> user.getName())
