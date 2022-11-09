@@ -21,24 +21,9 @@ public class TimeTest {
     //字符串转为日期
     @Test
     public void test02() throws ParseException {
-        Date date = new SimpleDateFormat("yyyyMMddHHmmss").parse("20200101000000");
+        Date date = new SimpleDateFormat("yyyyMMddHHmmss").parse("20201101010100");
         System.out.println(date);
-
-        System.out.println(date);
+        System.out.println(new Date());
     }
 
-    @Test
-    public void test03() throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-
-        Date date = format.parse("20200101000000");
-        System.out.println(date);
-    }
-
-    @Test
-    public void test04() throws ParseException {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = dateFormat.parse("2021-01-04");
-        System.out.println(date);
-    }
 }

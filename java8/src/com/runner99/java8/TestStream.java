@@ -147,4 +147,8 @@ public class TestStream {
         System.out.println(list2.stream().reduce((num, sum) -> num + sum).get());
     }
 
+
+
+
+
 }
