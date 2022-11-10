@@ -26,4 +26,12 @@ public class TimeTest {
         System.out.println(new Date());
     }
 
+    //时间戳转为日期字符串
+    @Test
+    public void test03() throws ParseException {
+        String yyyyMMddHHmmss = new SimpleDateFormat("yyyyMMddHHmmss").format(1668064236000L);
+
+        System.out.println(yyyyMMddHHmmss);
+    }
+
 }

@@ -11,6 +11,7 @@
         <module name="testjavase" />
         <module name="springbeantest" />
         <module name="testworks" />
+        <module name="javawebtest" />
         <module name="dubbo-samples-spring-boot-provider" />
         <module name="zookeeperdemo" />
         <module name="locks" />
@@ -190,6 +191,7 @@
       <module name="dubbo-servicediscovery-migration-consumer" target="1.5" />
       <module name="dubbo-servicediscovery-migration-provider1" target="1.5" />
       <module name="dubbo-servicediscovery-migration-provider2" target="1.5" />
+      <module name="javawebtest" target="1.8" />
       <module name="locks" target="1.8" />
       <module name="perf-registry" target="1.5" />
       <module name="protobuf-consumer" target="1.5" />
@@ -224,6 +226,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="javawebtest" options="-parameters" />
       <module name="locks" options="-parameters" />
       <module name="provider" options="-parameters" />
       <module name="providerdemo" options="-parameters" />

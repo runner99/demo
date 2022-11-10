@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/pom.xml" />
         <option value="$PROJECT_DIR$/locks/pom.xml" />
         <option value="$PROJECT_DIR$/threadlocal/pom.xml" />
+        <option value="$PROJECT_DIR$/javawebtest/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
