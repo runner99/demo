@@ -6,12 +6,26 @@
     <file url="file://$PROJECT_DIR$/locks/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/provider" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/quartztest/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springbeantest" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springbeantest/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/testmaven001/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/testmaven001/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/testparent/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/testparent/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/testparent/testson/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/testparent/testson01/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/testparent/testson01/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/testparent/testson01/testson0101/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/testparent/testson01/testson0101/test010101/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/testparent/testson02/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/testworks" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/testworks/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/threadlocal" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/threadlocal/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/timetask/schedule/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/timetask/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/timetask/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zookeeperdemo/src/main/java/com/runner/ZKClient.java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

@@ -7,16 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="provider" />
-        <module name="testjavase" />
+        <module name="quartztest" />
         <module name="springbeantest" />
         <module name="testworks" />
-        <module name="javawebtest" />
         <module name="dubbo-samples-spring-boot-provider" />
-        <module name="zookeeperdemo" />
         <module name="locks" />
-        <module name="dubbo-samples-spring-boot-consumer" />
         <module name="threadlocal" />
+        <module name="schedule" />
+        <module name="provider" />
+        <module name="testjavase" />
+        <module name="javawebtest" />
+        <module name="zookeeperdemo" />
+        <module name="dubbo-samples-spring-boot-consumer" />
         <module name="dubbo-samples-spring-boot-interface" />
       </profile>
     </annotationProcessing>
@@ -147,11 +149,7 @@
       <module name="dubbo-samples-simplified-registry-properties" target="1.5" />
       <module name="dubbo-samples-simplified-registry-xml" target="1.5" />
       <module name="dubbo-samples-spi-compatible" target="1.5" />
-      <module name="dubbo-samples-spring-boot" target="1.8" />
-      <module name="dubbo-samples-spring-boot-consumer" target="1.8" />
       <module name="dubbo-samples-spring-boot-hystrix" target="1.5" />
-      <module name="dubbo-samples-spring-boot-interface" target="1.8" />
-      <module name="dubbo-samples-spring-boot-provider" target="1.8" />
       <module name="dubbo-samples-spring-hystrix" target="1.5" />
       <module name="dubbo-samples-ssl" target="1.5" />
       <module name="dubbo-samples-ssl-consumer" target="1.5" />
@@ -191,15 +189,12 @@
       <module name="dubbo-servicediscovery-migration-consumer" target="1.5" />
       <module name="dubbo-servicediscovery-migration-provider1" target="1.5" />
       <module name="dubbo-servicediscovery-migration-provider2" target="1.5" />
-      <module name="javawebtest" target="1.8" />
-      <module name="locks" target="1.8" />
       <module name="perf-registry" target="1.5" />
       <module name="protobuf-consumer" target="1.5" />
       <module name="protobuf-json-serialization-api" target="1.5" />
       <module name="protobuf-json-serialization-demo" target="1.5" />
       <module name="protobuf-json-serialization-implement" target="1.5" />
       <module name="protobuf-provider" target="1.5" />
-      <module name="provider" target="1.8" />
       <module name="providerdemo" target="1.8" />
       <module name="rpaandzktest" target="1.8" />
       <module name="rpcandzktest" target="1.8" />
@@ -216,12 +211,14 @@
       <module name="servicediscovery-transfer-consumer-old" target="1.5" />
       <module name="servicediscovery-transfer-provider" target="1.5" />
       <module name="servicediscovery-transfer-provider-instance" target="1.5" />
-      <module name="springbeantest" target="1.8" />
-      <module name="testjavase" target="1.5" />
-      <module name="testworks" target="1.8" />
+      <module name="test010101" target="1.8" />
+      <module name="testmaven001" target="1.5" />
+      <module name="testparent" target="1.8" />
+      <module name="testson" target="1.8" />
+      <module name="testson01" target="1.8" />
+      <module name="testson0101" target="1.8" />
+      <module name="testson02" target="1.8" />
       <module name="testzkuitl" target="1.5" />
-      <module name="threadlocal" target="1.8" />
-      <module name="zookeeperdemo" target="1.6" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -230,11 +227,20 @@
       <module name="locks" options="-parameters" />
       <module name="provider" options="-parameters" />
       <module name="providerdemo" options="-parameters" />
+      <module name="quartztest" options="-parameters" />
       <module name="rpaandzktest" options="-parameters" />
       <module name="rpcandzktest" options="-parameters" />
+      <module name="schedule" options="-parameters" />
       <module name="springbeantest" options="-parameters" />
+      <module name="test010101" options="-parameters" />
+      <module name="testparent" options="" />
+      <module name="testson" options="-parameters" />
+      <module name="testson01" options="" />
+      <module name="testson0101" options="-parameters" />
+      <module name="testson02" options="-parameters" />
       <module name="testworks" options="-parameters" />
       <module name="threadlocal" options="-parameters" />
+      <module name="timetask" options="" />
     </option>
   </component>
 </project>

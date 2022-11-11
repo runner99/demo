@@ -3,19 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/demo.iml" filepath="$PROJECT_DIR$/demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot.iml" filepath="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-consumer/dubbo-samples-spring-boot-consumer.iml" filepath="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-consumer/dubbo-samples-spring-boot-consumer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-interface/dubbo-samples-spring-boot-interface.iml" filepath="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-interface/dubbo-samples-spring-boot-interface.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-provider/dubbo-samples-spring-boot-provider.iml" filepath="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-provider/dubbo-samples-spring-boot-provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/java8/java8.iml" filepath="$PROJECT_DIR$/java8/java8.iml" />
-      <module fileurl="file://$PROJECT_DIR$/javawebtest/javawebtest.iml" filepath="$PROJECT_DIR$/javawebtest/javawebtest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/locks/locks.iml" filepath="$PROJECT_DIR$/locks/locks.iml" />
-      <module fileurl="file://$PROJECT_DIR$/provider/provider.iml" filepath="$PROJECT_DIR$/provider/provider.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springbeantest/springbeantest.iml" filepath="$PROJECT_DIR$/springbeantest/springbeantest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/testjavase/testjavase.iml" filepath="$PROJECT_DIR$/testjavase/testjavase.iml" />
-      <module fileurl="file://$PROJECT_DIR$/testworks/testworks.iml" filepath="$PROJECT_DIR$/testworks/testworks.iml" />
-      <module fileurl="file://$PROJECT_DIR$/threadlocal/threadlocal.iml" filepath="$PROJECT_DIR$/threadlocal/threadlocal.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zookeeperdemo/zookeeperdemo.iml" filepath="$PROJECT_DIR$/zookeeperdemo/zookeeperdemo.iml" />
     </modules>
   </component>
 </project>

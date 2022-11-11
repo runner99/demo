@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/dubbo-samples/dubbo-samples-rest" />
+    <file type="web" url="file://$PROJECT_DIR$/testmaven001" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -16,6 +18,15 @@
         <option value="$PROJECT_DIR$/locks/pom.xml" />
         <option value="$PROJECT_DIR$/threadlocal/pom.xml" />
         <option value="$PROJECT_DIR$/javawebtest/pom.xml" />
+        <option value="$PROJECT_DIR$/quartztest/pom.xml" />
+        <option value="$PROJECT_DIR$/testparent/testson01/pom.xml" />
+        <option value="$PROJECT_DIR$/testparent/testson02/pom.xml" />
+        <option value="$PROJECT_DIR$/testparent/testson01/testson0101/pom.xml" />
+        <option value="$PROJECT_DIR$/testparent/testson01/testson0101/test010101/pom.xml" />
+        <option value="$PROJECT_DIR$/testparent/testson/pom.xml" />
+        <option value="$PROJECT_DIR$/testparent/pom.xml" />
+        <option value="$PROJECT_DIR$/timetask/pom.xml" />
+        <option value="$PROJECT_DIR$/timetask/schedule/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
