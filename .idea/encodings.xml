@@ -24,9 +24,15 @@
     <file url="file://$PROJECT_DIR$/threadlocal" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/threadlocal/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/timetask/schedule/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/timetask/son01/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/timetask/son01/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/timetask/son02/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/timetask/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/timetask/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zookeeperdemo/src/main/java/com/runner/ZKClient.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../../../dev/apache-maven-3.8.3/repository/org/springframework/boot/spring-boot-starter-parent/2.2.1.RELEASE/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../../../dev/apache-maven-3.8.3/repository/org/springframework/boot/spring-boot-starter-parent/2.7.4/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../../../dev/apache-maven-3.8.3/repository/org/springframework/boot/spring-boot-starter-parent/2.7.5/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

@@ -8,18 +8,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="quartztest" />
-        <module name="springbeantest" />
-        <module name="testworks" />
-        <module name="dubbo-samples-spring-boot-provider" />
-        <module name="locks" />
-        <module name="threadlocal" />
-        <module name="schedule" />
         <module name="provider" />
         <module name="testjavase" />
+        <module name="springbeantest" />
+        <module name="testworks" />
         <module name="javawebtest" />
+        <module name="son01" />
+        <module name="son02" />
+        <module name="locks" />
         <module name="zookeeperdemo" />
-        <module name="dubbo-samples-spring-boot-consumer" />
-        <module name="dubbo-samples-spring-boot-interface" />
+        <module name="threadlocal" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -202,6 +200,7 @@
       <module name="sc-dubbo-api" target="1.5" />
       <module name="sc-dubbo-consumer" target="1.5" />
       <module name="sc-dubbo-provider" target="1.5" />
+      <module name="schedule" target="1.8" />
       <module name="servicediscovery-api" target="1.5" />
       <module name="servicediscovery-consumer" target="1.5" />
       <module name="servicediscovery-provider" target="1.5" />
@@ -231,6 +230,7 @@
       <module name="rpaandzktest" options="-parameters" />
       <module name="rpcandzktest" options="-parameters" />
       <module name="schedule" options="-parameters" />
+      <module name="son02" options="-parameters" />
       <module name="springbeantest" options="-parameters" />
       <module name="test010101" options="-parameters" />
       <module name="testparent" options="" />

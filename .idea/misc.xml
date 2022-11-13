@@ -8,15 +8,8 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/zookeeperdemo/pom.xml" />
-        <option value="$PROJECT_DIR$/testworks/pom.xml" />
-        <option value="$PROJECT_DIR$/springbeantest/pom.xml" />
-        <option value="$PROJECT_DIR$/testjavase/pom.xml" />
-        <option value="$PROJECT_DIR$/provider/pom.xml" />
         <option value="$PROJECT_DIR$/dubbo-samples/pom.xml" />
         <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/pom.xml" />
-        <option value="$PROJECT_DIR$/locks/pom.xml" />
-        <option value="$PROJECT_DIR$/threadlocal/pom.xml" />
         <option value="$PROJECT_DIR$/javawebtest/pom.xml" />
         <option value="$PROJECT_DIR$/quartztest/pom.xml" />
         <option value="$PROJECT_DIR$/testparent/testson01/pom.xml" />
@@ -27,10 +20,21 @@
         <option value="$PROJECT_DIR$/testparent/pom.xml" />
         <option value="$PROJECT_DIR$/timetask/pom.xml" />
         <option value="$PROJECT_DIR$/timetask/schedule/pom.xml" />
+        <option value="$PROJECT_DIR$/threadlocal/pom.xml" />
+        <option value="$PROJECT_DIR$/locks/pom.xml" />
+        <option value="$PROJECT_DIR$/springbeantest/pom.xml" />
+        <option value="$PROJECT_DIR$/testjavase/pom.xml" />
+        <option value="$PROJECT_DIR$/testworks/pom.xml" />
+        <option value="$PROJECT_DIR$/provider/pom.xml" />
+        <option value="$PROJECT_DIR$/zookeeperdemo/pom.xml" />
+        <option value="$PROJECT_DIR$/timetask/son02/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-interface/pom.xml" />
+        <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-provider/pom.xml" />
         <option value="$PROJECT_DIR$/dubbo-samples/pom.xml" />
       </set>
     </option>
