@@ -147,7 +147,10 @@
       <module name="dubbo-samples-simplified-registry-properties" target="1.5" />
       <module name="dubbo-samples-simplified-registry-xml" target="1.5" />
       <module name="dubbo-samples-spi-compatible" target="1.5" />
+      <module name="dubbo-samples-spring-boot-consumer" target="1.8" />
       <module name="dubbo-samples-spring-boot-hystrix" target="1.5" />
+      <module name="dubbo-samples-spring-boot-interface" target="1.8" />
+      <module name="dubbo-samples-spring-boot-provider" target="1.8" />
       <module name="dubbo-samples-spring-hystrix" target="1.5" />
       <module name="dubbo-samples-ssl" target="1.5" />
       <module name="dubbo-samples-ssl-consumer" target="1.5" />
