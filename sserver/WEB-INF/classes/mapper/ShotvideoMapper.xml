@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.mrworlds.mapper.ShotvideoMapper" >
+  <resultMap id="BaseResultMap" type="cn.mrworlds.pojo.Shotvideo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="videoID" property="videoid" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="power" property="power" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="VARCHAR" />
+    <result column="uploadtime" property="uploadtime" jdbcType="TIMESTAMP" />
+    <result column="spaceID" property="spaceid" jdbcType="VARCHAR" />
+    <result column="template" property="template" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, videoID, time, power, account, money, uploadtime, spaceID, template
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.mrworlds.pojo.ShotvideoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shotvideo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shotvideo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shotvideo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.mrworlds.pojo.ShotvideoExample" >
+    delete from shotvideo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.mrworlds.pojo.Shotvideo" >
+    insert into shotvideo (id, videoID, time, 
+      power, account, money, 
+      uploadtime, spaceID, template
+      )
+    values (#{id,jdbcType=INTEGER}, #{videoid,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
+      #{power,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR}, 
+      #{uploadtime,jdbcType=TIMESTAMP}, #{spaceid,jdbcType=VARCHAR}, #{template,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.mrworlds.pojo.Shotvideo" >
+    insert into shotvideo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="videoid != null" >
+        videoID,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="power != null" >
+        power,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="uploadtime != null" >
+        uploadtime,
+      </if>
+      <if test="spaceid != null" >
+        spaceID,
+      </if>
+      <if test="template != null" >
+        template,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="videoid != null" >
+        #{videoid,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="power != null" >
+        #{power,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadtime != null" >
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spaceid != null" >
+        #{spaceid,jdbcType=VARCHAR},
+      </if>
+      <if test="template != null" >
+        #{template,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.mrworlds.pojo.ShotvideoExample" resultType="java.lang.Integer" >
+    select count(*) from shotvideo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shotvideo
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.videoid != null" >
+        videoID = #{record.videoid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.power != null" >
+        power = #{record.power,jdbcType=VARCHAR},
+      </if>
+      <if test="record.account != null" >
+        account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadtime != null" >
+        uploadtime = #{record.uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.spaceid != null" >
+        spaceID = #{record.spaceid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.template != null" >
+        template = #{record.template,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shotvideo
+    set id = #{record.id,jdbcType=INTEGER},
+      videoID = #{record.videoid,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR},
+      power = #{record.power,jdbcType=VARCHAR},
+      account = #{record.account,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=VARCHAR},
+      uploadtime = #{record.uploadtime,jdbcType=TIMESTAMP},
+      spaceID = #{record.spaceid,jdbcType=VARCHAR},
+      template = #{record.template,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.mrworlds.pojo.Shotvideo" >
+    update shotvideo
+    <set >
+      <if test="videoid != null" >
+        videoID = #{videoid,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="power != null" >
+        power = #{power,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadtime != null" >
+        uploadtime = #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spaceid != null" >
+        spaceID = #{spaceid,jdbcType=VARCHAR},
+      </if>
+      <if test="template != null" >
+        template = #{template,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.mrworlds.pojo.Shotvideo" >
+    update shotvideo
+    set videoID = #{videoid,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      power = #{power,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR},
+      uploadtime = #{uploadtime,jdbcType=TIMESTAMP},
+      spaceID = #{spaceid,jdbcType=VARCHAR},
+      template = #{template,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--
+ List<String> selectAllTemplate();
+
+    double selectVenue(String template, int day);
+
+    List<String> selectAllSpace(String template);
+
+    double selectSpaceVenue(String template, String space, int day);
+   -->
+
+  <select id="selectAllTemplate"  resultType="java.lang.String">
+        select distinct template from shotvideo ;
+  </select>
+
+  <select id="selectVenue"  resultType= "java.lang.String">
+        select money from shotvideo
+        where  template = #{template,jdbcType=VARCHAR}
+        and  TO_DAYS(NOW()) - TO_DAYS(uploadtime)  &lt;=  #{day,jdbcType=INTEGER};
+  </select>
+
+  <select id="selectAllSpace"  resultType="java.lang.String">
+        select distinct spaceID from shotvideo
+        where template = #{template,jdbcType=VARCHAR};
+  </select>
+
+  <select id="selectSpaceVenue"  resultType= "java.lang.String">
+        select money from shotvideo
+        where  spaceID = #{space,jdbcType=VARCHAR}
+        and   template = #{template,jdbcType=VARCHAR}
+        and  TO_DAYS(NOW()) - TO_DAYS(uploadtime)  &lt;=  #{day,jdbcType=INTEGER};
+  </select>
+
+</mapper>

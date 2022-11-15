@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.mrworlds.mapper.SceneMapper" >
+  <resultMap id="BaseResultMap" type="cn.mrworlds.pojo.Scene" >
+    <id column="sceneID" property="sceneid" jdbcType="INTEGER" />
+    <result column="server_id" property="serverId" jdbcType="INTEGER" />
+    <result column="space_name" property="spaceName" jdbcType="VARCHAR" />
+    <result column="space_id" property="spaceId" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="inviate_code" property="inviateCode" jdbcType="VARCHAR" />
+    <result column="delflag" property="delflag" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sceneID, server_id, space_name, space_id, description, product_id, inviate_code, 
+    delflag, icon
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.mrworlds.pojo.SceneExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scene
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scene
+    where sceneID = #{sceneid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scene
+    where sceneID = #{sceneid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.mrworlds.pojo.SceneExample" >
+    delete from scene
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.mrworlds.pojo.Scene" >
+    insert into scene (sceneID, server_id, space_name, 
+      space_id, description, product_id, 
+      inviate_code, delflag, icon
+      )
+    values (#{sceneid,jdbcType=INTEGER}, #{serverId,jdbcType=INTEGER}, #{spaceName,jdbcType=VARCHAR}, 
+      #{spaceId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}, 
+      #{inviateCode,jdbcType=VARCHAR}, #{delflag,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.mrworlds.pojo.Scene" >
+    insert into scene
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sceneid != null" >
+        sceneID,
+      </if>
+      <if test="serverId != null" >
+        server_id,
+      </if>
+      <if test="spaceName != null" >
+        space_name,
+      </if>
+      <if test="spaceId != null" >
+        space_id,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="inviateCode != null" >
+        inviate_code,
+      </if>
+      <if test="delflag != null" >
+        delflag,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sceneid != null" >
+        #{sceneid,jdbcType=INTEGER},
+      </if>
+      <if test="serverId != null" >
+        #{serverId,jdbcType=INTEGER},
+      </if>
+      <if test="spaceName != null" >
+        #{spaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="spaceId != null" >
+        #{spaceId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="inviateCode != null" >
+        #{inviateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null" >
+        #{delflag,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.mrworlds.pojo.SceneExample" resultType="java.lang.Integer" >
+    select count(*) from scene
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update scene
+    <set >
+      <if test="record.sceneid != null" >
+        sceneID = #{record.sceneid,jdbcType=INTEGER},
+      </if>
+      <if test="record.serverId != null" >
+        server_id = #{record.serverId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spaceName != null" >
+        space_name = #{record.spaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spaceId != null" >
+        space_id = #{record.spaceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.inviateCode != null" >
+        inviate_code = #{record.inviateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delflag != null" >
+        delflag = #{record.delflag,jdbcType=INTEGER},
+      </if>
+      <if test="record.icon != null" >
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update scene
+    set sceneID = #{record.sceneid,jdbcType=INTEGER},
+      server_id = #{record.serverId,jdbcType=INTEGER},
+      space_name = #{record.spaceName,jdbcType=VARCHAR},
+      space_id = #{record.spaceId,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      inviate_code = #{record.inviateCode,jdbcType=VARCHAR},
+      delflag = #{record.delflag,jdbcType=INTEGER},
+      icon = #{record.icon,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.mrworlds.pojo.Scene" >
+    update scene
+    <set >
+      <if test="serverId != null" >
+        server_id = #{serverId,jdbcType=INTEGER},
+      </if>
+      <if test="spaceName != null" >
+        space_name = #{spaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="spaceId != null" >
+        space_id = #{spaceId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="inviateCode != null" >
+        inviate_code = #{inviateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null" >
+        delflag = #{delflag,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sceneID = #{sceneid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.mrworlds.pojo.Scene" >
+    update scene
+    set server_id = #{serverId,jdbcType=INTEGER},
+      space_name = #{spaceName,jdbcType=VARCHAR},
+      space_id = #{spaceId,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=INTEGER},
+      inviate_code = #{inviateCode,jdbcType=VARCHAR},
+      delflag = #{delflag,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR}
+    where sceneID = #{sceneid,jdbcType=INTEGER}
+  </update>
+</mapper>

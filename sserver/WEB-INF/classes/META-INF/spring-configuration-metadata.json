@@ -1,0 +1,58 @@
+{
+  "groups": [
+    {
+      "name": "cp.wx.pay",
+      "type": "cn.lingjing_pay.entity.CpWxPayProperties",
+      "sourceType": "cn.lingjing_pay.entity.CpWxPayProperties"
+    },
+    {
+      "name": "spring.datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "cn.mrworlds.common.DruidConfiguration",
+      "sourceMethod": "druid()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cp.wx.pay.api-key",
+      "type": "java.lang.String",
+      "sourceType": "cn.lingjing_pay.entity.CpWxPayProperties"
+    },
+    {
+      "name": "cp.wx.pay.app-id",
+      "type": "java.lang.String",
+      "sourceType": "cn.lingjing_pay.entity.CpWxPayProperties"
+    },
+    {
+      "name": "cp.wx.pay.app-secret",
+      "type": "java.lang.String",
+      "sourceType": "cn.lingjing_pay.entity.CpWxPayProperties"
+    },
+    {
+      "name": "cp.wx.pay.cert-path",
+      "type": "java.lang.String",
+      "sourceType": "cn.lingjing_pay.entity.CpWxPayProperties"
+    },
+    {
+      "name": "cp.wx.pay.mch-id",
+      "type": "java.lang.String",
+      "sourceType": "cn.lingjing_pay.entity.CpWxPayProperties"
+    },
+    {
+      "name": "cp.wx.pay.notify-url",
+      "type": "java.lang.String",
+      "sourceType": "cn.lingjing_pay.entity.CpWxPayProperties"
+    },
+    {
+      "name": "cp.wx.pay.sign-type",
+      "type": "java.lang.String",
+      "sourceType": "cn.lingjing_pay.entity.CpWxPayProperties"
+    },
+    {
+      "name": "　  password.filters",
+      "type": "java.lang.String",
+      "description": "Description for 　  password.filters."
+    }
+  ],
+  "hints": []
+}

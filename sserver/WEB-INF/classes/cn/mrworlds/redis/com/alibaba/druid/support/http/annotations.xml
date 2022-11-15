@@ -1,0 +1,5 @@
+<root>
+    <item name='com.alibaba.druid.support.http.WebStatFilter'>
+        <annotation name='java.lang.Deprecated'/>
+    </item>
+</root>

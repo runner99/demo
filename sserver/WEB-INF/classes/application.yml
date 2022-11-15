@@ -1,0 +1,68 @@
+server:
+  port: 8083
+  server.context-path: /sserver
+  context:
+    url: q
+spring:
+  datasource:
+    name: druidDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mrworlds?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+    username: root
+#    password: 8d1667b9bdf33a8b4db46a374271b27d
+    password: PO5:zhj*hudeMD
+#    password: root
+    filters: stat,wall,log4j,config
+    max-active: 100
+    initial-size: 1
+    max-wait: 60000
+    min-idle: 1
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 300000
+    validation-query: select 'x'
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    pool-prepared-statements: true
+    max-open-prepared-statements: 50
+    max-pool-prepared-statement-per-connection-size: 20
+jpa:
+  database: MySQL
+  show-sql: true
+  format_sql: true
+  hibernate:
+    naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+zookeeper:
+  address: 47.93.26.215:2181
+  timeout: 4000
+wxPay:
+  notify:
+    url: https://lingjin.mrworlds.cn/sserver/wxpay/notify
+# 企业微信支付
+#服务号的应用ID
+cp:
+  wx:
+    pay:
+      appId: wxcec7ee064daef3ab
+      #服务号的应用密钥
+      appSecret: ad8ebe6cb0c92c87f26f8a2a2be7fa8b
+      #商户号
+      mchId: 1519746871
+      #API密钥
+      apiKey: ikOj91TOFx07hb1KikOj91TOFx07hb1K
+      #签名加密方式
+      signType: MD5
+      #微信支付证书名称
+      certPath: apiclient_cert.p12
+      notifyUrl:
+#        private  final static String  APPID ="wxcec7ee064daef3ab";
+#        private  final static String  APPKEY ="ikOj91TOFx07hb1KikOj91TOFx07hb1K";
+#        private  final static String  SIGNTYPE ="MD5";
+#        private  final static String  WXPAYAPI ="https://api.mch.weixin.qq.com/pay/unifiedorder";
+#        private  final static String  CODESPLITOR ="-";
+#        private  final static String  MCH_ID ="1519746871";
+#        private  final static String  CLOSEORDERURL ="https://api.mch.weixin.qq.com/pay/closeorder";
+#        private static final  String  APP_SECRET ="ad8ebe6cb0c92c87f26f8a2a2be7fa8b";

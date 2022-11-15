@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: LinJMall
+Implementation-Version: 1.0-SNAPSHOT
+Archiver-Version: Plexus Archiver
+Built-By: EDY
+Implementation-Vendor-Id: cn.mrworlds.lingjingshijie
+Created-By: Apache Maven 3.3.3
+Build-Jdk: 1.8.0_181
+Implementation-URL: http://projects.spring.io/spring-boot/LinJMall/
+Implementation-Vendor: Pivotal Software, Inc.
+
