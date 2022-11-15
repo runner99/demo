@@ -7,14 +7,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Scheduled" />
         <module name="quartztest" />
+        <module name="test01" />
         <module name="provider" />
         <module name="testjavase" />
         <module name="springbeantest" />
         <module name="testworks" />
         <module name="javawebtest" />
-        <module name="son01" />
-        <module name="son02" />
+        <module name="quartz" />
         <module name="locks" />
         <module name="zookeeperdemo" />
         <module name="threadlocal" />
@@ -213,6 +214,8 @@
       <module name="servicediscovery-transfer-consumer-old" target="1.5" />
       <module name="servicediscovery-transfer-provider" target="1.5" />
       <module name="servicediscovery-transfer-provider-instance" target="1.5" />
+      <module name="son01" target="1.8" />
+      <module name="son02" target="1.8" />
       <module name="test010101" target="1.8" />
       <module name="testmaven001" target="1.5" />
       <module name="testparent" target="1.8" />
@@ -221,20 +224,25 @@
       <module name="testson0101" target="1.8" />
       <module name="testson02" target="1.8" />
       <module name="testzkuitl" target="1.5" />
+      <module name="timetask" target="1.8" />
+      <module name="untitled" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Scheduled" options="-parameters" />
       <module name="javawebtest" options="-parameters" />
       <module name="locks" options="-parameters" />
       <module name="provider" options="-parameters" />
       <module name="providerdemo" options="-parameters" />
+      <module name="quartz" options="-parameters" />
       <module name="quartztest" options="-parameters" />
       <module name="rpaandzktest" options="-parameters" />
       <module name="rpcandzktest" options="-parameters" />
       <module name="schedule" options="-parameters" />
       <module name="son02" options="-parameters" />
       <module name="springbeantest" options="-parameters" />
+      <module name="test01" options="-parameters" />
       <module name="test010101" options="-parameters" />
       <module name="testparent" options="" />
       <module name="testson" options="-parameters" />
