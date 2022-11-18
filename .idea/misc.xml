@@ -29,11 +29,12 @@
         <option value="$PROJECT_DIR$/zookeeperdemo/pom.xml" />
         <option value="$PROJECT_DIR$/timetask/son02/pom.xml" />
         <option value="$PROJECT_DIR$/crontab/pom.xml" />
-        <option value="$PROJECT_DIR$/crontab/test01/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/crontab/Scheduled/pom.xml" />
+        <option value="$PROJECT_DIR$/crontab/quartz/pom.xml" />
         <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-consumer/pom.xml" />
         <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-interface/pom.xml" />
         <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-provider/pom.xml" />

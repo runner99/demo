@@ -1,243 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <excludeFromCompile>
-      <directory url="file://$PROJECT_DIR$/socket/src/main/resources/archetype-resources" includeSubdirectories="true" />
-    </excludeFromCompile>
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Scheduled" />
-        <module name="quartztest" />
-        <module name="test01" />
-        <module name="provider" />
-        <module name="testjavase" />
-        <module name="springbeantest" />
-        <module name="testworks" />
-        <module name="javawebtest" />
-        <module name="quartz" />
-        <module name="locks" />
-        <module name="zookeeperdemo" />
-        <module name="threadlocal" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="dubbo-call-sc" target="1.5" />
-      <module name="dubbo-call-scdubbo" target="1.5" />
-      <module name="dubbo-demo-servicediscovery-xml" target="1.5" />
-      <module name="dubbo-maven-address-plugin" target="1.5" />
-      <module name="dubbo-samples-all" target="1.5" />
-      <module name="dubbo-samples-annotation" target="1.5" />
-      <module name="dubbo-samples-api" target="1.5" />
-      <module name="dubbo-samples-apiserver-consumer" target="1.5" />
-      <module name="dubbo-samples-apiserver-provider" target="1.5" />
-      <module name="dubbo-samples-applevel-override" target="1.5" />
-      <module name="dubbo-samples-async" target="1.5" />
-      <module name="dubbo-samples-async-generated-future" target="1.5" />
-      <module name="dubbo-samples-async-onerror" target="1.5" />
-      <module name="dubbo-samples-async-original-future" target="1.5" />
-      <module name="dubbo-samples-async-provider" target="1.5" />
-      <module name="dubbo-samples-async-simple" target="1.5" />
-      <module name="dubbo-samples-attachment" target="1.5" />
-      <module name="dubbo-samples-autowire" target="1.5" />
-      <module name="dubbo-samples-basic" target="1.5" />
-      <module name="dubbo-samples-boundary-test" target="1.5" />
-      <module name="dubbo-samples-cache" target="1.5" />
-      <module name="dubbo-samples-callback" target="1.5" />
-      <module name="dubbo-samples-chain" target="1.5" />
-      <module name="dubbo-samples-chain-api" target="1.5" />
-      <module name="dubbo-samples-chain-backend" target="1.5" />
-      <module name="dubbo-samples-chain-front" target="1.5" />
-      <module name="dubbo-samples-chain-middle" target="1.5" />
-      <module name="dubbo-samples-cloud-native" target="1.5" />
-      <module name="dubbo-samples-compatible" target="1.5" />
-      <module name="dubbo-samples-configcenter" target="1.5" />
-      <module name="dubbo-samples-configcenter-annotation" target="1.5" />
-      <module name="dubbo-samples-configcenter-api" target="1.5" />
-      <module name="dubbo-samples-configcenter-apollo" target="1.5" />
-      <module name="dubbo-samples-configcenter-externalconfiguration" target="1.5" />
-      <module name="dubbo-samples-configcenter-multi-registries" target="1.5" />
-      <module name="dubbo-samples-configcenter-multiprotocol" target="1.5" />
-      <module name="dubbo-samples-configcenter-xml" target="1.5" />
-      <module name="dubbo-samples-configconditionrouter" target="1.5" />
-      <module name="dubbo-samples-consul" target="1.5" />
-      <module name="dubbo-samples-context" target="1.5" />
-      <module name="dubbo-samples-default-config" target="1.5" />
-      <module name="dubbo-samples-direct" target="1.5" />
-      <module name="dubbo-samples-docker" target="1.5" />
-      <module name="dubbo-samples-echo" target="1.5" />
-      <module name="dubbo-samples-edas" target="1.5" />
-      <module name="dubbo-samples-edas-consumer" target="1.5" />
-      <module name="dubbo-samples-edas-provider" target="1.5" />
-      <module name="dubbo-samples-environment-keys" target="1.5" />
-      <module name="dubbo-samples-gateway" target="1.5" />
-      <module name="dubbo-samples-generic" target="1.5" />
-      <module name="dubbo-samples-generic-call" target="1.5" />
-      <module name="dubbo-samples-generic-call-api" target="1.5" />
-      <module name="dubbo-samples-generic-call-consumer" target="1.5" />
-      <module name="dubbo-samples-generic-call-provider" target="1.5" />
-      <module name="dubbo-samples-generic-impl" target="1.5" />
-      <module name="dubbo-samples-generic-impl-api" target="1.5" />
-      <module name="dubbo-samples-generic-impl-consumer" target="1.5" />
-      <module name="dubbo-samples-generic-impl-provider" target="1.5" />
-      <module name="dubbo-samples-generic-type" target="1.5" />
-      <module name="dubbo-samples-governance" target="1.5" />
-      <module name="dubbo-samples-group" target="1.5" />
-      <module name="dubbo-samples-grpc" target="1.5" />
-      <module name="dubbo-samples-grpc-ssl" target="1.5" />
-      <module name="dubbo-samples-grpc-ssl-consumer" target="1.5" />
-      <module name="dubbo-samples-grpc-ssl-provider" target="1.5" />
-      <module name="dubbo-samples-hibernate" target="1.5" />
-      <module name="dubbo-samples-http" target="1.5" />
-      <module name="dubbo-samples-jetty" target="1.7" />
-      <module name="dubbo-samples-kubernetes" target="1.5" />
-      <module name="dubbo-samples-local" target="1.5" />
-      <module name="dubbo-samples-merge" target="1.5" />
-      <module name="dubbo-samples-merge-api" target="1.5" />
-      <module name="dubbo-samples-merge-consumer" target="1.5" />
-      <module name="dubbo-samples-merge-provider1" target="1.5" />
-      <module name="dubbo-samples-merge-provider2" target="1.5" />
-      <module name="dubbo-samples-mesh-consumer" target="1.5" />
-      <module name="dubbo-samples-mesh-k8s" target="1.5" />
-      <module name="dubbo-samples-mesh-provider" target="1.5" />
-      <module name="dubbo-samples-meshrule-router" target="1.5" />
-      <module name="dubbo-samples-metadata-report" target="1.5" />
-      <module name="dubbo-samples-metadata-report-configcenter" target="1.5" />
-      <module name="dubbo-samples-metadata-report-local-annotation" target="1.5" />
-      <module name="dubbo-samples-metadata-report-local-properties" target="1.5" />
-      <module name="dubbo-samples-metadata-report-local-xml" target="1.5" />
-      <module name="dubbo-samples-metrics" target="1.5" />
-      <module name="dubbo-samples-migration" target="1.5" />
-      <module name="dubbo-samples-migration-api" target="8" />
-      <module name="dubbo-samples-migration-consumer" target="1.8" />
-      <module name="dubbo-samples-migration-provider" target="1.8" />
-      <module name="dubbo-samples-mock" target="1.5" />
-      <module name="dubbo-samples-monitor" target="1.5" />
-      <module name="dubbo-samples-multi-registry" target="1.5" />
-      <module name="dubbo-samples-mybatis" target="1.5" />
-      <module name="dubbo-samples-nacos" target="1.5" />
-      <module name="dubbo-samples-nacos-conditionrouter" target="1.5" />
-      <module name="dubbo-samples-nacos-configcenter" target="1.5" />
-      <module name="dubbo-samples-nacos-override" target="1.5" />
-      <module name="dubbo-samples-nacos-registry" target="1.5" />
-      <module name="dubbo-samples-nacos-tagrouter" target="1.5" />
-      <module name="dubbo-samples-notify" target="1.5" />
-      <module name="dubbo-samples-original-grpc" target="1.5" />
-      <module name="dubbo-samples-perf" target="1.5" />
-      <module name="dubbo-samples-port-unification" target="1.5" />
-      <module name="dubbo-samples-protobuf" target="1.5" />
-      <module name="dubbo-samples-protobuf-json" target="1.5" />
-      <module name="dubbo-samples-protostuff" target="1.5" />
-      <module name="dubbo-samples-protostuff-api" target="1.5" />
-      <module name="dubbo-samples-protostuff-consumer" target="1.5" />
-      <module name="dubbo-samples-protostuff-provider" target="1.5" />
-      <module name="dubbo-samples-reactor-grpc" target="1.5" />
-      <module name="dubbo-samples-resilience4j" target="1.5" />
-      <module name="dubbo-samples-resilience4j-filter" target="1.5" />
-      <module name="dubbo-samples-resilience4j-springboot2" target="1.5" />
-      <module name="dubbo-samples-rest" target="1.5" />
-      <module name="dubbo-samples-rxjava-grpc" target="1.5" />
-      <module name="dubbo-samples-scala" target="1.5" />
-      <module name="dubbo-samples-sentinel" target="1.5" />
-      <module name="dubbo-samples-serialization" target="1.5" />
-      <module name="dubbo-samples-serialization-java" target="1.5" />
-      <module name="dubbo-samples-servicelevel-override" target="1.5" />
-      <module name="dubbo-samples-simplified-registry" target="1.5" />
-      <module name="dubbo-samples-simplified-registry-annotation" target="1.5" />
-      <module name="dubbo-samples-simplified-registry-nosimple" target="1.5" />
-      <module name="dubbo-samples-simplified-registry-properties" target="1.5" />
-      <module name="dubbo-samples-simplified-registry-xml" target="1.5" />
-      <module name="dubbo-samples-spi-compatible" target="1.5" />
-      <module name="dubbo-samples-spring-boot-consumer" target="1.8" />
-      <module name="dubbo-samples-spring-boot-hystrix" target="1.5" />
-      <module name="dubbo-samples-spring-boot-interface" target="1.8" />
-      <module name="dubbo-samples-spring-boot-provider" target="1.8" />
-      <module name="dubbo-samples-spring-hystrix" target="1.5" />
-      <module name="dubbo-samples-ssl" target="1.5" />
-      <module name="dubbo-samples-ssl-consumer" target="1.5" />
-      <module name="dubbo-samples-ssl-provider" target="1.5" />
-      <module name="dubbo-samples-stub" target="1.5" />
-      <module name="dubbo-samples-switch-serialization-thread" target="1.5" />
-      <module name="dubbo-samples-tagrouter" target="1.5" />
-      <module name="dubbo-samples-tengine" target="1.5" />
-      <module name="dubbo-samples-tengine-interface" target="1.5" />
-      <module name="dubbo-samples-tengine-provider" target="1.5" />
-      <module name="dubbo-samples-thrift" target="1.5" />
-      <module name="dubbo-samples-thrift-api" target="1.5" />
-      <module name="dubbo-samples-thrift-impl" target="1.5" />
-      <module name="dubbo-samples-transaction" target="1.5" />
-      <module name="dubbo-samples-triple" target="1.5" />
-      <module name="dubbo-samples-triple-reactor" target="1.5" />
-      <module name="dubbo-samples-validation" target="1.5" />
-      <module name="dubbo-samples-version" target="1.5" />
-      <module name="dubbo-samples-webservice" target="1.5" />
-      <module name="dubbo-samples-webservice-consumer" target="1.5" />
-      <module name="dubbo-samples-webservice-interface" target="1.5" />
-      <module name="dubbo-samples-webservice-provider" target="1.5" />
-      <module name="dubbo-samples-xds" target="1.5" />
-      <module name="dubbo-samples-xds-consumer" target="1.5" />
-      <module name="dubbo-samples-xds-provider" target="1.5" />
-      <module name="dubbo-samples-zipkin" target="1.5" />
-      <module name="dubbo-samples-zookeeper" target="1.5" />
-      <module name="dubbo-sc-api" target="1.5" />
-      <module name="dubbo-sc-consumer" target="1.5" />
-      <module name="dubbo-sc-provider" target="1.5" />
-      <module name="dubbo-scdubbo-api" target="1.5" />
-      <module name="dubbo-scdubbo-consumer" target="1.5" />
-      <module name="dubbo-scdubbo-provider" target="1.5" />
-      <module name="dubbo-scdubbo-provider2" target="1.5" />
-      <module name="dubbo-servicediscovery-migration" target="1.5" />
-      <module name="dubbo-servicediscovery-migration-api" target="1.5" />
-      <module name="dubbo-servicediscovery-migration-consumer" target="1.5" />
-      <module name="dubbo-servicediscovery-migration-provider1" target="1.5" />
-      <module name="dubbo-servicediscovery-migration-provider2" target="1.5" />
-      <module name="perf-registry" target="1.5" />
-      <module name="protobuf-consumer" target="1.5" />
-      <module name="protobuf-json-serialization-api" target="1.5" />
-      <module name="protobuf-json-serialization-demo" target="1.5" />
-      <module name="protobuf-json-serialization-implement" target="1.5" />
-      <module name="protobuf-provider" target="1.5" />
-      <module name="providerdemo" target="1.8" />
-      <module name="rpaandzktest" target="1.8" />
-      <module name="rpcandzktest" target="1.8" />
-      <module name="sc-call-dubbo" target="1.5" />
-      <module name="sc-dubbo-api" target="1.5" />
-      <module name="sc-dubbo-consumer" target="1.5" />
-      <module name="sc-dubbo-provider" target="1.5" />
-      <module name="schedule" target="1.8" />
-      <module name="servicediscovery-api" target="1.5" />
-      <module name="servicediscovery-consumer" target="1.5" />
-      <module name="servicediscovery-provider" target="1.5" />
-      <module name="servicediscovery-transfer" target="1.5" />
-      <module name="servicediscovery-transfer-api" target="1.5" />
-      <module name="servicediscovery-transfer-consumer" target="1.5" />
-      <module name="servicediscovery-transfer-consumer-old" target="1.5" />
-      <module name="servicediscovery-transfer-provider" target="1.5" />
-      <module name="servicediscovery-transfer-provider-instance" target="1.5" />
-<<<<<<< Updated upstream
+      <module name="quartz" target="1.8" />
+      <module name="Scheduled" target="1.8" />
       <module name="son01" target="1.8" />
       <module name="son02" target="1.8" />
-=======
-<<<<<<< HEAD
-      <module name="socket" target="1.8" />
-=======
-      <module name="son01" target="1.8" />
-      <module name="son02" target="1.8" />
->>>>>>> cdd7d2ead97c385d8ef5620c1afcdb2b9ebd62f7
->>>>>>> Stashed changes
-      <module name="test010101" target="1.8" />
-      <module name="testmaven001" target="1.5" />
-      <module name="testparent" target="1.8" />
-      <module name="testson" target="1.8" />
-      <module name="testson01" target="1.8" />
-      <module name="testson0101" target="1.8" />
-      <module name="testson02" target="1.8" />
-      <module name="testzkuitl" target="1.5" />
+      <module name="test01" target="1.8" />
       <module name="timetask" target="1.8" />
-      <module name="untitled" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -246,24 +23,12 @@
       <module name="javawebtest" options="-parameters" />
       <module name="locks" options="-parameters" />
       <module name="provider" options="-parameters" />
-      <module name="providerdemo" options="-parameters" />
       <module name="quartz" options="-parameters" />
       <module name="quartztest" options="-parameters" />
-      <module name="rpaandzktest" options="-parameters" />
-      <module name="rpcandzktest" options="-parameters" />
-      <module name="schedule" options="-parameters" />
-      <module name="son02" options="-parameters" />
       <module name="springbeantest" options="-parameters" />
       <module name="test01" options="-parameters" />
-      <module name="test010101" options="-parameters" />
-      <module name="testparent" options="" />
-      <module name="testson" options="-parameters" />
-      <module name="testson01" options="" />
-      <module name="testson0101" options="-parameters" />
-      <module name="testson02" options="-parameters" />
       <module name="testworks" options="-parameters" />
       <module name="threadlocal" options="-parameters" />
-      <module name="timetask" options="" />
     </option>
   </component>
 </project>
