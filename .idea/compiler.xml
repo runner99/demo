@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <excludeFromCompile>
+      <directory url="file://$PROJECT_DIR$/socket/src/main/resources/archetype-resources" includeSubdirectories="true" />
+    </excludeFromCompile>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
@@ -214,8 +217,17 @@
       <module name="servicediscovery-transfer-consumer-old" target="1.5" />
       <module name="servicediscovery-transfer-provider" target="1.5" />
       <module name="servicediscovery-transfer-provider-instance" target="1.5" />
+<<<<<<< Updated upstream
       <module name="son01" target="1.8" />
       <module name="son02" target="1.8" />
+=======
+<<<<<<< HEAD
+      <module name="socket" target="1.8" />
+=======
+      <module name="son01" target="1.8" />
+      <module name="son02" target="1.8" />
+>>>>>>> cdd7d2ead97c385d8ef5620c1afcdb2b9ebd62f7
+>>>>>>> Stashed changes
       <module name="test010101" target="1.8" />
       <module name="testmaven001" target="1.5" />
       <module name="testparent" target="1.8" />
