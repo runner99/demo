@@ -11,7 +11,6 @@
         <option value="$PROJECT_DIR$/dubbo-samples/pom.xml" />
         <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/pom.xml" />
         <option value="$PROJECT_DIR$/javawebtest/pom.xml" />
-        <option value="$PROJECT_DIR$/quartztest/pom.xml" />
         <option value="$PROJECT_DIR$/testparent/testson01/pom.xml" />
         <option value="$PROJECT_DIR$/testparent/testson02/pom.xml" />
         <option value="$PROJECT_DIR$/testparent/testson01/testson0101/pom.xml" />
@@ -29,6 +28,12 @@
         <option value="$PROJECT_DIR$/zookeeperdemo/pom.xml" />
         <option value="$PROJECT_DIR$/timetask/son02/pom.xml" />
         <option value="$PROJECT_DIR$/crontab/pom.xml" />
+<<<<<<< Updated upstream
+=======
+        <option value="$PROJECT_DIR$/crontab/test01/pom.xml" />
+        <option value="$PROJECT_DIR$/parent/pom.xml" />
+        <option value="$PROJECT_DIR$/parent/son/pom.xml" />
+>>>>>>> Stashed changes
       </list>
     </option>
     <option name="ignoredFiles">
