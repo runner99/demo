@@ -1,56 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$/dubbo-samples/dubbo-samples-rest" />
-    <file type="web" url="file://$PROJECT_DIR$/testmaven001" />
-  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/dubbo-samples/pom.xml" />
-        <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/pom.xml" />
-        <option value="$PROJECT_DIR$/javawebtest/pom.xml" />
-        <option value="$PROJECT_DIR$/testparent/testson01/pom.xml" />
-        <option value="$PROJECT_DIR$/testparent/testson02/pom.xml" />
-        <option value="$PROJECT_DIR$/testparent/testson01/testson0101/pom.xml" />
-        <option value="$PROJECT_DIR$/testparent/testson01/testson0101/test010101/pom.xml" />
-        <option value="$PROJECT_DIR$/testparent/testson/pom.xml" />
-        <option value="$PROJECT_DIR$/testparent/pom.xml" />
-        <option value="$PROJECT_DIR$/timetask/pom.xml" />
-        <option value="$PROJECT_DIR$/timetask/schedule/pom.xml" />
-        <option value="$PROJECT_DIR$/threadlocal/pom.xml" />
         <option value="$PROJECT_DIR$/locks/pom.xml" />
-        <option value="$PROJECT_DIR$/springbeantest/pom.xml" />
-        <option value="$PROJECT_DIR$/testjavase/pom.xml" />
-        <option value="$PROJECT_DIR$/testworks/pom.xml" />
-        <option value="$PROJECT_DIR$/provider/pom.xml" />
-        <option value="$PROJECT_DIR$/zookeeperdemo/pom.xml" />
-        <option value="$PROJECT_DIR$/timetask/son02/pom.xml" />
         <option value="$PROJECT_DIR$/crontab/pom.xml" />
-<<<<<<< Updated upstream
-=======
-        <option value="$PROJECT_DIR$/crontab/test01/pom.xml" />
-        <option value="$PROJECT_DIR$/parent/pom.xml" />
-        <option value="$PROJECT_DIR$/parent/son/pom.xml" />
->>>>>>> Stashed changes
+        <option value="$PROJECT_DIR$/provider/pom.xml" />
+        <option value="$PROJECT_DIR$/testworks/pom.xml" />
+        <option value="$PROJECT_DIR$/testjavase/pom.xml" />
+        <option value="$PROJECT_DIR$/javawebtest/pom.xml" />
+        <option value="$PROJECT_DIR$/threadlocal/pom.xml" />
+        <option value="$PROJECT_DIR$/zookeeperdemo/pom.xml" />
+        <option value="$PROJECT_DIR$/springbeantest/pom.xml" />
+        <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/pom.xml" />
+        <option value="$PROJECT_DIR$/bao/pom.xml" />
       </list>
     </option>
-    <option name="ignoredFiles">
-      <set>
-        <option value="$PROJECT_DIR$/crontab/Scheduled/pom.xml" />
-        <option value="$PROJECT_DIR$/crontab/quartz/pom.xml" />
-        <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-consumer/pom.xml" />
-        <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-interface/pom.xml" />
-        <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-provider/pom.xml" />
-        <option value="$PROJECT_DIR$/dubbo-samples/pom.xml" />
-      </set>
-    </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
-  </component>
-  <component name="ProjectType">
-    <option name="id" value="jpab" />
-  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>

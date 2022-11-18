@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mrworld/ProgramM/mall/malladmin" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mrworld/ProgramM/material/material_private_develop" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mrworld/ProgramM/material/privatematerial_testoncloud" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mrworld/ProgramM/material/素材上下架取代私有公开/material_private_develop" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mrworld/ProgramM/rentage/rentage" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mrworld/ProgramM/user/useradmin" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mrworld/ProgramM/user/授权码返回信息中添加userName/useradmin" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mrworld/ProgramM/works/cloudmaterialliabry_beta_10_28/cloudmateriallibrary" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mrworld/ProgramM/works/cloudmateriallibrary" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mrworld/项目/作品服务器/cloudmateriallibrary/cloudmateriallibrary" vcs="Git" />
+    <mapping directory="" vcs="Git" />
   </component>
 </project>

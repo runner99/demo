@@ -24,4 +24,12 @@ public class TestString {
         }
     }
 
+    @Test
+    public void demo03(){
+        String message = "1+2";
+        int i = message.lastIndexOf("+");
+        String begin = message.substring(0,i);
+        String end = message.substring(i+1);
+    }
+
 }
