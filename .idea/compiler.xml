@@ -16,14 +16,13 @@
         <module name="bao" />
         <module name="provider" />
         <module name="testjavase" />
-        <module name="javawebtest" />
         <module name="zookeeperdemo" />
         <module name="dubbo-samples-spring-boot-consumer" />
         <module name="dubbo-samples-spring-boot-interface" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="bao" target="1.5" />
+      <module name="bao" target="1.8" />
       <module name="crontab" target="1.8" />
       <module name="dubbo-samples-spring-boot" target="1.8" />
       <module name="dubbo-samples-spring-boot-consumer" target="1.8" />
@@ -33,9 +32,10 @@
       <module name="locks" target="1.8" />
       <module name="provider" target="1.8" />
       <module name="quartz" target="1.8" />
+      <module name="quartztest" target="1.8" />
       <module name="scheduled" target="1.8" />
       <module name="springbeantest" target="1.8" />
-      <module name="testjavase" target="1.5" />
+      <module name="testjavase" target="1.8" />
       <module name="testworks" target="1.8" />
       <module name="threadlocal" target="1.8" />
       <module name="zookeeperdemo" target="1.6" />

@@ -61,13 +61,18 @@ public class BlockGame {
         int[][] board = new int[9][9];
         BlockGame game = new BlockGame();
 
-//        boolean isFull = game.isFull(board, 2);
-//        System.out.println(full);
+        //判断某一行是否被填满
+        boolean isFull = game.isFull(board, 2);
+        System.out.println(isFull);
 
+        //判断一个格子块是否可以放置某个位置
         Point point = new Point(1,2);
         board[0][1] = 1;
         boolean isLock = game.lockLot(board, point);
         System.out.println(isLock);
+
+        //如何判断某个形状(例如L)的块是否可以放置在某个位置
+        // TODO
 
     }
 }
