@@ -10,6 +10,7 @@ public class JobTest02Impl implements JobTest02 {
     @Override
     public void test02() {
         System.out.println("我是JobTest02");
+        System.out.println(Thread.currentThread().getName());
 //        System.out.println(new Date());
     }
 }

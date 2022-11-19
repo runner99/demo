@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="bao" target="1.8" />
+      <module name="bao" target="1.5" />
       <module name="crontab" target="1.8" />
       <module name="java8New" target="1.8" />
       <module name="locks" target="1.8" />
@@ -28,7 +28,7 @@
       <module name="quartz" target="1.8" />
       <module name="scheduled" target="1.8" />
       <module name="springbeantest" target="1.8" />
-      <module name="testjavase" target="1.8" />
+      <module name="testjavase" target="1.5" />
       <module name="testworks" target="1.8" />
       <module name="threadlocal" target="1.8" />
       <module name="zookeeperdemo" target="1.6" />

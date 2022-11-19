@@ -14,9 +14,9 @@ public class AsyncScheduledTaskConfig {
     public Executor myAsync() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         //最大线程数
-        executor.setMaxPoolSize(100);
+        executor.setMaxPoolSize(10);
         //核心线程数
-        executor.setCorePoolSize(10);
+        executor.setCorePoolSize(5);
         //任务队列的大小
         executor.setQueueCapacity(10);
         //线程存活时间
@@ -29,7 +29,7 @@ public class AsyncScheduledTaskConfig {
          * DiscardPolicy()：直接丢弃。
          * DiscardOldestPolicy()：丢弃队列中最老的任务。
          */
-        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy());
         //线程初始化
         executor.initialize();
         return executor;

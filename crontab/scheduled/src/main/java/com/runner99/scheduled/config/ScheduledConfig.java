@@ -25,7 +25,7 @@ public class ScheduledConfig {
     public void test01(){
         jobTest.execute ();
     }
-
+    @Async("myAsync")
     @Scheduled(cron = "0/4 * * * * ?")
     public void test02(){
         jobTestNew.execute();
