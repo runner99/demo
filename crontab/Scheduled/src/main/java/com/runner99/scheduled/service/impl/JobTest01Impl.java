@@ -17,6 +17,6 @@ public class JobTest01Impl implements JobTest01 {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-//        System.out.println(new Date());
     }
+
 }

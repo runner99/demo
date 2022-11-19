@@ -14,11 +14,11 @@ public class AsyncScheduledTaskConfig {
     public Executor myAsync() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         //最大线程数
-        executor.setMaxPoolSize(10);
+        executor.setMaxPoolSize(8);
         //核心线程数
         executor.setCorePoolSize(5);
         //任务队列的大小
-        executor.setQueueCapacity(10);
+        executor.setQueueCapacity(5);
         //线程存活时间
         executor.setKeepAliveSeconds(10);
 

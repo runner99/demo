@@ -14,11 +14,6 @@ import java.util.stream.Collectors;
  * stream流学习
  */
 public class TestStream {
-    public static void main(String[] args) {
-
-
-    }
-
 
     //集合中长度以及筛选遍历
     @Test
