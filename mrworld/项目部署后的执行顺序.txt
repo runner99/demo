@@ -1,9 +1,0 @@
-配置项目：
-oss 的配置项，在加载oss的时候会使用配置项。
-mapper的xml文件地址 ， 在系统加载myibats 框架时使用
-spring-文件传输的配置， 在系统中加载sprin-starter时就使用
-spring-json格式配置，在加入fastjson时就使用
-redis配置，在加入jedis时就使用
-mysql配置，载入mysql组件时使用
-zookeeper配置，在载入zookeeper连接项目时就使用
-1.创建IOC容器，向容器中塞入bean。mysql，redis,
