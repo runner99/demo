@@ -3,17 +3,16 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
+        <option value="$PROJECT_DIR$/bao/pom.xml" />
         <option value="$PROJECT_DIR$/locks/pom.xml" />
         <option value="$PROJECT_DIR$/crontab/pom.xml" />
+        <option value="$PROJECT_DIR$/java8New/pom.xml" />
         <option value="$PROJECT_DIR$/provider/pom.xml" />
         <option value="$PROJECT_DIR$/testworks/pom.xml" />
         <option value="$PROJECT_DIR$/testjavase/pom.xml" />
-        <option value="$PROJECT_DIR$/javawebtest/pom.xml" />
         <option value="$PROJECT_DIR$/threadlocal/pom.xml" />
         <option value="$PROJECT_DIR$/zookeeperdemo/pom.xml" />
         <option value="$PROJECT_DIR$/springbeantest/pom.xml" />
-        <option value="$PROJECT_DIR$/dubbo-samples-spring-boot/pom.xml" />
-        <option value="$PROJECT_DIR$/bao/pom.xml" />
       </list>
     </option>
   </component>

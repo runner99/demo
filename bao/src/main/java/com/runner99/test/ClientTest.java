@@ -27,8 +27,8 @@ public class ClientTest {
     public static void main(String[] args) throws IOException {
         ClientTest testClient = new ClientTest();
         //发送的消息
-//        String message = "2+1";
-        String message = "3-1";
+        String message = "2+1";
+//        String message = "3-1";
         testClient.getClient(message);
     }
 }

@@ -5,15 +5,11 @@
       <module fileurl="file://$PROJECT_DIR$/bao/bao.iml" filepath="$PROJECT_DIR$/bao/bao.iml" />
       <module fileurl="file://$PROJECT_DIR$/crontab/crontab.iml" filepath="$PROJECT_DIR$/crontab/crontab.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/demo.iml" filepath="$PROJECT_DIR$/.idea/demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot.iml" filepath="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-consumer/dubbo-samples-spring-boot-consumer.iml" filepath="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-consumer/dubbo-samples-spring-boot-consumer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-interface/dubbo-samples-spring-boot-interface.iml" filepath="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-interface/dubbo-samples-spring-boot-interface.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-provider/dubbo-samples-spring-boot-provider.iml" filepath="$PROJECT_DIR$/dubbo-samples-spring-boot/dubbo-samples-spring-boot-provider/dubbo-samples-spring-boot-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java8New/java8New.iml" filepath="$PROJECT_DIR$/java8New/java8New.iml" />
       <module fileurl="file://$PROJECT_DIR$/locks/locks.iml" filepath="$PROJECT_DIR$/locks/locks.iml" />
       <module fileurl="file://$PROJECT_DIR$/provider/provider.iml" filepath="$PROJECT_DIR$/provider/provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/crontab/quartz/quartz.iml" filepath="$PROJECT_DIR$/crontab/quartz/quartz.iml" />
-      <module fileurl="file://$PROJECT_DIR$/quartztest/quartztest.iml" filepath="$PROJECT_DIR$/quartztest/quartztest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/crontab/scheduled/scheduled.iml" filepath="$PROJECT_DIR$/crontab/scheduled/scheduled.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crontab/Scheduled/scheduled.iml" filepath="$PROJECT_DIR$/crontab/Scheduled/scheduled.iml" />
       <module fileurl="file://$PROJECT_DIR$/springbeantest/springbeantest.iml" filepath="$PROJECT_DIR$/springbeantest/springbeantest.iml" />
       <module fileurl="file://$PROJECT_DIR$/testjavase/testjavase.iml" filepath="$PROJECT_DIR$/testjavase/testjavase.iml" />
       <module fileurl="file://$PROJECT_DIR$/testworks/testworks.iml" filepath="$PROJECT_DIR$/testworks/testworks.iml" />

@@ -6,33 +6,26 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="bao" />
+        <module name="provider" />
+        <module name="testjavase" />
         <module name="scheduled" />
         <module name="testworks" />
         <module name="springbeantest" />
         <module name="quartz" />
-        <module name="dubbo-samples-spring-boot-provider" />
+        <module name="java8New" />
         <module name="locks" />
-        <module name="threadlocal" />
-        <module name="bao" />
-        <module name="provider" />
-        <module name="testjavase" />
         <module name="zookeeperdemo" />
-        <module name="dubbo-samples-spring-boot-consumer" />
-        <module name="dubbo-samples-spring-boot-interface" />
+        <module name="threadlocal" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="bao" target="1.8" />
       <module name="crontab" target="1.8" />
-      <module name="dubbo-samples-spring-boot" target="1.8" />
-      <module name="dubbo-samples-spring-boot-consumer" target="1.8" />
-      <module name="dubbo-samples-spring-boot-interface" target="1.8" />
-      <module name="dubbo-samples-spring-boot-provider" target="1.8" />
-      <module name="javawebtest" target="1.8" />
+      <module name="java8New" target="1.8" />
       <module name="locks" target="1.8" />
       <module name="provider" target="1.8" />
       <module name="quartz" target="1.8" />
-      <module name="quartztest" target="1.8" />
       <module name="scheduled" target="1.8" />
       <module name="springbeantest" target="1.8" />
       <module name="testjavase" target="1.8" />
@@ -43,7 +36,6 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="javawebtest" options="-parameters" />
       <module name="locks" options="-parameters" />
       <module name="provider" options="-parameters" />
       <module name="quartz" options="-parameters" />
