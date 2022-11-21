@@ -2,6 +2,8 @@ package com.runner.string;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class TestString {
     @Test
     public void demo01(){
@@ -30,6 +32,16 @@ public class TestString {
         int i = message.lastIndexOf("+");
         String begin = message.substring(0,i);
         String end = message.substring(i+1);
+    }
+
+    @Test
+    public void test04(){
+        String accounts = "wei,xianghong,xiaobai";
+        String[] split = accounts.split(",");
+        String s = split[0];
+        System.out.println(split[0]);
+        System.out.println(split[1]);
+        System.out.println(split[2]);
     }
 
 }

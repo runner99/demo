@@ -1,4 +1,4 @@
-package com.runner99;
+package com.runner99.stream;
 
 import com.runner99.pojo.User;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * stream流学习
  */
-public class TestStream {
+public class StreamTest {
 
     //集合中长度以及筛选遍历
     @Test
@@ -64,8 +64,8 @@ public class TestStream {
         }
         ArrayList<User> users = new ArrayList<>();
         list.stream()
-//                .filter(user -> user.getName().equals("渣渣辉8号")&&user.getId()==8)
-                .filter(user -> user.getName().startsWith("渣渣"))
+                .filter(user -> user.getName().equals("渣渣辉8号")&&user.getId()==8)
+//                .filter(user -> user.getName().startsWith("渣渣"))
                 .forEach(user->users.add(user));
         //并行流输出
 //        list.parallelStream().forEach(System.out::println);
