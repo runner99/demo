@@ -29,29 +29,6 @@ protected Object initialValue();//返回该线程局部变量的初始值，该�
 
 对于笔者而言，这个场景使用的比较多，当用户登录后，会将用户信息存入Token中返回前端，当用户调用需要授权的接口时，需要在header中携带 Token，然后拦截器中解析Token，获取用户信息，调用自定义的类(AuthNHolder)存入ThreadLocal中，当请求结束的时候，将ThreadLocal存储数据清空， 中间的过程无需在关注如何获取用户信息，只需要使用工具类的get方法即可。
 
-```java
-public class AuthNHolder {
-	private static final ThreadLocal<Map<String,String>> loginThreadLocal = new ThreadLocal<Map<String,String>>();
-
-	public static void map(Map<String,String> map){
-		loginThreadLocal.set(map);
-	}
-	public static String userId(){
-    		return get("userId");
-	}
-	public static String get(String key){
-    		Map<String,String> map = getMap();
-    		return map.get(key);
-    }
-	public static void clear(){
-       loginThreadLocal.remove();
-	}
-	
-}
-```
-
-
-
 ## 场景三：解决线程安全问题
 
 在Spring的Web项目中，我们通常会将业务分为Controller层，Service层，Dao层， 我们都知道@Autowired注解默认使用单例模式，那么不同请求线程进来之后，由于Dao层使用单例，那么负责[数据库](https://cloud.tencent.com/solution/database?from=10680)连接的Connection也只有一个， 如果每个请求线程都去连接数据库，那么就会造成线程不安全的问题，Spring是如何解决这个问题的呢？
