@@ -29,29 +29,16 @@ public class TestDelete {
         while (it.hasNext()){
             User user = it.next();
 
-//            if (user.getId()==3){
+            if (user.getId()==2){
                 it.remove();
 
-//            }
+            }
         }
         System.out.println(list.toString());
     }
 
     @Test
     public void demo02(){
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        for (int i = 0; i < 5; i++) {
-            list.add(i);
-        }
-
-        for (Integer integer : list) {
-            System.out.println(integer);
-            if(integer.equals(0)){
-                list.remove(integer);
-            }
-        }
-        System.out.println(list);
-
 //        ArrayList<Integer> list = new ArrayList<Integer>();
 //        for (int i = 0; i < 5; i++) {
 //            list.add(i);
@@ -59,10 +46,25 @@ public class TestDelete {
 //
 //        for (Integer integer : list) {
 //            System.out.println(integer);
-//            if(integer.equals(3)){
+//            if(integer.equals(1)){
 //                list.remove(integer);
 //            }
 //        }
 //        System.out.println(list);
+
+
+
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for (int i = 0; i < 5; i++) {
+            list.add(i);
+        }
+
+        for (Integer integer : list) {
+            System.out.println(integer);
+            if(integer.equals(3)){
+                list.remove(integer);
+            }
+        }
+        System.out.println(list);
     }
 }
