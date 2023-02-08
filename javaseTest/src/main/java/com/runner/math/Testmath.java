@@ -16,4 +16,16 @@ public class Testmath {
         System.out.println(String.format("%.2f", v));
         System.out.println(Double.parseDouble(String.format("%.2f", v)));
     }
+
+    @Test
+    public void demo03(){
+        Integer a=new Integer(12);
+        int b=12;
+        Integer c=12;
+        System.out.println(a==b);
+        System.out.println(a==c);
+        System.out.println(b==c);
+        System.out.println(a.intValue()==b);
+        System.out.println(a.intValue()==c);
+    }
 }

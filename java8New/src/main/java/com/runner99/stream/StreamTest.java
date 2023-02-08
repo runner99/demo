@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -29,10 +30,10 @@ public class StreamTest {
         //返回的是long，为集合的长度
         System.out.println(list.stream().count());
         list.stream()
-                .filter(name -> name.startsWith("张"))
+                .filter(name -> name.startsWith("张")&&name.length()==3)
                 //name或者max不影响结果
-                .filter(max -> max.length() == 3)
-                .forEach(name -> System.out.println(name));
+//                .filter(max -> max.length() == 3)
+                .forEach(haha -> System.out.println(haha));
     }
 
     //顺序流与并行流的区别
@@ -143,6 +144,20 @@ public class StreamTest {
 
         List<Integer> list2 = Arrays.asList(1,7 , 3, 66,-11, 7, 8, 32, 2, 2);
         System.out.println(list2.stream().reduce((num, sum) -> num + sum).get());
+    }
+
+    //map表示映射（收集对象的id），filter表示过滤（去除对象id小于5的）
+    @Test
+    public void test08(){
+        List<User> list = new ArrayList<>();
+        for (int i=0;i<10;i++){
+            list.add(new User(i,"渣渣辉"+i+"号"));
+        }
+        List<User> users = list.stream().filter(user -> user.getName().equals("渣渣辉3号")).collect(Collectors.toList());
+        List<Integer> collect = list.stream().map(user -> user.getId()).filter(user -> user > 5).collect(Collectors.toList());
+        Optional<Integer> max = collect.stream().max(Integer::compareTo);
+        System.out.println(max.get()==9);
+
     }
 
 }

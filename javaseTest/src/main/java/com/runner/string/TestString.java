@@ -44,4 +44,13 @@ public class TestString {
         System.out.println(split[2]);
     }
 
+
+    @Test
+    public void test05(){
+        String a =new String("aaa");
+        String b = "aaa";
+        char[] c= {'a','a','a'};
+        System.out.println(a==b);
+    }
+
 }
