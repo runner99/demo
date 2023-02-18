@@ -28,4 +28,17 @@ public class Testmath {
         System.out.println(a.intValue()==b);
         System.out.println(a.intValue()==c);
     }
+
+
+    @Test
+    public void demo04(){
+        int random = (int)(Math.random()*10);
+//        System.out.println(random);
+
+        String code = "";
+        for (int i=0 ;i<5;i++){
+            code+=(int) (Math.random() * 10);
+        }
+        System.out.println(code);
+    }
 }
