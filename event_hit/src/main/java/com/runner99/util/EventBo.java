@@ -11,6 +11,7 @@ import java.util.TreeMap;
  */
 @Data
 public class EventBo {
+    
     private  HashMap<String,String> EVENT_MAP = new HashMap<>();
 
     public EventBo(){
