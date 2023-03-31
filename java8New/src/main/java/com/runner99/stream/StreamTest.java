@@ -110,7 +110,7 @@ public class StreamTest {
         for (int i = 0; i < 10; i++) {
             list.add(new User(i, "渣渣辉" + i + "号"));
         }
-        System.out.println(list.stream().max((num1, num2) -> Integer.compare(num1.getId(), num2.getId())).get());
+//        System.out.println(list.stream().max((num1, num2) -> Integer.compare(num1.getId(), num2.getId())).get());
         List<User> collect = list.stream().limit(3).collect(Collectors.toList());
         System.out.println(collect);
     }
@@ -140,12 +140,18 @@ public class StreamTest {
         for (int i = 0; i < 10; i++) {
             list.add(new User(i, "渣渣辉" + i + "号"));
         }
+
+        List<Integer> collect = list.stream().map(user -> user.getId()).collect(Collectors.toList());
+        collect.stream().forEach(name-> System.out.println(name));
+
+
+
 //        list.stream()
 //                .map(user -> user.getName())
 //                .forEach(System.out::println);
 
-        List<Integer> list2 = Arrays.asList(1, 7, 3, 66, -11, 7, 8, 32, 2, 2);
-        System.out.println(list2.stream().reduce((num, sum) -> num + sum).get());
+//        List<Integer> list2 = Arrays.asList(1, 7, 3, 66, -11, 7, 8, 32, 2, 2);
+//        System.out.println(list2.stream().reduce((num, sum) -> num + sum).get());
     }
 
     //map表示映射（收集对象的id），filter表示过滤（去除对象id小于5的）
