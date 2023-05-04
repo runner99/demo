@@ -53,4 +53,10 @@ public class TestString {
         System.out.println(a==b);
     }
 
+    @Test
+    public void test06(){
+        String a="";
+        System.out.println(a.equals(null));
+    }
+
 }

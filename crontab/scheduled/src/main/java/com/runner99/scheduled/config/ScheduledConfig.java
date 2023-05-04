@@ -21,13 +21,15 @@ public class ScheduledConfig {
     private JobTestNew jobTestNew;
 
     @Async("myAsync")
-    @Scheduled(cron="0/3 * * * * ? ")
-    public void test01(){
-        jobTest.execute ();
+    @Scheduled(cron = "0/3 * * * * ? ")
+    public void test01() {
+        jobTest.execute();
     }
+
+//    每天0点执行一次
     @Async("myAsync")
-    @Scheduled(cron = "0/4 * * * * ?")
-    public void test02(){
+    @Scheduled(cron = "0/7 * * * * ? ")
+    public void test02() {
         jobTestNew.execute();
     }
 }

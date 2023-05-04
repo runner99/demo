@@ -14,7 +14,7 @@ public class AsyncScheduledTaskConfig {
     public Executor myAsync() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         //最大线程数
-        executor.setMaxPoolSize(8);
+        executor.setMaxPoolSize(10);
         //核心线程数
         executor.setCorePoolSize(5);
         //任务队列的大小

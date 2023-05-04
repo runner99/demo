@@ -61,6 +61,5 @@ public class TestOther {
             }
             Thread.sleep(1000);
         }
-
     }
 }

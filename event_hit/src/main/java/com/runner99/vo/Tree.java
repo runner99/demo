@@ -7,10 +7,12 @@ import java.util.*;
 
 public class Tree {
 
-    //构建树（基于根据权重排好序的身份列表）
-    public static List<Level> getTreeList(ArrayList<IdentityVo> identityVos) {
+    private static Long[] result;
 
-        List<Level> tree = new ArrayList<>();
+    //构建树（基于根据权重排好序的身份列表）
+    public static ArrayList<Level> getTreeList(ArrayList<IdentityVo> identityVos) {
+
+        ArrayList<Level> tree = new ArrayList<>();
 
         List<String> attributes = fieldsToString(IdentityVo.class.getDeclaredFields());
 
@@ -96,7 +98,7 @@ public class Tree {
 
             });
 
-            if (level.getLevelValue().size()!=0){
+            if (level.getLevelValue().size() != 0) {
                 tree.add(level);
             }
 
@@ -118,6 +120,7 @@ public class Tree {
     }
 
 
+    //获取一层所有的属性值
     public static Set<String> getLevelAttributes(String levelName, List<IdentityVo> IdentityVos) {
         Set<String> set = new HashSet<>();
         IdentityVos.stream().forEach(identityVo -> {
@@ -146,7 +149,7 @@ public class Tree {
             if (i == size - 1) {
                 list.add(s.substring(i * 64));
             } else {
-                list.add(s.substring(i * 64, i * 64+64));
+                list.add(s.substring(i * 64, i * 64 + 64));
             }
         }
 
@@ -158,6 +161,95 @@ public class Tree {
         }
 
         return longs;
+    }
+
+    public static IdentityVo getHitIdentityVo(Map<String, String> eventMap, ArrayList<Level> treeList, ArrayList<IdentityVo> sortIdentityVos) {
+
+        for (int i = 0; i < treeList.size(); i++) {
+            Level level = treeList.get(i);
+            String levelName = level.getLevelName();
+            String s = eventMap.get(levelName);
+            Map<String, Node> levelValue = level.getLevelValue();
+            Node node = levelValue.get(s);
+            if (node != null) {
+                if (result == null) {
+//                    result=node.getList();
+                    result = node.getList().clone();
+                } else {
+                    result = getTwoLong(result, node.getList());
+                }
+            } else {
+                Map<String, Node> nullLevelValue = level.getNullLevelValue();
+                if (nullLevelValue.size() == 0) {
+                    result=null;
+                    return null;
+                }
+                Long[] list = nullLevelValue.get(null).getList();
+                result = result == null ? list.clone() : getTwoLong(result, list);
+            }
+        }
+
+        int listIndex = getListIndex(result);
+        if (listIndex == -1) {
+            result=null;
+            return null;
+        }
+
+        if (listIndex <= 64) {
+            if (sortIdentityVos.size() <= 64) {
+                result=null;
+                return sortIdentityVos.get(sortIdentityVos.size() - listIndex);
+            } else {
+                result=null;
+                return sortIdentityVos.get(64 - listIndex);
+            }
+
+        }
+
+        //列表前面有多少个64
+        int m = listIndex / 64;
+        int n = listIndex % 64;
+        if (sortIdentityVos.size() / 64 == m) {
+            result=null;
+            return sortIdentityVos.get(m * 64 + sortIdentityVos.size() % 64 - n);
+        }
+
+        result=null;
+
+        return sortIdentityVos.get(m * 64 + 64 - n);
+
+    }
+
+
+    public static Long[] getTwoLong(Long[] m, Long[] n) {
+
+
+        for (int i = 0; i < m.length; i++) {
+            result[i] = m[i] & n[i];
+        }
+        return result;
+
+    }
+
+
+    public static int getListIndex(Long[] m) {
+        int result = 0;
+        for (int i = 0; i < m.length; i++) {
+            if (m[i] != 0) {
+                int digits = 0;
+                while (m[i] != 0) {
+                    digits++;
+                    m[i] >>>= 1;
+                }
+                if (i == 0) {
+                    return digits;
+                }
+                return result + digits;
+            } else {
+                result = result + 64;
+            }
+        }
+        return -1;
     }
 
 

@@ -51,31 +51,31 @@ public class BitTest {
     }
 
     public static void intersection2(int length) {
-        int size = length / 64 +(length%64>0?1:0);
+        int size = length / 64 + (length % 64 > 0 ? 1 : 0);
         Long[] list1 = new Long[size];
         for (int i = 0; i < size; i++) {
-            list1[i]=new Random().nextLong();
+            list1[i] = new Random().nextLong();
         }
 
         Long[] list2 = new Long[size];
         for (int i = 0; i < size; i++) {
-            list2[i]=new Random().nextLong();
+            list2[i] = new Random().nextLong();
         }
 
         Long[] list3 = new Long[size];
-        System.out.println("数量："+length+", 队列1数量：" + size + ", 队列2数量：" + size);
+        System.out.println("数量：" + length + ", 队列1数量：" + size + ", 队列2数量：" + size);
         long start = System.nanoTime();
-        for (int i = 0 ;i < list1.length; i++){
-            list3[i]= list1[i]&list2[i];
+        for (int i = 0; i < list1.length; i++) {
+            list3[i] = list1[i] & list2[i];
         }
         long end = System.nanoTime();
-        System.out.println("list 位运算 单线程 消耗时间："  + (end - start)+"纳秒");
+        System.out.println("list 位运算 单线程 消耗时间：" + (end - start) + "纳秒");
 
     }
 
 
     @Test
-    public void test03(){
+    public void test03() {
         int num = 1315; // 待处理的整数
 
         int bitCount = Integer.toBinaryString(num).length(); // 获取 num 中二进制下的位数（包括高位的 0）
@@ -88,20 +88,54 @@ public class BitTest {
 
 
     @Test
-    public void test04(){
-        long num = -994746288L; // 待转换的 long 类型数值
+    public void test04() {
+        long begin = System.nanoTime();
+        long num = 288230376151711744L; // 待转换的 long 类型数值
         String binary = Long.toBinaryString(num); // 将 long 类型数值转换为二进制字符串
-        System.out.println(binary); // 输出二进制字符串
+        long end = System.nanoTime();
+        System.out.println(binary);
+        System.out.println(binary.length());
     }
 
     @Test
-    public void test05(){
-        BigInteger bigInteger = new BigInteger("1000000000000000000000000000000000000000000000000000000000000011", 2);
-        Long i  = bigInteger.longValue();
+    public void test05() {
+        BigInteger bigInteger = new BigInteger("0010001010011111001001011100010100010000001000011101111101100011", 2);
+        Long i = bigInteger.longValue();
         System.out.println(i);
     }
 
+    @Test
+    public void test06() {
 
+        long begin = System.nanoTime();
+        long num1 = -1L; // 待转换的 long 类型数值
+        String binary = Long.toBinaryString(num1); // 将 long 类型数值转换为二进制字符串
+        long end = System.nanoTime();
+        System.out.println("String的耗时：" + (end - begin) + " 纳秒，" + "位数" + binary.length()); // 输出二进制字符串
+
+
+        long num2 = -1L;
+        long begin1 = System.nanoTime();
+        int digits = 0;
+        while (num2 != 0) {
+            digits++;
+            num2 >>>= 1;
+        }
+        long end1 = System.nanoTime();
+        System.out.println("String的耗时：" + (end1 - begin1) + "纳秒，" + "位数" + digits); // 输出二进制字符串
+
+    }
+
+    @Test
+    public void test07() {
+        Long a=789609845L;
+        Long b =6898827387L;
+        long begin = System.nanoTime();
+        long l = a & b;
+        long end = System.nanoTime();
+        System.out.println(end-begin);
+
+    }
 
 
 }

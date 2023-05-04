@@ -35,24 +35,42 @@ public class IdentityVoUtil {
         for (int i = 0; i < number; i++) {
             IdentityVo obj = new IdentityVo();
 
-            obj.setProp1(random.nextInt(2) == 0 ? "prop1:" + random.nextInt(100) : null);
-//            obj.setProp1(null);
-//            obj.setProp1( "prop1:" + random.nextInt(1000000000));
-            obj.setProp2(random.nextInt(2) == 0 ? "prop2:" + random.nextInt(100) : null);
-            obj.setProp3(random.nextInt(2) == 0 ? "prop3:" + random.nextInt(100) : null);
-            obj.setProp4(random.nextInt(2) == 0 ? "prop4:" + random.nextInt(100) : null);
-            obj.setProp5(random.nextInt(2) == 0 ? "prop5:" + random.nextInt(100) : null);
-            obj.setProp6(random.nextInt(2) == 0 ? "prop6:" + random.nextInt(100) : null);
-            obj.setProp7(random.nextInt(2) == 0 ? "prop7:" + random.nextInt(100) : null);
-            obj.setProp8(random.nextInt(2) == 0 ? "prop8:" + random.nextInt(100) : null);
-            obj.setProp9(random.nextInt(2) == 0 ? "prop9:" + random.nextInt(100) : null);
-            obj.setProp10(random.nextInt(2) == 0 ? "prop10:" + random.nextInt(100) : null);
-            obj.setProp11(random.nextInt(2) == 0 ? "prop11:" + random.nextInt(100) : null);
-            obj.setProp12(random.nextInt(2) == 0 ? "prop12:" + random.nextInt(100) : null);
-            obj.setProp13(random.nextInt(2) == 0 ? "prop13:" + random.nextInt(100) : null);
-            obj.setProp14(random.nextInt(2) == 0 ? "prop14:" + random.nextInt(100) : null);
-//            obj.setProp14( null);
-            obj.setProp15(random.nextInt(2) == 0 ? "prop15:" + random.nextInt(100) : null);
+
+
+//            obj.setProp1(random.nextInt(2) == 0 ? "prop1:" + random.nextInt(100) : null);
+////            obj.setProp1("prop1:" + random.nextInt(100) );
+//            obj.setProp2(random.nextInt(2) == 0 ? "prop2:" + random.nextInt(100) : null);
+//            obj.setProp3(random.nextInt(2) == 0 ? "prop3:" + random.nextInt(100) : null);
+//            obj.setProp4(random.nextInt(2) == 0 ? "prop4:" + random.nextInt(100) : null);
+//            obj.setProp5(random.nextInt(2) == 0 ? "prop5:" + random.nextInt(100) : null);
+//            obj.setProp6(random.nextInt(2) == 0 ? "prop6:" + random.nextInt(100) : null);
+//            obj.setProp7(random.nextInt(2) == 0 ? "prop7:" + random.nextInt(100) : null);
+//            obj.setProp8(random.nextInt(2) == 0 ? "prop8:" + random.nextInt(100) : null);
+//            obj.setProp9(random.nextInt(2) == 0 ? "prop9:" + random.nextInt(100) : null);
+//            obj.setProp10(random.nextInt(2) == 0 ? "prop10:" + random.nextInt(100) : null);
+//            obj.setProp11(random.nextInt(2) == 0 ? "prop11:" + random.nextInt(100) : null);
+//            obj.setProp12(random.nextInt(2) == 0 ? "prop12:" + random.nextInt(100) : null);
+//            obj.setProp13(random.nextInt(2) == 0 ? "prop13:" + random.nextInt(100) : null);
+//            obj.setProp14(random.nextInt(2) == 0 ? "prop14:" + random.nextInt(100) : null);
+//            obj.setProp15(random.nextInt(2) == 0 ? "prop15:" + random.nextInt(100) : null);
+
+
+            obj.setProp1( "prop1:" + random.nextInt(100));
+            obj.setProp2("prop2:" + random.nextInt(100) );
+            obj.setProp3("prop3:" + random.nextInt(100) );
+            obj.setProp4("prop4:" + random.nextInt(100) );
+            obj.setProp5("prop5:" + random.nextInt(100) );
+            obj.setProp6("prop6:" + random.nextInt(100) );
+            obj.setProp7("prop7:" + random.nextInt(100) );
+            obj.setProp8("prop8:" + random.nextInt(100) );
+            obj.setProp9("prop9:" + random.nextInt(100) );
+            obj.setProp10("prop10:" + random.nextInt(100) );
+            obj.setProp11("prop11:" + random.nextInt(100) );
+            obj.setProp12("prop12:" + random.nextInt(100) );
+            obj.setProp13("prop13:" + random.nextInt(100) );
+            obj.setProp14("prop14:" + random.nextInt(100) );
+            obj.setProp15("prop15:" + random.nextInt(100) );
+
             identityVos.add(obj);
 
         }

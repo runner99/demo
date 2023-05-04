@@ -13,17 +13,16 @@ import java.util.*;
 public class TreeTest {
 
     @Test
-    public void testTreeList(){
+    public void testTreeList() {
         //构建用户
         ArrayList<IdentityVo> identityVos = IdentityVoUtil.getIdentityVos(5);
         // TODO 需要对身份信息进行排序操作
         identityVos.stream().forEach(identityVo -> System.out.println(identityVo));
 
-        long begin= System.currentTimeMillis();
+        long begin = System.currentTimeMillis();
         Tree.getTreeList(identityVos);
         long end = System.currentTimeMillis();
-        System.out.println("创建"+identityVos.size()+"个身份共需要"+(end-begin)+"毫秒");
-
+        System.out.println("创建" + identityVos.size() + "个身份共需要" + (end - begin) + "毫秒");
 
 
         //获取某一层的所有属性值
@@ -34,7 +33,7 @@ public class TreeTest {
 
 
     @Test
-    public void test02(){
+    public void test02() {
         HashMap<String, String> map = new HashMap<>();
         map.put("haha", "");
         Set<String> set = map.keySet();
@@ -44,42 +43,48 @@ public class TreeTest {
 
                 map.put(s, "asdf");
             }
-            map.put(s,s1+1);
+            map.put(s, s1 + 1);
             String s2 = map.get(s);
-            map.put(s,s2+1);
+            map.put(s, s2 + 1);
 
             System.out.println(map.get(s));
         });
     }
 
-    //获取某一层的所有属性值
-    public Set<String> getLevelAttributes(String levelName , List<IdentityVo> IdentityVos){
-        Set<String> set = new HashSet<>();
-        IdentityVos.stream().forEach(identityVo -> {
-            try {
-                Field field = IdentityVo.class.getDeclaredField(levelName);
-                field.setAccessible(true);
-                String o = (String) field.get(identityVo);
-                set.add(o);
 
+    @Test
+    public void test03() {
+        Long[] m = {0L, 0L, 1L};
+        Long[] n = {0L, 0L, 1L};
+        long begin = System.nanoTime();
+        Long[] twoLong = Tree.getTwoLong(m, n);
+        long end = System.nanoTime();
+        System.out.println("耗时：" + (end - begin) + "纳秒");
+        System.out.println(Arrays.toString(twoLong));
 
-
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
-        return set;
     }
 
 
     @Test
-    public void test03(){
+    public void test04() {
+        Long[] arr = {0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 1L, 0L, 312130L, 1L, 0L, 0L, 0L, 0L, 4210L, 0L, 0L, 0L, 0L, 0L, 1L};
+        long begin = System.nanoTime();
+        int listIndex = Tree.getListIndex(arr);
+        long end = System.nanoTime();
+        System.out.println(end - begin);
+        System.out.println(listIndex);
 
-        String sub = "1";
-        for (int i=0;i<9999;i++){
-                sub+=0;
-        }
-        System.out.println(sub.substring(99,163));
+    }
+
+    @Test
+    public void test05() {
+
+        Long[] a = {0L,12L,22L};
+        Long[] clone = a.clone();
+        System.out.println(a.equals(clone));
+        clone[2]=89L;
+        System.out.println("数组"+Arrays.toString(a));
+        System.out.println("数组"+Arrays.toString(clone));
     }
 
 
