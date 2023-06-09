@@ -1,7 +1,6 @@
 package com.runner.testworks.config;
 
 
-
 public class Result {
     private boolean success;
 
@@ -24,6 +23,9 @@ public class Result {
 
     public static Result fail(int code, String msg){
         return new Result(false,code,msg,null);
+    }
+    public static Result fail(String msg){
+        return new Result(false,999,msg,null);
     }
 
     public boolean isSuccess() {

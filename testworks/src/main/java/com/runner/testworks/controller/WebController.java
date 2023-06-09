@@ -8,10 +8,13 @@ import com.runner.testworks.config.Result;
 
 import com.runner.testworks.pojo.excel.Export01;
 import com.runner.testworks.pojo.User;
+import com.runner.testworks.pojo.vo.ReqVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
@@ -29,9 +32,6 @@ import java.util.*;
 public class WebController {
 
 
-//    @Autowired
-//    RestTemplate restTemplate;
-
     static RestTemplate httpsRestTemplate;
 
     static {
@@ -42,65 +42,65 @@ public class WebController {
         }
     }
 
-    @GetMapping("/test01")
-    public Result test01(HttpServletRequest request){
-//        Cookie[] cookies = request.getCookies();
-//        for (Cookie cookie:cookies){
-//
-//        }
+
+    /**
+     * https调用，也可以http调用，因为配置的https调用跳过了ssl证书，里面还是使用了HttpClient
+     *
+     * @param reqVo
+     * @return
+     */
+    @PostMapping("/test01")
+    public Result test01(@RequestBody ReqVo reqVo) {
 
         /**
-         *                 result = httpsRestTemplate.exchange(url,
-         *                         method, entity, String.class);
+         * 请求头
          */
-        String url = "https://192.168.52.202/soc/search/alert/searchDataResult";
-//        String url = "http://localhost:8080/test01";
-
-        /**
-         * 请求体
-         */
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id","1");
-        map.put("name","jkl");
-        JSONObject jsonObject = new JSONObject(map);
-
-//        RequestEntity<HashMap<String, String>> body = httpsRestTemplate.post(url)
-//                .header("Content-Type", "application/json; charset=UTF-8")
-//                .body(map);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Cookie", reqVo.getCookie());
 
         /**
          * 请求体+请求头
          */
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Content-Type", "application/json");
-        httpHeaders.add("Cookie","mccentersessionid=E3C98A8DE9B4130DEE2F767B1387E641; SESSION=f3d485e4-3566-4ad8-99ec-9e454f3b1afc");
+        HttpEntity fromEntity = new HttpEntity<>(new JSONObject(reqVo.getMap()), httpHeaders);
 
-        HttpEntity<JSON> fromEntity = new HttpEntity<>(new JSONObject(map), httpHeaders);
-        System.out.println(fromEntity.toString());
-        ResponseEntity<JSONObject> result = httpsRestTemplate.postForEntity(url, fromEntity, JSONObject.class);
+        HttpMethod method = HttpMethod.resolve(reqVo.getRequstMethod());
+        if (method == null) {
+            method = HttpMethod.GET;
+        }
+
+        ResponseEntity<JSONObject> result;
+        try {
+            result = httpsRestTemplate.exchange(reqVo.getUrl(), method, fromEntity, JSONObject.class);
+
+        } catch (Exception e) {
+            return Result.fail(e.getMessage());
+        }
+
+        // 网络状态码
         int statusCodeValue = result.getStatusCodeValue();
+        // 响应头
+        HttpHeaders headers = result.getHeaders();
+//        响应体
+        JSONObject body = result.getBody();
 
-        Integer code = (Integer) result.getBody().get("code");
+        return Result.success(result);
 
-
-
-        return Result.success(null);
     }
 
     @PostMapping("/test02")
-    public Result test02(@RequestBody User user){
+    public Result test02(@RequestBody User user) {
         return Result.success(user);
     }
 
     @GetMapping("/test03")
-    public Result test03(User user){
-        return Result.success(user);
+    public void test03(String id) {
+        System.out.println(id);
     }
 
     @PostMapping("/test06")
-    public Result test06(@RequestBody Integer[] ids){
+    public Result test06(@RequestBody Integer[] ids) {
 //        httpsRestTemplate.exchange()
-        for (Integer id :ids){
+        for (Integer id : ids) {
             System.out.println(id);
         }
         System.out.println();
@@ -109,8 +109,14 @@ public class WebController {
 
     }
 
+
+    /**
+     * EXCEL导出功能
+     *
+     * @param response
+     */
     @GetMapping("/excel01")
-    public void excel01(HttpServletResponse response){
+    public void excel01(HttpServletResponse response) {
 
         List<Export01> list = readFile("excel01.txt");
 
@@ -121,14 +127,14 @@ public class WebController {
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
             EasyExcel.write(response.getOutputStream(), Export01.class).sheet("数据统计").doWrite(list);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
     }
 
     @GetMapping("/excel03")
-    public void excel03(HttpServletResponse response){
+    public void excel03(HttpServletResponse response) {
 
         List<Export01> list = readFile("excel03.txt");
 
@@ -139,15 +145,21 @@ public class WebController {
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
             EasyExcel.write(response.getOutputStream(), Export01.class).sheet("数据统计").doWrite(list);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
     }
 
 
+    /**
+     * 逐行读取文件
+     *
+     * @param excel
+     * @return
+     */
     public static List<Export01> readFile(String excel) {
-        String pathname = "/test/"+excel;
+        String pathname = "/test/" + excel;
 
         ArrayList<Export01> list = new ArrayList<>();
 
@@ -166,7 +178,7 @@ public class WebController {
                     export01.setCc(strings.get(0));
                     export01.setR_risk_type(strings.get(1));
                     export01.setO_uid(strings.get(2));
-                    export01.setS_dev_ip(strings.get(3).replaceAll(",","."));
+                    export01.setS_dev_ip(strings.get(3).replaceAll(",", "."));
                     list.add(export01);
                     strings.clear();
                 }
@@ -176,13 +188,12 @@ public class WebController {
             e.printStackTrace();
         }
 
-        list.stream().forEach(obj->{
+        list.stream().forEach(obj -> {
             System.out.println(obj.toString());
         });
 
         return list;
     }
-
 
 
 }
