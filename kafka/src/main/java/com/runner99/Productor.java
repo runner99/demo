@@ -1,5 +1,7 @@
 package com.runner99;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.runner99.pojo.Home;
 import com.runner99.pojo.User;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -44,8 +46,11 @@ public class Productor {
             list.add(home2);
             user.setHome(list);
 
-            producer.send(new ProducerRecord<String, byte[]>("test_topic", user.toString().getBytes()));
-            System.out.println("发送消息:"+user.toString());
+
+            String send = JSON.toJSONString(list);
+
+            producer.send(new ProducerRecord<String, byte[]>("test_topic", send.getBytes()));
+            System.out.println("发送消息:"+send);
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {

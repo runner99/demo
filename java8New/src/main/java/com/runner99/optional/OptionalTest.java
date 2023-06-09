@@ -1,8 +1,10 @@
 package com.runner99.optional;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.runner99.pojo.User;
 import org.junit.Test;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
@@ -14,25 +16,50 @@ import java.util.Optional;
 public class OptionalTest {
     @Test
     public void test01() {
-        User user = null;
-        Optional.ofNullable(user).ifPresent(obj->{
-            System.out.println(obj.getName());
+        User user = new User(11, "jj");
+        User user1 = Optional.ofNullable(user).orElseGet(() -> {
+            return new User(1, "gg");
         });
+        Integer integer = Optional.ofNullable(user).map(obj -> obj.getId()).orElse(1);
 
+        System.out.println(user1);
     }
 
     @Test
     public void test02() {
-        ArrayList<User> list = new ArrayList<>();
-//        list.add(new User(1,"h"));
-//        list.add(new User(2,"h"));
-        list.add(null);
-        Optional.ofNullable(list).orElse(new ArrayList<User>()).forEach(obj -> {
-            System.out.println(Optional.ofNullable(obj).orElse(new User()));
+        JSONObject jsonObject = JSONObject.parseObject("{\n" +
+                "    \"code\":200,\n" +
+                "    \"message\":\"jkl\",\n" +
+                "    \"data\":{\n" +
+                "        \"records\":\n" +
+                "        [\n" +
+                "            {\n" +
+                "            \"id\":1,\n" +
+                "            \"name\":\"haha1\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "            \"id\":2,\n" +
+                "            \"name\":\"haha2\"\n" +
+                "            },\n" +
+                "                        {\n" +
+                "            \"id\":3,\n" +
+                "            \"name\":\"haha3\"\n" +
+                "            },\n" +
+                "                        {\n" +
+                "            \"id\":4,\n" +
+                "            \"name\":\"haha4\"\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }\n" +
+                "}");
+
+        Optional.ofNullable(jsonObject).map(obj->obj.getJSONObject("data")).map(obj->obj.getJSONArray("records")).ifPresent(array->{
+            array.stream().forEach(obj->{
+                User user = JSONObject.parseObject(obj.toString(), User.class);
+                System.out.println(user);
+            });
         });
-        list.stream().forEach(obj -> {
-            System.out.println(obj.getName());
-        });
+
 
     }
 
