@@ -1,34 +1,26 @@
-package com.runner.testworks.controller;
+package com.runner.testworks.controller.jinhua;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.runner.testworks.config.RestTemplateConfig;
 import com.runner.testworks.config.Result;
 
-import com.runner.testworks.pojo.IndicatorUpLoad;
 import com.runner.testworks.pojo.excel.Export01;
-import com.runner.testworks.pojo.User;
 import com.runner.testworks.pojo.vo.ReqVo;
-import org.apache.tomcat.jni.OS;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.http.HttpResponse;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import org.yaml.snakeyaml.events.Event;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -38,7 +30,7 @@ import java.util.*;
  */
 
 @RestController
-public class WebController {
+public class JinHuaController {
 
     static RestTemplate httpsRestTemplate;
 
@@ -98,39 +90,41 @@ public class WebController {
 
 
     /**
-     * 测试远程调用下载文件
+     * 测试rpc下载文件
      *
-     * @param reqVo
      * @return
      */
-    @PostMapping("/test02")
-    public Result test02(@RequestBody ReqVo reqVo) {
-        /**
-         * 请求头
-         */
+    @GetMapping("/test02")
+    public void test02(HttpServletResponse response,String fileName) {
+
+        String url = "http://localhost:8080/test02/test";
+
         HttpHeaders httpHeaders = new HttpHeaders();
 
-        /**
-         * 请求体+请求头
-         */
-        HttpEntity fromEntity = new HttpEntity<>(new JSONObject(reqVo.getMap()), httpHeaders);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("fileName",fileName);
 
-        HttpMethod method = HttpMethod.resolve(reqVo.getRequstMethod());
-        if (method == null) {
-            method = HttpMethod.GET;
-        }
+        HttpEntity fromEntity = new HttpEntity<>(new JSONObject(map), httpHeaders);
 
-        ResponseEntity<Byte> exchange = null;
+
         try {
-            exchange = httpsRestTemplate.exchange(reqVo.getUrl(), method, fromEntity, byte.class);
+//            ResponseEntity<byte[]> exchange = httpsRestTemplate.exchange(url, HttpMethod.GET, fromEntity, byte[].class);
+            ResponseEntity<byte[]> exchange = httpsRestTemplate.getForEntity(url, byte[].class);
+            byte[] data = exchange.getBody();
+
+            response.setCharacterEncoding("utf-8");
+            response.setHeader("content-disposition","attachment;filename="+fileName);
+            ServletOutputStream outputStream = response.getOutputStream();
+            outputStream.write(data);
+            outputStream.close();
 
         } catch (Exception e) {
-            return Result.fail(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
 
-        return Result.success(null);
     }
+
 
     /**
      * 测试远程调用上传文件
@@ -151,7 +145,7 @@ public class WebController {
             tempFilePath = System.getProperty("java.io.tmpdir") + file.getOriginalFilename();
             File tempFile = new File(tempFilePath);
             file.transferTo(tempFile);//生成临时文件
-            System.out.println("创建临时文件"+tempFilePath);
+            System.out.println("创建临时文件" + tempFilePath);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -184,7 +178,7 @@ public class WebController {
      * 测试远程调用上传文件，非磁盘占用方式
      */
     @PostMapping("/test04")
-    public void test04(MultipartFile file, String name){
+    public void test04(MultipartFile file, String name) {
 
         String url = "http://localhost:8080/test03/test";
 
@@ -192,10 +186,10 @@ public class WebController {
         HttpHeaders headers = new HttpHeaders();
         MediaType type = MediaType.parseMediaType("multipart/form-data");
         headers.setContentType(type);
-        headers.add("Content-Length",String.valueOf(file.getSize()));
+        headers.add("Content-Length", String.valueOf(file.getSize()));
 
 
-        ByteArrayResource resource=null;
+        ByteArrayResource resource = null;
         try {
             resource = new ByteArrayResource(file.getBytes()) {
                 @Override
@@ -203,10 +197,9 @@ public class WebController {
                     return file.getOriginalFilename();
                 }
             };
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
 
         //设置请求体
 
@@ -225,12 +218,18 @@ public class WebController {
 
     }
 
+    /**
+     * 模拟三方上传文件
+     * @param file
+     * @param name
+     */
     @PostMapping("/test03/test")
-    public void testfileRpc(MultipartFile file, String name) {
+    public void testfileRpcUpload(MultipartFile file, String name) {
         try {
+            System.out.println(name);
             String tempFilePath = "C:\\test\\" + file.getOriginalFilename();
             File tempFile = new File(tempFilePath);
-            file.transferTo(tempFile);//生成临时文件
+            file.transferTo(tempFile);
             System.out.println("haha");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -239,19 +238,22 @@ public class WebController {
     }
 
     /**
-     * 测试rpc
-     * @param ids
-     * @return
+     * 模拟三方下载文件
      */
-    @PostMapping("/test05")
-    public Result test06(@RequestBody Integer[] ids) {
-//        httpsRestTemplate.exchange()
-        for (Integer id : ids) {
-            System.out.println(id);
-        }
-        System.out.println();
+    @GetMapping("/test02/test")
+    public void testfileRpcDownload(HttpServletResponse response,@RequestParam("fileName") String fileName) {
+        List<Export01> list = readFile("excel01.txt");
 
-        return Result.success("haha");
+        try {
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setCharacterEncoding("utf-8");
+            fileName = URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+", "%20");
+            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName);
+            EasyExcel.write(response.getOutputStream(), Export01.class).sheet("数据统计").doWrite(list);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
