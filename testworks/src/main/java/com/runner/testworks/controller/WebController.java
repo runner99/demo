@@ -12,6 +12,7 @@ import com.runner.testworks.pojo.User;
 import com.runner.testworks.pojo.vo.ReqVo;
 import org.apache.tomcat.jni.OS;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
@@ -38,13 +39,6 @@ import java.util.*;
 
 @RestController
 public class WebController {
-
-    public static void main(String[] args) {
-//        String msg=
-//         "{"tag":"new_http_access_log","data":{"DateTime":"2023-06-12T17:30:10.001698202 08:00","DataInfos":{"1":{"rule_id":1,"have":true,"count":83,"rule_name":"èº«ä»½è¯"},"2":{"rule_id":2,"have":true,"count":93,"rule_name":"ææºå·"}},"Timestamp":"1686562210111","DataCount":4,"Host":"10.1.1.1:8080","ServerIp":"10.1.1.1","ServerPort":"8080","Method":"Post","Url":"/api/v1/waybillOrder","UrlDesp":"application/json","StatusCode":200,"human":0,"Appname":"è¿åç®¡çç³»ç»","User":"æªè¯å«ç¨æ·","SourceIP":"192.168.1.12","Header":"GET /mock_api/q5.json HTTP/1.1\r\nHost: 82.156.31.122:8080\r\nConnection: keep-alive\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nUpgrade-Insecure-Requests: 1\r\nUser-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36\r\nAccept: text/html,application/xhtml xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7\r\nAccept-Encoding: gzip, defl";
-//        JSON.parseObject(msg, IMap.class);
-
-    }
 
     static RestTemplate httpsRestTemplate;
 
@@ -162,7 +156,6 @@ public class WebController {
             System.out.println(e.getMessage());
         }
 
-
         //设置请求体
 
         FileSystemResource fileResource = new FileSystemResource(tempFilePath);
@@ -188,24 +181,52 @@ public class WebController {
     }
 
     /**
-     * 删除文件
-     *
-     * @param file
+     * 测试远程调用上传文件，非磁盘占用方式
      */
-    public static void delfile(String file) {
-        Boolean flag = false;
-        File tempfile = new File(file);
-        // 路径为文件且不为空则进行删除
-        if (tempfile.isFile() && tempfile.exists()) {
-            tempfile.delete();
-            flag = true;
-            System.out.println("删除文件" + tempfile);
+    @PostMapping("/test04")
+    public void test04(MultipartFile file, String name){
+
+        String url = "http://localhost:8080/test03/test";
+
+        //设置请求头
+        HttpHeaders headers = new HttpHeaders();
+        MediaType type = MediaType.parseMediaType("multipart/form-data");
+        headers.setContentType(type);
+        headers.add("Content-Length",String.valueOf(file.getSize()));
+
+
+        ByteArrayResource resource=null;
+        try {
+            resource = new ByteArrayResource(file.getBytes()) {
+                @Override
+                public String getFilename() {
+                    return file.getOriginalFilename();
+                }
+            };
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+
+        //设置请求体
+
+        MultiValueMap<String, Object> form = new LinkedMultiValueMap<>();
+        form.add("file", resource);
+        form.add("name", name);
+
+//　　　用HttpEntity封装整个请求报文
+        HttpEntity<MultiValueMap<String, Object>> files = new HttpEntity<>(form, headers);
+        try {
+            httpsRestTemplate.exchange(url, HttpMethod.POST, files, String.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
         }
 
     }
 
     @PostMapping("/test03/test")
-    public void test03test(MultipartFile file, String name) {
+    public void testfileRpc(MultipartFile file, String name) {
         try {
             String tempFilePath = "C:\\test\\" + file.getOriginalFilename();
             File tempFile = new File(tempFilePath);
@@ -217,7 +238,12 @@ public class WebController {
 
     }
 
-    @PostMapping("/test06")
+    /**
+     * 测试rpc
+     * @param ids
+     * @return
+     */
+    @PostMapping("/test05")
     public Result test06(@RequestBody Integer[] ids) {
 //        httpsRestTemplate.exchange()
         for (Integer id : ids) {
@@ -315,5 +341,21 @@ public class WebController {
         return list;
     }
 
+    /**
+     * 删除文件
+     *
+     * @param file
+     */
+    public static void delfile(String file) {
+        Boolean flag = false;
+        File tempfile = new File(file);
+        // 路径为文件且不为空则进行删除
+        if (tempfile.isFile() && tempfile.exists()) {
+            tempfile.delete();
+            flag = true;
+            System.out.println("删除文件" + tempfile);
+        }
+
+    }
 
 }
