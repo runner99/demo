@@ -7,6 +7,7 @@ import com.runner.testworks.config.Result;
 
 import com.runner.testworks.pojo.excel.Export01;
 import com.runner.testworks.pojo.vo.ReqVo;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
@@ -95,33 +96,33 @@ public class JinHuaController {
      * @return
      */
     @GetMapping("/test02")
-    public void test02(HttpServletResponse response,String fileName) {
+    public void test02(HttpServletResponse response, String fileName) {
 
         String url = "http://localhost:8080/test02/test";
 
         HttpHeaders httpHeaders = new HttpHeaders();
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("fileName",fileName);
+        map.put("fileName", fileName);
 
         HttpEntity fromEntity = new HttpEntity<>(new JSONObject(map), httpHeaders);
 
-
         try {
-//            ResponseEntity<byte[]> exchange = httpsRestTemplate.exchange(url, HttpMethod.GET, fromEntity, byte[].class);
-            ResponseEntity<byte[]> exchange = httpsRestTemplate.getForEntity(url, byte[].class);
+            ResponseEntity<byte[]> exchange = httpsRestTemplate.exchange(url, HttpMethod.GET, fromEntity, byte[].class);
+//            ResponseEntity<byte[]> exchange = httpsRestTemplate.getForEntity(url, byte[].class);
             byte[] data = exchange.getBody();
 
-            response.setCharacterEncoding("utf-8");
-            response.setHeader("content-disposition","attachment;filename="+fileName);
-            ServletOutputStream outputStream = response.getOutputStream();
-            outputStream.write(data);
-            outputStream.close();
+            response.reset();
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
+            response.setHeader("Content-Disposition", "attachment; filename="+fileName);
+            response.addHeader("Content-Length", "" + data.length);
+            response.setContentType("application/octet-stream; charset=UTF-8");
+            IOUtils.write(data, response.getOutputStream());
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
 
     }
 
@@ -206,6 +207,7 @@ public class JinHuaController {
         MultiValueMap<String, Object> form = new LinkedMultiValueMap<>();
         form.add("file", resource);
         form.add("name", name);
+        form.add("desc","haha");
 
 //　　　用HttpEntity封装整个请求报文
         HttpEntity<MultiValueMap<String, Object>> files = new HttpEntity<>(form, headers);
@@ -220,17 +222,18 @@ public class JinHuaController {
 
     /**
      * 模拟三方上传文件
+     *
      * @param file
      * @param name
      */
     @PostMapping("/test03/test")
-    public void testfileRpcUpload(MultipartFile file, String name) {
+    public void testfileRpcUpload(MultipartFile file, String name,String desc) {
+        System.out.println(desc);
         try {
             System.out.println(name);
             String tempFilePath = "C:\\test\\" + file.getOriginalFilename();
             File tempFile = new File(tempFilePath);
             file.transferTo(tempFile);
-            System.out.println("haha");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -238,16 +241,37 @@ public class JinHuaController {
     }
 
     /**
-     * 模拟三方下载文件
+     * 模拟三方下载文件(1)
      */
     @GetMapping("/test02/test")
-    public void testfileRpcDownload(HttpServletResponse response,@RequestParam("fileName") String fileName) {
+    public void testfileRpcDownload(HttpServletResponse response, @RequestParam("fileName") String fileName) {
         List<Export01> list = readFile("excel01.txt");
 
         try {
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setCharacterEncoding("utf-8");
             fileName = URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+", "%20");
+            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName);
+            EasyExcel.write(response.getOutputStream(), Export01.class).sheet("数据统计").doWrite(list);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+
+    /**
+     * 模拟三方下载文件(1)
+     */
+    @GetMapping("/test02/test02")
+    public void testfileRpcDownload02(HttpServletResponse response) {
+        List<Export01> list = readFile("excel01.txt");
+
+        try {
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setCharacterEncoding("utf-8");
+            String fileName = URLEncoder.encode("haha.xlsx", "UTF-8").replaceAll("\\+", "%20");
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName);
             EasyExcel.write(response.getOutputStream(), Export01.class).sheet("数据统计").doWrite(list);
 
