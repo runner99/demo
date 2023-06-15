@@ -98,12 +98,12 @@ public class JinHuaController {
     @GetMapping("/test02")
     public void test02(HttpServletResponse response, String fileName) {
 
-        String url = "http://localhost:8080/test02/test";
+        String url = "http://localhost:8080/test02/test?fileName="+fileName;
 
         HttpHeaders httpHeaders = new HttpHeaders();
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("fileName", fileName);
+//        map.put("fileName", fileName);
 
         HttpEntity fromEntity = new HttpEntity<>(new JSONObject(map), httpHeaders);
 
@@ -262,7 +262,7 @@ public class JinHuaController {
 
 
     /**
-     * 模拟三方下载文件(1)
+     * 模拟三方下载文件(2)
      */
     @GetMapping("/test02/test02")
     public void testfileRpcDownload02(HttpServletResponse response) {
@@ -281,6 +281,52 @@ public class JinHuaController {
 
     }
 
+    /**
+     * 模拟三方下载文件(3)
+     */
+    @GetMapping("/test02/test03")
+    public void testfileRpcDownload03(HttpServletResponse response) {
+
+        try {
+            String filePath="C:\\test\\ruoyi.zip\\";
+            byte[] data = InputStream2ByteArray(filePath);
+            response.reset();
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
+            response.setHeader("Content-Disposition", "attachment; filename="+"haa.zip");
+            response.addHeader("Content-Length", "" + data.length);
+            response.setContentType("application/octet-stream; charset=UTF-8");
+            IOUtils.write(data, response.getOutputStream());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        String filePath="C:\\test\\ruoyi.zip\\";
+        byte[] bytes = InputStream2ByteArray(filePath);
+    }
+
+    private static byte[] InputStream2ByteArray(String filePath) throws IOException {
+
+        InputStream in = new FileInputStream(filePath);
+        byte[] data = toByteArray(in);
+        in.close();
+
+        return data;
+    }
+
+    private static byte[] toByteArray(InputStream in) throws IOException {
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024 * 4];
+        int n = 0;
+        while ((n = in.read(buffer)) != -1) {
+            out.write(buffer, 0, n);
+        }
+        return out.toByteArray();
+    }
 
     /**
      * EXCEL导出功能
