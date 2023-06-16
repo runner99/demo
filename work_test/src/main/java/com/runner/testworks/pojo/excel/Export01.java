@@ -17,15 +17,15 @@ public class Export01 {
 
     @ExcelProperty("r_risk_type")
     @ColumnWidth(80)
-    private String r_risk_type;
+    private String rRiskType;
 
     @ExcelProperty("o_uid")
     @ColumnWidth(30)
-    private String o_uid;
+    private String oUid;
 
     @ColumnWidth(20)
     @ExcelProperty("s_dev_ip")
-    private String s_dev_ip;
+    private String sDevIp;
 
 
 }

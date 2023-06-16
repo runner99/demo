@@ -1,6 +1,8 @@
 package com.runner.testworks.controller.jinhua;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.context.AnalysisContext;
+import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.fastjson.JSONObject;
 import com.runner.testworks.config.RestTemplateConfig;
 import com.runner.testworks.config.Result;
@@ -9,10 +11,8 @@ import com.runner.testworks.pojo.excel.Export01;
 import com.runner.testworks.pojo.vo.ReqVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpResponse;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
@@ -383,9 +382,30 @@ public class JinHuaController {
 
     }
 
+    /**
+     * 读取excel文件
+     * @param response
+     */
     @PostMapping("/excelImport03")
-    public void excelImport03(HttpServletResponse response) {
-        
+    public void excelImport03(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException {
+
+        ArrayList<Export01> list = new ArrayList<>();
+        EasyExcel.read(file.getInputStream(), Export01.class, new AnalysisEventListener() {
+
+//          逐行读取excel的数据
+            @Override
+            public void invoke(Object o, AnalysisContext analysisContext) {
+                list.add((Export01) o);
+            }
+
+//           读取完之后的操作
+            @Override
+            public void doAfterAllAnalysed(AnalysisContext analysisContext) {
+                System.out.println("读完了");
+            }
+        }).sheet().doRead();
+
+        System.out.println(list);
     }
     /**
      * 逐行读取文件并用Export01封装
@@ -411,9 +431,9 @@ public class JinHuaController {
                 if (strings.size() == 4) {
                     Export01 export01 = new Export01();
                     export01.setCc(strings.get(0));
-                    export01.setR_risk_type(strings.get(1));
-                    export01.setO_uid(strings.get(2));
-                    export01.setS_dev_ip(strings.get(3).replaceAll(",", "."));
+                    export01.setRRiskType(strings.get(1));
+                    export01.setOUid(strings.get(2));
+                    export01.setSDevIp(strings.get(3).replaceAll(",", "."));
                     list.add(export01);
                     strings.clear();
                 }
@@ -423,9 +443,9 @@ public class JinHuaController {
             e.printStackTrace();
         }
 
-        list.stream().forEach(obj -> {
-            System.out.println(obj.toString());
-        });
+//        list.stream().forEach(obj -> {
+//            System.out.println(obj.toString());
+//        });
 
         return list;
     }
