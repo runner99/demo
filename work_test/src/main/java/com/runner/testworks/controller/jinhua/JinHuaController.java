@@ -29,7 +29,7 @@ import java.util.*;
 /**
  * @author weizhenqiang
  * @date 2023/5/10 14:36
- * 金华httpsRestTemplate文件上传，excel导出
+ * 金华httpsRestTemplate文件上传，excel导出，导入功能
  */
 
 @RestController
@@ -348,7 +348,7 @@ public class JinHuaController {
      * @param response
      */
     @GetMapping("/excel01")
-    public void excel01(HttpServletResponse response) {
+    public void excelExport01(HttpServletResponse response) {
 
         List<Export01> list = readFile("excel01.txt");
 
@@ -366,7 +366,7 @@ public class JinHuaController {
     }
 
     @GetMapping("/excel03")
-    public void excel03(HttpServletResponse response) {
+    public void excelExport03(HttpServletResponse response) {
 
         List<Export01> list = readFile("excel03.txt");
 
@@ -383,9 +383,12 @@ public class JinHuaController {
 
     }
 
-
+    @PostMapping("/excelImport03")
+    public void excelImport03(HttpServletResponse response) {
+        
+    }
     /**
-     * 逐行读取文件
+     * 逐行读取文件并用Export01封装
      *
      * @param excel
      * @return
