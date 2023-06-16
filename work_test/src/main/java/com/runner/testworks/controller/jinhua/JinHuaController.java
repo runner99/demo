@@ -394,13 +394,13 @@ public class JinHuaController {
         ArrayList<Export01> list = new ArrayList<>();
         EasyExcel.read(file.getInputStream(), Export01.class, new AnalysisEventListener() {
 
-//          逐行读取excel的数据
+//          在读取完一行数据后调用
             @Override
             public void invoke(Object o, AnalysisContext analysisContext) {
                 list.add((Export01) o);
             }
 
-//           读取完之后的操作
+//           在读取完所有数据后调用
             @Override
             public void doAfterAllAnalysed(AnalysisContext analysisContext) {
                 System.out.println("读完了");
