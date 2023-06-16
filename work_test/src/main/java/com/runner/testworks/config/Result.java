@@ -1,6 +1,9 @@
 package com.runner.testworks.config;
 
 
+import lombok.Data;
+
+@Data
 public class Result {
     private boolean success;
 
@@ -21,10 +24,7 @@ public class Result {
         return new Result(true,200,"success",data);
     }
 
-    public static Result fail(int code, String msg){
-        return new Result(false,code,msg,null);
-    }
-    public static Result fail(String msg){
+   public static Result fail(String msg){
         return new Result(false,999,msg,null);
     }
 
@@ -32,31 +32,4 @@ public class Result {
         return success;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
 }

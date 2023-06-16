@@ -33,6 +33,7 @@ import java.util.*;
  */
 
 @RestController
+@RequestMapping("/jinhua")
 @Slf4j
 public class JinHuaController {
 
@@ -443,6 +444,12 @@ public class JinHuaController {
 
     }
 
+
+    @GetMapping("/test")
+    public Result test(){
+        log.info("jkl");
+        return Result.success(null);
+    }
 
     public static void main(String[] args) {
         Object yml="string";
