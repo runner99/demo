@@ -469,7 +469,6 @@ public class JinHuaController {
 
     }
 
-
     @GetMapping("/test")
     public Result test(){
         log.info("jkl");
