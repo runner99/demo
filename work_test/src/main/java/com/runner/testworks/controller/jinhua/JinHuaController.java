@@ -7,6 +7,7 @@ import com.runner.testworks.config.Result;
 
 import com.runner.testworks.pojo.excel.Export01;
 import com.runner.testworks.pojo.vo.ReqVo;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.springframework.core.io.ByteArrayResource;
@@ -28,10 +29,11 @@ import java.util.*;
 /**
  * @author weizhenqiang
  * @date 2023/5/10 14:36
- * 金华文件上传，excel导出
+ * 金华httpsRestTemplate文件上传，excel导出
  */
 
 @RestController
+@Slf4j
 public class JinHuaController {
 
     static RestTemplate httpsRestTemplate;
@@ -74,7 +76,9 @@ public class JinHuaController {
         ResponseEntity<JSONObject> result;
         try {
             result = httpsRestTemplate.exchange(reqVo.getUrl(), method, fromEntity, JSONObject.class);
-
+            if (result.getStatusCode().equals(HttpStatus.OK)){
+                log.info("请求成功");
+            }
         } catch (Exception e) {
             return Result.fail(e.getMessage());
         }
