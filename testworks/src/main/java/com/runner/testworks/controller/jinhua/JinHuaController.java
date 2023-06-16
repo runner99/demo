@@ -28,6 +28,7 @@ import java.util.*;
 /**
  * @author weizhenqiang
  * @date 2023/5/10 14:36
+ * 金华文件上传，excel导出
  */
 
 @RestController
@@ -42,6 +43,7 @@ public class JinHuaController {
             e.printStackTrace();
         }
     }
+
 
 
     /**
@@ -212,7 +214,12 @@ public class JinHuaController {
 //　　　用HttpEntity封装整个请求报文
         HttpEntity<MultiValueMap<String, Object>> files = new HttpEntity<>(form, headers);
         try {
-            httpsRestTemplate.exchange(url, HttpMethod.POST, files, String.class);
+            ResponseEntity<JSONObject> exchange = httpsRestTemplate.exchange(url, HttpMethod.POST, files, JSONObject.class);
+            if (exchange.getStatusCode().equals(HttpStatus.OK)){
+                System.out.println("请求成功");
+            }
+//            exchange.get
+            System.out.println(exchange);
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
@@ -227,8 +234,14 @@ public class JinHuaController {
      * @param name
      */
     @PostMapping("/test03/test")
-    public void testfileRpcUpload(MultipartFile file, String name,String desc) {
-        System.out.println(desc);
+    public Result testfileRpcUpload(@RequestParam("file") MultipartFile file,
+                                    @RequestParam("msg") String msg,
+                                    @RequestParam("name") String name,
+                                    @RequestParam("type") String type) {
+        System.out.println("模拟三方接收文件");
+        System.out.println(msg);
+        System.out.println(name);
+        System.out.println(type);
         try {
             System.out.println(name);
             String tempFilePath = "C:\\test\\" + file.getOriginalFilename();
@@ -237,6 +250,7 @@ public class JinHuaController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return Result.success(null);
 
     }
 
@@ -301,11 +315,6 @@ public class JinHuaController {
             System.out.println(e.getMessage());
         }
 
-    }
-
-    public static void main(String[] args) throws IOException {
-        String filePath="C:\\test\\ruoyi.zip\\";
-        byte[] bytes = InputStream2ByteArray(filePath);
     }
 
     private static byte[] InputStream2ByteArray(String filePath) throws IOException {
@@ -428,6 +437,15 @@ public class JinHuaController {
             System.out.println("删除文件" + tempfile);
         }
 
+    }
+
+
+    public static void main(String[] args) {
+        Object yml="string";
+        String method=(String)yml;
+        HttpMethod resolve = HttpMethod.resolve(method);
+        HttpMethod method1 = Optional.ofNullable(resolve).orElse(HttpMethod.POST);
+        System.out.println(resolve);
     }
 
 }
