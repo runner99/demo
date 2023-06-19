@@ -469,9 +469,16 @@ public class JinHuaController {
 
     }
 
-    @GetMapping("/test")
-    public Result test(){
-        log.info("jkl");
+    /**
+     * delete请求测试
+     * @param ids
+     * @return
+     */
+    @DeleteMapping("/test")
+    public Result DeleteTest(@RequestParam("ids") Integer[] ids){
+        System.out.println(Arrays.toString(ids));
+        String substring = Arrays.toString(ids).substring(1, Arrays.toString(ids).length() - 1);
+        System.out.println(substring);
         return Result.success(null);
     }
 
