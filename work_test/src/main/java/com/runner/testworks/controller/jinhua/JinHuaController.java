@@ -104,12 +104,13 @@ public class JinHuaController {
     @GetMapping("/test02")
     public void test02(HttpServletResponse response, String fileName) {
 
-        String url = "http://localhost:8080/test02/test?fileName="+fileName;
+//        String url = "http://localhost:8080/jinhua/test02/test?fileName="+fileName;
+        String url = "http://localhost:8080/jinhua/test02/test";
 
         HttpHeaders httpHeaders = new HttpHeaders();
 
         HashMap<String, Object> map = new HashMap<>();
-//        map.put("fileName", fileName);
+        map.put("fileName", fileName);
 
         HttpEntity fromEntity = new HttpEntity<>(new JSONObject(map), httpHeaders);
 
@@ -187,7 +188,7 @@ public class JinHuaController {
     @PostMapping("/test04")
     public void test04(MultipartFile file, String name) {
 
-        String url = "http://localhost:8080/test03/test";
+        String url = "http://localhost:8080/jinhua/test03/test";
 
         //设置请求头
         HttpHeaders headers = new HttpHeaders();
@@ -263,6 +264,7 @@ public class JinHuaController {
      */
     @GetMapping("/test02/test")
     public void testfileRpcDownload(HttpServletResponse response, @RequestParam("fileName") String fileName) {
+//    public void testfileRpcDownload(HttpServletResponse response, String fileName) {
         List<Export01> list = readFile("excel01.txt");
 
         try {
@@ -477,7 +479,7 @@ public class JinHuaController {
     @DeleteMapping("/test")
     public Result DeleteTest(@RequestParam("ids") Integer[] ids){
         System.out.println(Arrays.toString(ids));
-        String substring = Arrays.toString(ids).substring(1, Arrays.toString(ids).length() - 1);
+        String substring = Arrays.toString(ids).substring(1, Arrays.toString(ids).length() - 1).replaceAll(" ","");
         System.out.println(substring);
         return Result.success(null);
     }
