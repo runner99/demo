@@ -105,12 +105,12 @@ public class JinHuaController {
     public void test02(HttpServletResponse response, String fileName) {
 
 //        String url = "http://localhost:8080/jinhua/test02/test?fileName="+fileName;
-        String url = "http://localhost:8080/jinhua/test02/test";
+        String url = "http://localhost:8080/jinhua/test02/test02";
 
         HttpHeaders httpHeaders = new HttpHeaders();
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("fileName", fileName);
+//        map.put("fileName", fileName);
 
         HttpEntity fromEntity = new HttpEntity<>(new JSONObject(map), httpHeaders);
 
@@ -266,7 +266,7 @@ public class JinHuaController {
     public void testfileRpcDownload(HttpServletResponse response, @RequestParam("fileName") String fileName) {
 //    public void testfileRpcDownload(HttpServletResponse response, String fileName) {
         List<Export01> list = readFile("excel01.txt");
-
+        System.out.println(fileName);
         try {
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setCharacterEncoding("utf-8");
@@ -291,7 +291,7 @@ public class JinHuaController {
         try {
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setCharacterEncoding("utf-8");
-            String fileName = URLEncoder.encode("haha.xlsx", "UTF-8").replaceAll("\\+", "%20");
+            String fileName = URLEncoder.encode("测试.xlsx", "UTF-8").replaceAll("\\+", "%20");
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName);
             EasyExcel.write(response.getOutputStream(), Export01.class).sheet("数据统计").doWrite(list);
 
@@ -476,8 +476,10 @@ public class JinHuaController {
      * @param ids
      * @return
      */
-    @DeleteMapping("/test")
-    public Result DeleteTest(@RequestParam("ids") Integer[] ids){
+    @DeleteMapping("/test/g")
+    public Result DeleteTest(@RequestBody Integer[] ids){
+//    public Result DeleteTest(){
+//        Integer[] ids=new Integer[]{1,2};
         System.out.println(Arrays.toString(ids));
         String substring = Arrays.toString(ids).substring(1, Arrays.toString(ids).length() - 1).replaceAll(" ","");
         System.out.println(substring);
@@ -485,11 +487,52 @@ public class JinHuaController {
     }
 
     public static void main(String[] args) {
-        Object yml="string";
-        String method=(String)yml;
-        HttpMethod resolve = HttpMethod.resolve(method);
-        HttpMethod method1 = Optional.ofNullable(resolve).orElse(HttpMethod.POST);
-        System.out.println(resolve);
+//        Object yml="string";
+//        String method=(String)yml;
+//        HttpMethod resolve = HttpMethod.resolve(method);
+//        HttpMethod method1 = Optional.ofNullable(resolve).orElse(HttpMethod.POST);
+//        System.out.println(resolve);
+        String path="/test/"+"指标管理.xlsx";
+        byte[] content=null;
+        try {
+            content = getContent(path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(content);
     }
+
+
+    /**
+     * 根据文件路径获取文件字节数组
+     * @param filePath
+     * @return
+     * @throws IOException
+     */
+    public static byte[] getContent(String filePath) throws IOException {
+        File file = new File(filePath);
+        long fileSize = file.length();
+        if (fileSize > Integer.MAX_VALUE) {
+            System.out.println("file too big...");
+            return null;
+        }
+        FileInputStream fi = new FileInputStream(file);
+        byte[] buffer = new byte[(int) fileSize];
+        int offset = 0;
+        int numRead = 0;
+        while (offset < buffer.length
+                && (numRead = fi.read(buffer, offset, buffer.length - offset)) >= 0) {
+            offset += numRead;
+        }
+        // 确保所有数据均被读取
+        if (offset != buffer.length) {
+            throw new IOException("Could not completely read file "
+                    + file.getName());
+        }
+        fi.close();
+        return buffer;
+    }
+
+
 
 }
