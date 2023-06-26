@@ -14,7 +14,7 @@ public class ArthasTest {
 
 
 
-    @RequestMapping("/")
+    @RequestMapping("test01")
     public Result test01(){
 
         return Result.success(null);
