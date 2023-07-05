@@ -1,604 +1,571 @@
-/**
- * Copyright (c) 2008, Nathan Sweet
- *  All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
- *
- *  1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
- *  2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
- *  3. Neither the name of Esoteric Software nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- */
-
 package com.esotericsoftware.reflectasm;
 
-import static org.objectweb.asm.Opcodes.*;
-
+import com.esotericsoftware.asm.ClassWriter;
+import com.esotericsoftware.asm.Label;
+import com.esotericsoftware.asm.MethodVisitor;
+import com.esotericsoftware.asm.Opcodes;
+import com.esotericsoftware.asm.Type;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Type;
-
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/reflectasm/FieldAccess.class */
 public abstract class FieldAccess {
 	private String[] fieldNames;
 	private Class[] fieldTypes;
 	private Field[] fields;
 
-	public int getIndex (String fieldName) {
-		for (int i = 0, n = fieldNames.length; i < n; i++)
-			if (fieldNames[i].equals(fieldName)) return i;
-		throw new IllegalArgumentException("Unable to find non-private field: " + fieldName);
+	public abstract void set(Object obj, int i, Object obj2);
+
+	public abstract void setBoolean(Object obj, int i, boolean z);
+
+	public abstract void setByte(Object obj, int i, byte b);
+
+	public abstract void setShort(Object obj, int i, short s);
+
+	public abstract void setInt(Object obj, int i, int i2);
+
+	public abstract void setLong(Object obj, int i, long j);
+
+	public abstract void setDouble(Object obj, int i, double d);
+
+	public abstract void setFloat(Object obj, int i, float f);
+
+	public abstract void setChar(Object obj, int i, char c);
+
+	public abstract Object get(Object obj, int i);
+
+	public abstract String getString(Object obj, int i);
+
+	public abstract char getChar(Object obj, int i);
+
+	public abstract boolean getBoolean(Object obj, int i);
+
+	public abstract byte getByte(Object obj, int i);
+
+	public abstract short getShort(Object obj, int i);
+
+	public abstract int getInt(Object obj, int i);
+
+	public abstract long getLong(Object obj, int i);
+
+	public abstract double getDouble(Object obj, int i);
+
+	public abstract float getFloat(Object obj, int i);
+
+	public int getIndex(String str) {
+		int length = this.fieldNames.length;
+		for (int i = 0; i < length; i++) {
+			if (this.fieldNames[i].equals(str)) {
+				return i;
+			}
+		}
+		throw new IllegalArgumentException("Unable to find non-private field: " + str);
 	}
 
-	public int getIndex (Field field) {
-		for (int i = 0, n = fields.length; i < n; i++)
-			if (fields[i].equals(field)) return i;
+	public int getIndex(Field field) {
+		int length = this.fields.length;
+		for (int i = 0; i < length; i++) {
+			if (this.fields[i].equals(field)) {
+				return i;
+			}
+		}
 		throw new IllegalArgumentException("Unable to find non-private field: " + field);
 	}
 
-	public void set (Object instance, String fieldName, Object value) {
-		set(instance, getIndex(fieldName), value);
+	public void set(Object obj, String str, Object obj2) {
+		set(obj, getIndex(str), obj2);
 	}
 
-	public Object get (Object instance, String fieldName) {
-		return get(instance, getIndex(fieldName));
+	public Object get(Object obj, String str) {
+		return get(obj, getIndex(str));
 	}
 
-	public String[] getFieldNames () {
-		return fieldNames;
+	public String[] getFieldNames() {
+		return this.fieldNames;
 	}
 
-	public Class[] getFieldTypes () {
-		return fieldTypes;
+	public Class[] getFieldTypes() {
+		return this.fieldTypes;
 	}
 
-	public int getFieldCount () {
-		return fieldTypes.length;
+	public int getFieldCount() {
+		return this.fieldTypes.length;
 	}
 
-	public Field[] getFields () {
-		return fields;
+	public Field[] getFields() {
+		return this.fields;
 	}
 
-	public void setFields (Field[] fields) {
-		this.fields = fields;
+	public void setFields(Field[] fieldArr) {
+		this.fields = fieldArr;
 	}
 
-	abstract public void set (Object instance, int fieldIndex, Object value);
-
-	abstract public void setBoolean (Object instance, int fieldIndex, boolean value);
-
-	abstract public void setByte (Object instance, int fieldIndex, byte value);
-
-	abstract public void setShort (Object instance, int fieldIndex, short value);
-
-	abstract public void setInt (Object instance, int fieldIndex, int value);
-
-	abstract public void setLong (Object instance, int fieldIndex, long value);
-
-	abstract public void setDouble (Object instance, int fieldIndex, double value);
-
-	abstract public void setFloat (Object instance, int fieldIndex, float value);
-
-	abstract public void setChar (Object instance, int fieldIndex, char value);
-
-	abstract public Object get (Object instance, int fieldIndex);
-
-	abstract public String getString (Object instance, int fieldIndex);
-
-	abstract public char getChar (Object instance, int fieldIndex);
-
-	abstract public boolean getBoolean (Object instance, int fieldIndex);
-
-	abstract public byte getByte (Object instance, int fieldIndex);
-
-	abstract public short getShort (Object instance, int fieldIndex);
-
-	abstract public int getInt (Object instance, int fieldIndex);
-
-	abstract public long getLong (Object instance, int fieldIndex);
-
-	abstract public double getDouble (Object instance, int fieldIndex);
-
-	abstract public float getFloat (Object instance, int fieldIndex);
-
-	/** @param type Must not be the Object class, an interface, a primitive type, or void. */
-	static public FieldAccess get (Class type) {
-		if (type.getSuperclass() == null)
-			throw new IllegalArgumentException("The type must not be the Object class, an interface, a primitive type, or void.");
-
-		ArrayList<Field> fields = new ArrayList<Field>();
-		Class nextClass = type;
-		while (nextClass != Object.class) {
-			Field[] declaredFields = nextClass.getDeclaredFields();
-			for (int i = 0, n = declaredFields.length; i < n; i++) {
-				Field field = declaredFields[i];
+	public static FieldAccess get(Class cls) {
+		Class<?> cls2;
+		ArrayList arrayList = new ArrayList();
+		for (Class cls3 = cls; cls3 != Object.class; cls3 = cls3.getSuperclass()) {
+			Field[] declaredFields = cls3.getDeclaredFields();
+			for (Field field : declaredFields) {
 				int modifiers = field.getModifiers();
-				if (Modifier.isStatic(modifiers)) continue;
-				if (Modifier.isPrivate(modifiers)) continue;
-				fields.add(field);
+				if (!Modifier.isStatic(modifiers) && !Modifier.isPrivate(modifiers)) {
+					arrayList.add(field);
+				}
 			}
-			nextClass = nextClass.getSuperclass();
 		}
-
-		String[] fieldNames = new String[fields.size()];
-		Class[] fieldTypes = new Class[fields.size()];
-		for (int i = 0, n = fieldNames.length; i < n; i++) {
-			fieldNames[i] = fields.get(i).getName();
-			fieldTypes[i] = fields.get(i).getType();
+		String[] strArr = new String[arrayList.size()];
+		Class[] clsArr = new Class[arrayList.size()];
+		int length = strArr.length;
+		for (int i = 0; i < length; i++) {
+			strArr[i] = ((Field) arrayList.get(i)).getName();
+			clsArr[i] = ((Field) arrayList.get(i)).getType();
 		}
-
-		String className = type.getName();
-		String accessClassName = className + "FieldAccess";
-		if (accessClassName.startsWith("java.")) accessClassName = "reflectasm." + accessClassName;
-
-		Class accessClass;
-		AccessClassLoader loader = AccessClassLoader.get(type);
-		synchronized (loader) {
-			accessClass = loader.loadAccessClass(accessClassName);
-			if (accessClass == null) {
-				String accessClassNameInternal = accessClassName.replace('.', '/');
-				String classNameInternal = className.replace('.', '/');
-
-				ClassWriter cw = new ClassWriter(0);
-				cw.visit(V1_1, ACC_PUBLIC + ACC_SUPER, accessClassNameInternal, null, "com/esotericsoftware/reflectasm/FieldAccess",
-					null);
-				insertConstructor(cw);
-				insertGetObject(cw, classNameInternal, fields);
-				insertSetObject(cw, classNameInternal, fields);
-				insertGetPrimitive(cw, classNameInternal, fields, Type.BOOLEAN_TYPE);
-				insertSetPrimitive(cw, classNameInternal, fields, Type.BOOLEAN_TYPE);
-				insertGetPrimitive(cw, classNameInternal, fields, Type.BYTE_TYPE);
-				insertSetPrimitive(cw, classNameInternal, fields, Type.BYTE_TYPE);
-				insertGetPrimitive(cw, classNameInternal, fields, Type.SHORT_TYPE);
-				insertSetPrimitive(cw, classNameInternal, fields, Type.SHORT_TYPE);
-				insertGetPrimitive(cw, classNameInternal, fields, Type.INT_TYPE);
-				insertSetPrimitive(cw, classNameInternal, fields, Type.INT_TYPE);
-				insertGetPrimitive(cw, classNameInternal, fields, Type.LONG_TYPE);
-				insertSetPrimitive(cw, classNameInternal, fields, Type.LONG_TYPE);
-				insertGetPrimitive(cw, classNameInternal, fields, Type.DOUBLE_TYPE);
-				insertSetPrimitive(cw, classNameInternal, fields, Type.DOUBLE_TYPE);
-				insertGetPrimitive(cw, classNameInternal, fields, Type.FLOAT_TYPE);
-				insertSetPrimitive(cw, classNameInternal, fields, Type.FLOAT_TYPE);
-				insertGetPrimitive(cw, classNameInternal, fields, Type.CHAR_TYPE);
-				insertSetPrimitive(cw, classNameInternal, fields, Type.CHAR_TYPE);
-				insertGetString(cw, classNameInternal, fields);
-				cw.visitEnd();
-				accessClass = loader.defineAccessClass(accessClassName, cw.toByteArray());
+		String name = cls.getName();
+		String str = name + "FieldAccess";
+		if (str.startsWith("java.")) {
+			str = "reflectasm." + str;
+		}
+		AccessClassLoader accessClassLoader = AccessClassLoader.get(cls);
+		try {
+			cls2 = accessClassLoader.loadClass(str);
+		} catch (ClassNotFoundException e) {
+			synchronized (accessClassLoader) {
+				try {
+					cls2 = accessClassLoader.loadClass(str);
+				} catch (ClassNotFoundException e2) {
+					String replace = str.replace('.', '/');
+					String replace2 = name.replace('.', '/');
+					ClassWriter classWriter = new ClassWriter(0);
+					classWriter.visit(Opcodes.V1_1, 33, replace, null, "com/esotericsoftware/reflectasm/FieldAccess", null);
+					insertConstructor(classWriter);
+					insertGetObject(classWriter, replace2, arrayList);
+					insertSetObject(classWriter, replace2, arrayList);
+					insertGetPrimitive(classWriter, replace2, arrayList, Type.BOOLEAN_TYPE);
+					insertSetPrimitive(classWriter, replace2, arrayList, Type.BOOLEAN_TYPE);
+					insertGetPrimitive(classWriter, replace2, arrayList, Type.BYTE_TYPE);
+					insertSetPrimitive(classWriter, replace2, arrayList, Type.BYTE_TYPE);
+					insertGetPrimitive(classWriter, replace2, arrayList, Type.SHORT_TYPE);
+					insertSetPrimitive(classWriter, replace2, arrayList, Type.SHORT_TYPE);
+					insertGetPrimitive(classWriter, replace2, arrayList, Type.INT_TYPE);
+					insertSetPrimitive(classWriter, replace2, arrayList, Type.INT_TYPE);
+					insertGetPrimitive(classWriter, replace2, arrayList, Type.LONG_TYPE);
+					insertSetPrimitive(classWriter, replace2, arrayList, Type.LONG_TYPE);
+					insertGetPrimitive(classWriter, replace2, arrayList, Type.DOUBLE_TYPE);
+					insertSetPrimitive(classWriter, replace2, arrayList, Type.DOUBLE_TYPE);
+					insertGetPrimitive(classWriter, replace2, arrayList, Type.FLOAT_TYPE);
+					insertSetPrimitive(classWriter, replace2, arrayList, Type.FLOAT_TYPE);
+					insertGetPrimitive(classWriter, replace2, arrayList, Type.CHAR_TYPE);
+					insertSetPrimitive(classWriter, replace2, arrayList, Type.CHAR_TYPE);
+					insertGetString(classWriter, replace2, arrayList);
+					classWriter.visitEnd();
+					cls2 = accessClassLoader.defineClass(str, classWriter.toByteArray());
+				}
 			}
 		}
 		try {
-			FieldAccess access = (FieldAccess)accessClass.newInstance();
-			access.fieldNames = fieldNames;
-			access.fieldTypes = fieldTypes;
-			access.fields = fields.toArray(new Field[fields.size()]);
-			return access;
-		} catch (Throwable t) {
-			throw new RuntimeException("Error constructing field access class: " + accessClassName, t);
+			FieldAccess fieldAccess = (FieldAccess) cls2.newInstance();
+			fieldAccess.fieldNames = strArr;
+			fieldAccess.fieldTypes = clsArr;
+			fieldAccess.fields = (Field[]) arrayList.toArray(new Field[arrayList.size()]);
+			return fieldAccess;
+		} catch (Throwable th) {
+			throw new RuntimeException("Error constructing field access class: " + str, th);
 		}
 	}
 
-	static private void insertConstructor (ClassWriter cw) {
-		MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
-		mv.visitCode();
-		mv.visitVarInsn(ALOAD, 0);
-		mv.visitMethodInsn(INVOKESPECIAL, "com/esotericsoftware/reflectasm/FieldAccess", "<init>", "()V");
-		mv.visitInsn(RETURN);
-		mv.visitMaxs(1, 1);
-		mv.visitEnd();
+	private static void insertConstructor(ClassWriter classWriter) {
+		MethodVisitor visitMethod = classWriter.visitMethod(1, "<init>", "()V", null, null);
+		visitMethod.visitCode();
+		visitMethod.visitVarInsn(25, 0);
+		visitMethod.visitMethodInsn(Opcodes.INVOKESPECIAL, "com/esotericsoftware/reflectasm/FieldAccess", "<init>", "()V");
+		visitMethod.visitInsn(Opcodes.RETURN);
+		visitMethod.visitMaxs(1, 1);
+		visitMethod.visitEnd();
 	}
 
-	static private void insertSetObject (ClassWriter cw, String classNameInternal, ArrayList<Field> fields) {
-		int maxStack = 6;
-		MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "set", "(Ljava/lang/Object;ILjava/lang/Object;)V", null, null);
-		mv.visitCode();
-		mv.visitVarInsn(ILOAD, 2);
-
-		if (!fields.isEmpty()) {
-			maxStack--;
-			Label[] labels = new Label[fields.size()];
-			for (int i = 0, n = labels.length; i < n; i++)
-				labels[i] = new Label();
-			Label defaultLabel = new Label();
-			mv.visitTableSwitchInsn(0, labels.length - 1, defaultLabel, labels);
-
-			for (int i = 0, n = labels.length; i < n; i++) {
-				Field field = fields.get(i);
-				Type fieldType = Type.getType(field.getType());
-
-				mv.visitLabel(labels[i]);
-				mv.visitFrame(F_SAME, 0, null, 0, null);
-				mv.visitVarInsn(ALOAD, 1);
-				mv.visitTypeInsn(CHECKCAST, classNameInternal);
-				mv.visitVarInsn(ALOAD, 3);
-
-				switch (fieldType.getSort()) {
-				case Type.BOOLEAN:
-					mv.visitTypeInsn(CHECKCAST, "java/lang/Boolean");
-					mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Boolean", "booleanValue", "()Z");
-					break;
-				case Type.BYTE:
-					mv.visitTypeInsn(CHECKCAST, "java/lang/Byte");
-					mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Byte", "byteValue", "()B");
-					break;
-				case Type.CHAR:
-					mv.visitTypeInsn(CHECKCAST, "java/lang/Character");
-					mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Character", "charValue", "()C");
-					break;
-				case Type.SHORT:
-					mv.visitTypeInsn(CHECKCAST, "java/lang/Short");
-					mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Short", "shortValue", "()S");
-					break;
-				case Type.INT:
-					mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
-					mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I");
-					break;
-				case Type.FLOAT:
-					mv.visitTypeInsn(CHECKCAST, "java/lang/Float");
-					mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Float", "floatValue", "()F");
-					break;
-				case Type.LONG:
-					mv.visitTypeInsn(CHECKCAST, "java/lang/Long");
-					mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Long", "longValue", "()J");
-					break;
-				case Type.DOUBLE:
-					mv.visitTypeInsn(CHECKCAST, "java/lang/Double");
-					mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D");
-					break;
-				case Type.ARRAY:
-					mv.visitTypeInsn(CHECKCAST, fieldType.getDescriptor());
-					break;
-				case Type.OBJECT:
-					mv.visitTypeInsn(CHECKCAST, fieldType.getInternalName());
-					break;
-				}
-
-				mv.visitFieldInsn(PUTFIELD, field.getDeclaringClass().getName().replace('.', '/'), field.getName(),
-					fieldType.getDescriptor());
-				mv.visitInsn(RETURN);
+	private static void insertSetObject(ClassWriter classWriter, String str, ArrayList<Field> arrayList) {
+		int i = 6;
+		MethodVisitor visitMethod = classWriter.visitMethod(1, "set", "(Ljava/lang/Object;ILjava/lang/Object;)V", null, null);
+		visitMethod.visitCode();
+		visitMethod.visitVarInsn(21, 2);
+		if (!arrayList.isEmpty()) {
+			i = 6 - 1;
+			Label[] labelArr = new Label[arrayList.size()];
+			int length = labelArr.length;
+			for (int i2 = 0; i2 < length; i2++) {
+				labelArr[i2] = new Label();
 			}
-
-			mv.visitLabel(defaultLabel);
-			mv.visitFrame(F_SAME, 0, null, 0, null);
+			Label label = new Label();
+			visitMethod.visitTableSwitchInsn(0, labelArr.length - 1, label, labelArr);
+			int length2 = labelArr.length;
+			for (int i3 = 0; i3 < length2; i3++) {
+				Field field = arrayList.get(i3);
+				Type type = Type.getType(field.getType());
+				visitMethod.visitLabel(labelArr[i3]);
+				visitMethod.visitFrame(3, 0, null, 0, null);
+				visitMethod.visitVarInsn(25, 1);
+				visitMethod.visitTypeInsn(Opcodes.CHECKCAST, str);
+				visitMethod.visitVarInsn(25, 3);
+				switch (type.getSort()) {
+					case 1:
+						visitMethod.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Boolean");
+						visitMethod.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Boolean", "booleanValue", "()Z");
+						break;
+					case 2:
+						visitMethod.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Character");
+						visitMethod.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Character", "charValue", "()C");
+						break;
+					case 3:
+						visitMethod.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Byte");
+						visitMethod.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Byte", "byteValue", "()B");
+						break;
+					case 4:
+						visitMethod.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Short");
+						visitMethod.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Short", "shortValue", "()S");
+						break;
+					case 5:
+						visitMethod.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Integer");
+						visitMethod.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I");
+						break;
+					case 6:
+						visitMethod.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Float");
+						visitMethod.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Float", "floatValue", "()F");
+						break;
+					case 7:
+						visitMethod.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Long");
+						visitMethod.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Long", "longValue", "()J");
+						break;
+					case 8:
+						visitMethod.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Double");
+						visitMethod.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D");
+						break;
+					case 9:
+						visitMethod.visitTypeInsn(Opcodes.CHECKCAST, type.getDescriptor());
+						break;
+					case 10:
+						visitMethod.visitTypeInsn(Opcodes.CHECKCAST, type.getInternalName());
+						break;
+				}
+				visitMethod.visitFieldInsn(Opcodes.PUTFIELD, field.getDeclaringClass().getName().replace('.', '/'), field.getName(), type.getDescriptor());
+				visitMethod.visitInsn(Opcodes.RETURN);
+			}
+			visitMethod.visitLabel(label);
+			visitMethod.visitFrame(3, 0, null, 0, null);
 		}
-		mv = insertThrowExceptionForFieldNotFound(mv);
-		mv.visitMaxs(maxStack, 4);
-		mv.visitEnd();
+		MethodVisitor insertThrowExceptionForFieldNotFound = insertThrowExceptionForFieldNotFound(visitMethod);
+		insertThrowExceptionForFieldNotFound.visitMaxs(i, 4);
+		insertThrowExceptionForFieldNotFound.visitEnd();
 	}
 
-	static private void insertGetObject (ClassWriter cw, String classNameInternal, ArrayList<Field> fields) {
-		int maxStack = 6;
-		MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "get", "(Ljava/lang/Object;I)Ljava/lang/Object;", null, null);
-		mv.visitCode();
-		mv.visitVarInsn(ILOAD, 2);
-
-		if (!fields.isEmpty()) {
-			maxStack--;
-			Label[] labels = new Label[fields.size()];
-			for (int i = 0, n = labels.length; i < n; i++)
-				labels[i] = new Label();
-			Label defaultLabel = new Label();
-			mv.visitTableSwitchInsn(0, labels.length - 1, defaultLabel, labels);
-
-			for (int i = 0, n = labels.length; i < n; i++) {
-				Field field = fields.get(i);
-
-				mv.visitLabel(labels[i]);
-				mv.visitFrame(F_SAME, 0, null, 0, null);
-				mv.visitVarInsn(ALOAD, 1);
-				mv.visitTypeInsn(CHECKCAST, classNameInternal);
-				mv.visitFieldInsn(GETFIELD, field.getDeclaringClass().getName().replace('.', '/'), field.getName(),
-					Type.getDescriptor(field.getType()));
-
-				Type fieldType = Type.getType(field.getType());
-				switch (fieldType.getSort()) {
-				case Type.BOOLEAN:
-					mv.visitMethodInsn(INVOKESTATIC, "java/lang/Boolean", "valueOf", "(Z)Ljava/lang/Boolean;");
-					break;
-				case Type.BYTE:
-					mv.visitMethodInsn(INVOKESTATIC, "java/lang/Byte", "valueOf", "(B)Ljava/lang/Byte;");
-					break;
-				case Type.CHAR:
-					mv.visitMethodInsn(INVOKESTATIC, "java/lang/Character", "valueOf", "(C)Ljava/lang/Character;");
-					break;
-				case Type.SHORT:
-					mv.visitMethodInsn(INVOKESTATIC, "java/lang/Short", "valueOf", "(S)Ljava/lang/Short;");
-					break;
-				case Type.INT:
-					mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;");
-					break;
-				case Type.FLOAT:
-					mv.visitMethodInsn(INVOKESTATIC, "java/lang/Float", "valueOf", "(F)Ljava/lang/Float;");
-					break;
-				case Type.LONG:
-					mv.visitMethodInsn(INVOKESTATIC, "java/lang/Long", "valueOf", "(J)Ljava/lang/Long;");
-					break;
-				case Type.DOUBLE:
-					mv.visitMethodInsn(INVOKESTATIC, "java/lang/Double", "valueOf", "(D)Ljava/lang/Double;");
-					break;
-				}
-
-				mv.visitInsn(ARETURN);
+	private static void insertGetObject(ClassWriter classWriter, String str, ArrayList<Field> arrayList) {
+		int i = 6;
+		MethodVisitor visitMethod = classWriter.visitMethod(1, "get", "(Ljava/lang/Object;I)Ljava/lang/Object;", null, null);
+		visitMethod.visitCode();
+		visitMethod.visitVarInsn(21, 2);
+		if (!arrayList.isEmpty()) {
+			i = 6 - 1;
+			Label[] labelArr = new Label[arrayList.size()];
+			int length = labelArr.length;
+			for (int i2 = 0; i2 < length; i2++) {
+				labelArr[i2] = new Label();
 			}
-
-			mv.visitLabel(defaultLabel);
-			mv.visitFrame(F_SAME, 0, null, 0, null);
+			Label label = new Label();
+			visitMethod.visitTableSwitchInsn(0, labelArr.length - 1, label, labelArr);
+			int length2 = labelArr.length;
+			for (int i3 = 0; i3 < length2; i3++) {
+				Field field = arrayList.get(i3);
+				visitMethod.visitLabel(labelArr[i3]);
+				visitMethod.visitFrame(3, 0, null, 0, null);
+				visitMethod.visitVarInsn(25, 1);
+				visitMethod.visitTypeInsn(Opcodes.CHECKCAST, str);
+				visitMethod.visitFieldInsn(Opcodes.GETFIELD, field.getDeclaringClass().getName().replace('.', '/'), field.getName(), Type.getDescriptor(field.getType()));
+				switch (Type.getType(field.getType()).getSort()) {
+					case 1:
+						visitMethod.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Boolean", "valueOf", "(Z)Ljava/lang/Boolean;");
+						break;
+					case 2:
+						visitMethod.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Character", "valueOf", "(C)Ljava/lang/Character;");
+						break;
+					case 3:
+						visitMethod.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Byte", "valueOf", "(B)Ljava/lang/Byte;");
+						break;
+					case 4:
+						visitMethod.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Short", "valueOf", "(S)Ljava/lang/Short;");
+						break;
+					case 5:
+						visitMethod.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;");
+						break;
+					case 6:
+						visitMethod.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Float", "valueOf", "(F)Ljava/lang/Float;");
+						break;
+					case 7:
+						visitMethod.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Long", "valueOf", "(J)Ljava/lang/Long;");
+						break;
+					case 8:
+						visitMethod.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Double", "valueOf", "(D)Ljava/lang/Double;");
+						break;
+				}
+				visitMethod.visitInsn(Opcodes.ARETURN);
+			}
+			visitMethod.visitLabel(label);
+			visitMethod.visitFrame(3, 0, null, 0, null);
 		}
-		insertThrowExceptionForFieldNotFound(mv);
-		mv.visitMaxs(maxStack, 3);
-		mv.visitEnd();
+		insertThrowExceptionForFieldNotFound(visitMethod);
+		visitMethod.visitMaxs(i, 3);
+		visitMethod.visitEnd();
 	}
 
-	static private void insertGetString (ClassWriter cw, String classNameInternal, ArrayList<Field> fields) {
-		int maxStack = 6;
-		MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "getString", "(Ljava/lang/Object;I)Ljava/lang/String;", null, null);
-		mv.visitCode();
-		mv.visitVarInsn(ILOAD, 2);
-
-		if (!fields.isEmpty()) {
-			maxStack--;
-			Label[] labels = new Label[fields.size()];
-			Label labelForInvalidTypes = new Label();
-			boolean hasAnyBadTypeLabel = false;
-			for (int i = 0, n = labels.length; i < n; i++) {
-				if (fields.get(i).getType().equals(String.class))
-					labels[i] = new Label();
-				else {
-					labels[i] = labelForInvalidTypes;
-					hasAnyBadTypeLabel = true;
+	private static void insertGetString(ClassWriter classWriter, String str, ArrayList<Field> arrayList) {
+		int i = 6;
+		MethodVisitor visitMethod = classWriter.visitMethod(1, "getString", "(Ljava/lang/Object;I)Ljava/lang/String;", null, null);
+		visitMethod.visitCode();
+		visitMethod.visitVarInsn(21, 2);
+		if (!arrayList.isEmpty()) {
+			i = 6 - 1;
+			Label[] labelArr = new Label[arrayList.size()];
+			Label label = new Label();
+			boolean z = false;
+			int length = labelArr.length;
+			for (int i2 = 0; i2 < length; i2++) {
+				if (arrayList.get(i2).getType().equals(String.class)) {
+					labelArr[i2] = new Label();
+				} else {
+					labelArr[i2] = label;
+					z = true;
 				}
 			}
-			Label defaultLabel = new Label();
-			mv.visitTableSwitchInsn(0, labels.length - 1, defaultLabel, labels);
-
-			for (int i = 0, n = labels.length; i < n; i++) {
-				if (!labels[i].equals(labelForInvalidTypes)) {
-					Field field = fields.get(i);
-					mv.visitLabel(labels[i]);
-					mv.visitFrame(F_SAME, 0, null, 0, null);
-					mv.visitVarInsn(ALOAD, 1);
-					mv.visitTypeInsn(CHECKCAST, classNameInternal);
-					mv.visitFieldInsn(GETFIELD, field.getDeclaringClass().getName().replace('.', '/'), field.getName(),
-						"Ljava/lang/String;");
-					mv.visitInsn(ARETURN);
+			Label label2 = new Label();
+			visitMethod.visitTableSwitchInsn(0, labelArr.length - 1, label2, labelArr);
+			int length2 = labelArr.length;
+			for (int i3 = 0; i3 < length2; i3++) {
+				if (!labelArr[i3].equals(label)) {
+					Field field = arrayList.get(i3);
+					visitMethod.visitLabel(labelArr[i3]);
+					visitMethod.visitFrame(3, 0, null, 0, null);
+					visitMethod.visitVarInsn(25, 1);
+					visitMethod.visitTypeInsn(Opcodes.CHECKCAST, str);
+					visitMethod.visitFieldInsn(Opcodes.GETFIELD, field.getDeclaringClass().getName().replace('.', '/'), field.getName(), "Ljava/lang/String;");
+					visitMethod.visitInsn(Opcodes.ARETURN);
 				}
 			}
-			// Rest of fields: different type
-			if (hasAnyBadTypeLabel) {
-				mv.visitLabel(labelForInvalidTypes);
-				mv.visitFrame(F_SAME, 0, null, 0, null);
-				insertThrowExceptionForFieldType(mv, "String");
+			if (z) {
+				visitMethod.visitLabel(label);
+				visitMethod.visitFrame(3, 0, null, 0, null);
+				insertThrowExceptionForFieldType(visitMethod, "String");
 			}
-			// Default: field not found
-			mv.visitLabel(defaultLabel);
-			mv.visitFrame(F_SAME, 0, null, 0, null);
+			visitMethod.visitLabel(label2);
+			visitMethod.visitFrame(3, 0, null, 0, null);
 		}
-		insertThrowExceptionForFieldNotFound(mv);
-		mv.visitMaxs(maxStack, 3);
-		mv.visitEnd();
+		insertThrowExceptionForFieldNotFound(visitMethod);
+		visitMethod.visitMaxs(i, 3);
+		visitMethod.visitEnd();
 	}
 
-	static private void insertSetPrimitive (ClassWriter cw, String classNameInternal, ArrayList<Field> fields,
-		Type primitiveType) {
-		int maxStack = 6;
-		int maxLocals = 4; // See correction below for LLOAD and DLOAD
-		final String setterMethodName;
-		final String typeNameInternal = primitiveType.getDescriptor();
-		final int loadValueInstruction;
-		switch (primitiveType.getSort()) {
-		case Type.BOOLEAN:
-			setterMethodName = "setBoolean";
-			loadValueInstruction = ILOAD;
-			break;
-		case Type.BYTE:
-			setterMethodName = "setByte";
-			loadValueInstruction = ILOAD;
-			break;
-		case Type.CHAR:
-			setterMethodName = "setChar";
-			loadValueInstruction = ILOAD;
-			break;
-		case Type.SHORT:
-			setterMethodName = "setShort";
-			loadValueInstruction = ILOAD;
-			break;
-		case Type.INT:
-			setterMethodName = "setInt";
-			loadValueInstruction = ILOAD;
-			break;
-		case Type.FLOAT:
-			setterMethodName = "setFloat";
-			loadValueInstruction = FLOAD;
-			break;
-		case Type.LONG:
-			setterMethodName = "setLong";
-			loadValueInstruction = LLOAD;
-			maxLocals++; // (LLOAD and DLOAD actually load two slots)
-			break;
-		case Type.DOUBLE:
-			setterMethodName = "setDouble";
-			loadValueInstruction = DLOAD;
-			maxLocals++; // (LLOAD and DLOAD actually load two slots)
-			break;
-		default:
-			setterMethodName = "set";
-			loadValueInstruction = ALOAD;
-			break;
+	private static void insertSetPrimitive(ClassWriter classWriter, String str, ArrayList<Field> arrayList, Type type) {
+		int i;
+		String str2;
+		int i2 = 6;
+		int i3 = 4;
+		String descriptor = type.getDescriptor();
+		switch (type.getSort()) {
+			case 1:
+				str2 = "setBoolean";
+				i = 21;
+				break;
+			case 2:
+				str2 = "setChar";
+				i = 21;
+				break;
+			case 3:
+				str2 = "setByte";
+				i = 21;
+				break;
+			case 4:
+				str2 = "setShort";
+				i = 21;
+				break;
+			case 5:
+				str2 = "setInt";
+				i = 21;
+				break;
+			case 6:
+				str2 = "setFloat";
+				i = 23;
+				break;
+			case 7:
+				str2 = "setLong";
+				i = 22;
+				i3 = 4 + 1;
+				break;
+			case 8:
+				str2 = "setDouble";
+				i = 24;
+				i3 = 4 + 1;
+				break;
+			default:
+				str2 = "set";
+				i = 25;
+				break;
 		}
-		MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, setterMethodName, "(Ljava/lang/Object;I" + typeNameInternal + ")V", null,
-			null);
-		mv.visitCode();
-		mv.visitVarInsn(ILOAD, 2);
-
-		if (!fields.isEmpty()) {
-			maxStack--;
-			Label[] labels = new Label[fields.size()];
-			Label labelForInvalidTypes = new Label();
-			boolean hasAnyBadTypeLabel = false;
-			for (int i = 0, n = labels.length; i < n; i++) {
-				if (Type.getType(fields.get(i).getType()).equals(primitiveType))
-					labels[i] = new Label();
-				else {
-					labels[i] = labelForInvalidTypes;
-					hasAnyBadTypeLabel = true;
+		MethodVisitor visitMethod = classWriter.visitMethod(1, str2, "(Ljava/lang/Object;I" + descriptor + ")V", null, null);
+		visitMethod.visitCode();
+		visitMethod.visitVarInsn(21, 2);
+		if (!arrayList.isEmpty()) {
+			i2 = 6 - 1;
+			Label[] labelArr = new Label[arrayList.size()];
+			Label label = new Label();
+			boolean z = false;
+			int length = labelArr.length;
+			for (int i4 = 0; i4 < length; i4++) {
+				if (Type.getType(arrayList.get(i4).getType()).equals(type)) {
+					labelArr[i4] = new Label();
+				} else {
+					labelArr[i4] = label;
+					z = true;
 				}
 			}
-			Label defaultLabel = new Label();
-			mv.visitTableSwitchInsn(0, labels.length - 1, defaultLabel, labels);
-
-			for (int i = 0, n = labels.length; i < n; i++) {
-				if (!labels[i].equals(labelForInvalidTypes)) {
-					Field field = fields.get(i);
-					mv.visitLabel(labels[i]);
-					mv.visitFrame(F_SAME, 0, null, 0, null);
-					mv.visitVarInsn(ALOAD, 1);
-					mv.visitTypeInsn(CHECKCAST, classNameInternal);
-					mv.visitVarInsn(loadValueInstruction, 3);
-					mv.visitFieldInsn(PUTFIELD, field.getDeclaringClass().getName().replace('.', '/'), field.getName(),
-						typeNameInternal);
-					mv.visitInsn(RETURN);
+			Label label2 = new Label();
+			visitMethod.visitTableSwitchInsn(0, labelArr.length - 1, label2, labelArr);
+			int length2 = labelArr.length;
+			for (int i5 = 0; i5 < length2; i5++) {
+				if (!labelArr[i5].equals(label)) {
+					Field field = arrayList.get(i5);
+					visitMethod.visitLabel(labelArr[i5]);
+					visitMethod.visitFrame(3, 0, null, 0, null);
+					visitMethod.visitVarInsn(25, 1);
+					visitMethod.visitTypeInsn(Opcodes.CHECKCAST, str);
+					visitMethod.visitVarInsn(i, 3);
+					visitMethod.visitFieldInsn(Opcodes.PUTFIELD, field.getDeclaringClass().getName().replace('.', '/'), field.getName(), descriptor);
+					visitMethod.visitInsn(Opcodes.RETURN);
 				}
 			}
-			// Rest of fields: different type
-			if (hasAnyBadTypeLabel) {
-				mv.visitLabel(labelForInvalidTypes);
-				mv.visitFrame(F_SAME, 0, null, 0, null);
-				insertThrowExceptionForFieldType(mv, primitiveType.getClassName());
+			if (z) {
+				visitMethod.visitLabel(label);
+				visitMethod.visitFrame(3, 0, null, 0, null);
+				insertThrowExceptionForFieldType(visitMethod, type.getClassName());
 			}
-			// Default: field not found
-			mv.visitLabel(defaultLabel);
-			mv.visitFrame(F_SAME, 0, null, 0, null);
+			visitMethod.visitLabel(label2);
+			visitMethod.visitFrame(3, 0, null, 0, null);
 		}
-		mv = insertThrowExceptionForFieldNotFound(mv);
-		mv.visitMaxs(maxStack, maxLocals);
-		mv.visitEnd();
+		MethodVisitor insertThrowExceptionForFieldNotFound = insertThrowExceptionForFieldNotFound(visitMethod);
+		insertThrowExceptionForFieldNotFound.visitMaxs(i2, i3);
+		insertThrowExceptionForFieldNotFound.visitEnd();
 	}
 
-	static private void insertGetPrimitive (ClassWriter cw, String classNameInternal, ArrayList<Field> fields,
-		Type primitiveType) {
-		int maxStack = 6;
-		final String getterMethodName;
-		final String typeNameInternal = primitiveType.getDescriptor();
-		final int returnValueInstruction;
-		switch (primitiveType.getSort()) {
-		case Type.BOOLEAN:
-			getterMethodName = "getBoolean";
-			returnValueInstruction = IRETURN;
-			break;
-		case Type.BYTE:
-			getterMethodName = "getByte";
-			returnValueInstruction = IRETURN;
-			break;
-		case Type.CHAR:
-			getterMethodName = "getChar";
-			returnValueInstruction = IRETURN;
-			break;
-		case Type.SHORT:
-			getterMethodName = "getShort";
-			returnValueInstruction = IRETURN;
-			break;
-		case Type.INT:
-			getterMethodName = "getInt";
-			returnValueInstruction = IRETURN;
-			break;
-		case Type.FLOAT:
-			getterMethodName = "getFloat";
-			returnValueInstruction = FRETURN;
-			break;
-		case Type.LONG:
-			getterMethodName = "getLong";
-			returnValueInstruction = LRETURN;
-			break;
-		case Type.DOUBLE:
-			getterMethodName = "getDouble";
-			returnValueInstruction = DRETURN;
-			break;
-		default:
-			getterMethodName = "get";
-			returnValueInstruction = ARETURN;
-			break;
+	private static void insertGetPrimitive(ClassWriter classWriter, String str, ArrayList<Field> arrayList, Type type) {
+		int i;
+		String str2;
+		int i2 = 6;
+		String descriptor = type.getDescriptor();
+		switch (type.getSort()) {
+			case 1:
+				str2 = "getBoolean";
+				i = 172;
+				break;
+			case 2:
+				str2 = "getChar";
+				i = 172;
+				break;
+			case 3:
+				str2 = "getByte";
+				i = 172;
+				break;
+			case 4:
+				str2 = "getShort";
+				i = 172;
+				break;
+			case 5:
+				str2 = "getInt";
+				i = 172;
+				break;
+			case 6:
+				str2 = "getFloat";
+				i = 174;
+				break;
+			case 7:
+				str2 = "getLong";
+				i = 173;
+				break;
+			case 8:
+				str2 = "getDouble";
+				i = 175;
+				break;
+			default:
+				str2 = "get";
+				i = 176;
+				break;
 		}
-		MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, getterMethodName, "(Ljava/lang/Object;I)" + typeNameInternal, null, null);
-		mv.visitCode();
-		mv.visitVarInsn(ILOAD, 2);
-
-		if (!fields.isEmpty()) {
-			maxStack--;
-			Label[] labels = new Label[fields.size()];
-			Label labelForInvalidTypes = new Label();
-			boolean hasAnyBadTypeLabel = false;
-			for (int i = 0, n = labels.length; i < n; i++) {
-				if (Type.getType(fields.get(i).getType()).equals(primitiveType))
-					labels[i] = new Label();
-				else {
-					labels[i] = labelForInvalidTypes;
-					hasAnyBadTypeLabel = true;
+		MethodVisitor visitMethod = classWriter.visitMethod(1, str2, "(Ljava/lang/Object;I)" + descriptor, null, null);
+		visitMethod.visitCode();
+		visitMethod.visitVarInsn(21, 2);
+		if (!arrayList.isEmpty()) {
+			i2 = 6 - 1;
+			Label[] labelArr = new Label[arrayList.size()];
+			Label label = new Label();
+			boolean z = false;
+			int length = labelArr.length;
+			for (int i3 = 0; i3 < length; i3++) {
+				if (Type.getType(arrayList.get(i3).getType()).equals(type)) {
+					labelArr[i3] = new Label();
+				} else {
+					labelArr[i3] = label;
+					z = true;
 				}
 			}
-			Label defaultLabel = new Label();
-			mv.visitTableSwitchInsn(0, labels.length - 1, defaultLabel, labels);
-
-			for (int i = 0, n = labels.length; i < n; i++) {
-				Field field = fields.get(i);
-				if (!labels[i].equals(labelForInvalidTypes)) {
-					mv.visitLabel(labels[i]);
-					mv.visitFrame(F_SAME, 0, null, 0, null);
-					mv.visitVarInsn(ALOAD, 1);
-					mv.visitTypeInsn(CHECKCAST, classNameInternal);
-					mv.visitFieldInsn(GETFIELD, field.getDeclaringClass().getName().replace('.', '/'), field.getName(),
-						typeNameInternal);
-					mv.visitInsn(returnValueInstruction);
+			Label label2 = new Label();
+			visitMethod.visitTableSwitchInsn(0, labelArr.length - 1, label2, labelArr);
+			int length2 = labelArr.length;
+			for (int i4 = 0; i4 < length2; i4++) {
+				Field field = arrayList.get(i4);
+				if (!labelArr[i4].equals(label)) {
+					visitMethod.visitLabel(labelArr[i4]);
+					visitMethod.visitFrame(3, 0, null, 0, null);
+					visitMethod.visitVarInsn(25, 1);
+					visitMethod.visitTypeInsn(Opcodes.CHECKCAST, str);
+					visitMethod.visitFieldInsn(Opcodes.GETFIELD, field.getDeclaringClass().getName().replace('.', '/'), field.getName(), descriptor);
+					visitMethod.visitInsn(i);
 				}
 			}
-			// Rest of fields: different type
-			if (hasAnyBadTypeLabel) {
-				mv.visitLabel(labelForInvalidTypes);
-				mv.visitFrame(F_SAME, 0, null, 0, null);
-				insertThrowExceptionForFieldType(mv, primitiveType.getClassName());
+			if (z) {
+				visitMethod.visitLabel(label);
+				visitMethod.visitFrame(3, 0, null, 0, null);
+				insertThrowExceptionForFieldType(visitMethod, type.getClassName());
 			}
-			// Default: field not found
-			mv.visitLabel(defaultLabel);
-			mv.visitFrame(F_SAME, 0, null, 0, null);
+			visitMethod.visitLabel(label2);
+			visitMethod.visitFrame(3, 0, null, 0, null);
 		}
-		mv = insertThrowExceptionForFieldNotFound(mv);
-		mv.visitMaxs(maxStack, 3);
-		mv.visitEnd();
+		MethodVisitor insertThrowExceptionForFieldNotFound = insertThrowExceptionForFieldNotFound(visitMethod);
+		insertThrowExceptionForFieldNotFound.visitMaxs(i2, 3);
+		insertThrowExceptionForFieldNotFound.visitEnd();
 	}
 
-	static private MethodVisitor insertThrowExceptionForFieldNotFound (MethodVisitor mv) {
-		mv.visitTypeInsn(NEW, "java/lang/IllegalArgumentException");
-		mv.visitInsn(DUP);
-		mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
-		mv.visitInsn(DUP);
-		mv.visitLdcInsn("Field not found: ");
-		mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "(Ljava/lang/String;)V");
-		mv.visitVarInsn(ILOAD, 2);
-		mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;");
-		mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;");
-		mv.visitMethodInsn(INVOKESPECIAL, "java/lang/IllegalArgumentException", "<init>", "(Ljava/lang/String;)V");
-		mv.visitInsn(ATHROW);
-		return mv;
+	private static MethodVisitor insertThrowExceptionForFieldNotFound(MethodVisitor methodVisitor) {
+		methodVisitor.visitTypeInsn(Opcodes.NEW, "java/lang/IllegalArgumentException");
+		methodVisitor.visitInsn(89);
+		methodVisitor.visitTypeInsn(Opcodes.NEW, "java/lang/StringBuilder");
+		methodVisitor.visitInsn(89);
+		methodVisitor.visitLdcInsn("Field not found: ");
+		methodVisitor.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "(Ljava/lang/String;)V");
+		methodVisitor.visitVarInsn(21, 2);
+		methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;");
+		methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;");
+		methodVisitor.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/IllegalArgumentException", "<init>", "(Ljava/lang/String;)V");
+		methodVisitor.visitInsn(Opcodes.ATHROW);
+		return methodVisitor;
 	}
 
-	static private MethodVisitor insertThrowExceptionForFieldType (MethodVisitor mv, String fieldType) {
-		mv.visitTypeInsn(NEW, "java/lang/IllegalArgumentException");
-		mv.visitInsn(DUP);
-		mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
-		mv.visitInsn(DUP);
-		mv.visitLdcInsn("Field not declared as " + fieldType + ": ");
-		mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "(Ljava/lang/String;)V");
-		mv.visitVarInsn(ILOAD, 2);
-		mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;");
-		mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;");
-		mv.visitMethodInsn(INVOKESPECIAL, "java/lang/IllegalArgumentException", "<init>", "(Ljava/lang/String;)V");
-		mv.visitInsn(ATHROW);
-		return mv;
+	private static MethodVisitor insertThrowExceptionForFieldType(MethodVisitor methodVisitor, String str) {
+		methodVisitor.visitTypeInsn(Opcodes.NEW, "java/lang/IllegalArgumentException");
+		methodVisitor.visitInsn(89);
+		methodVisitor.visitTypeInsn(Opcodes.NEW, "java/lang/StringBuilder");
+		methodVisitor.visitInsn(89);
+		methodVisitor.visitLdcInsn("Field not declared as " + str + ": ");
+		methodVisitor.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "(Ljava/lang/String;)V");
+		methodVisitor.visitVarInsn(21, 2);
+		methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;");
+		methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;");
+		methodVisitor.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/IllegalArgumentException", "<init>", "(Ljava/lang/String;)V");
+		methodVisitor.visitInsn(Opcodes.ATHROW);
+		return methodVisitor;
 	}
-
 }

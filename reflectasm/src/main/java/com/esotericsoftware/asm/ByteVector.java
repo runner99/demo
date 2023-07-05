@@ -1,6 +1,6 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/ByteVector.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/ByteVector.class */
 public class ByteVector {
     byte[] a;
     int b;

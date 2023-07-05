@@ -18,7 +18,7 @@
     </properties>
     <dependencies>
 
-<!--       reflectasm框架性能调查  -->
+<!--       reflectasm框架性能调查-->
 <!--        <dependency>-->
 <!--            <groupId>com.esotericsoftware</groupId>-->
 <!--            <artifactId>reflectasm</artifactId>-->
@@ -28,6 +28,7 @@
             <groupId>com.hzmc.reflectasm</groupId>
             <artifactId>reflectasm</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
         </dependency>
 
 

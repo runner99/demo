@@ -1,4 +1,4 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
 /* JADX INFO: Access modifiers changed from: package-private */
 /* loaded from: asm-5.1.jar:org/objectweb/asm/Edge.class */

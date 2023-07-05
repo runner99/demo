@@ -1,9 +1,9 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/ClassReader.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/ClassReader.class */
 public class ClassReader {
     public static final int SKIP_CODE = 1;
     public static final int SKIP_DEBUG = 2;
@@ -231,15 +231,15 @@ public class ClassReader {
         this(a(ClassLoader.getSystemResourceAsStream(new StringBuffer().append(str.replace('.', '/')).append(".class").toString()), true));
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:10:0x002d, code lost:
-        if (r9 >= r8.length) goto L_0x0041;
+    /* JADX WARN: Code restructure failed: missing block: B:10:0x002c, code lost:
+        if (r9 >= r8.length) goto L_0x0040;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:11:0x0030, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:11:0x002f, code lost:
         r0 = new byte[r9];
         java.lang.System.arraycopy(r8, 0, r0, 0, r9);
         r8 = r0;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:16:0x004e, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:16:0x004d, code lost:
         return r8;
      */
     /*
@@ -249,114 +249,114 @@ public class ClassReader {
     private static byte[] a(java.io.InputStream r6, boolean r7) throws java.io.IOException {
         /*
             r0 = r6
-            if (r0 != 0) goto L_0x000f
+            if (r0 != 0) goto L_0x000e
             java.io.IOException r0 = new java.io.IOException
             r1 = r0
             java.lang.String r2 = "Class not found"
             r1.<init>(r2)
             throw r0
-        L_0x000f:
+        L_0x000e:
             r0 = r6
-            int r0 = r0.available()     // Catch: all -> 0x0096
-            byte[] r0 = new byte[r0]     // Catch: all -> 0x0096
+            int r0 = r0.available()     // Catch: all -> 0x0095
+            byte[] r0 = new byte[r0]     // Catch: all -> 0x0095
             r8 = r0
             r0 = 0
             r9 = r0
-        L_0x0018:
+        L_0x0017:
             r0 = r6
             r1 = r8
             r2 = r9
             r3 = r8
-            int r3 = r3.length     // Catch: all -> 0x0096
+            int r3 = r3.length     // Catch: all -> 0x0095
             r4 = r9
             int r3 = r3 - r4
-            int r0 = r0.read(r1, r2, r3)     // Catch: all -> 0x0096
+            int r0 = r0.read(r1, r2, r3)     // Catch: all -> 0x0095
             r10 = r0
             r0 = r10
             r1 = -1
-            if (r0 != r1) goto L_0x004f
+            if (r0 != r1) goto L_0x004e
             r0 = r9
             r1 = r8
-            int r1 = r1.length     // Catch: all -> 0x0096
-            if (r0 >= r1) goto L_0x0041
+            int r1 = r1.length     // Catch: all -> 0x0095
+            if (r0 >= r1) goto L_0x0040
             r0 = r9
-            byte[] r0 = new byte[r0]     // Catch: all -> 0x0096
+            byte[] r0 = new byte[r0]     // Catch: all -> 0x0095
             r11 = r0
             r0 = r8
             r1 = 0
             r2 = r11
             r3 = 0
             r4 = r9
-            java.lang.System.arraycopy(r0, r1, r2, r3, r4)     // Catch: all -> 0x0096
+            java.lang.System.arraycopy(r0, r1, r2, r3, r4)     // Catch: all -> 0x0095
             r0 = r11
             r8 = r0
-        L_0x0041:
+        L_0x0040:
             r0 = r8
             r11 = r0
             r0 = r7
-            if (r0 == 0) goto L_0x004c
+            if (r0 == 0) goto L_0x004b
             r0 = r6
             r0.close()
-        L_0x004c:
+        L_0x004b:
             r0 = r11
             return r0
-        L_0x004f:
+        L_0x004e:
             r0 = r9
             r1 = r10
             int r0 = r0 + r1
             r9 = r0
             r0 = r9
             r1 = r8
-            int r1 = r1.length     // Catch: all -> 0x0096
-            if (r0 != r1) goto L_0x0093
+            int r1 = r1.length     // Catch: all -> 0x0095
+            if (r0 != r1) goto L_0x0092
             r0 = r6
-            int r0 = r0.read()     // Catch: all -> 0x0096
+            int r0 = r0.read()     // Catch: all -> 0x0095
             r11 = r0
             r0 = r11
-            if (r0 >= 0) goto L_0x0073
+            if (r0 >= 0) goto L_0x0072
             r0 = r8
             r12 = r0
             r0 = r7
-            if (r0 == 0) goto L_0x0070
+            if (r0 == 0) goto L_0x006f
             r0 = r6
             r0.close()
-        L_0x0070:
+        L_0x006f:
             r0 = r12
             return r0
-        L_0x0073:
+        L_0x0072:
             r0 = r8
-            int r0 = r0.length     // Catch: all -> 0x0096
+            int r0 = r0.length     // Catch: all -> 0x0095
             r1 = 1000(0x3e8, float:1.401E-42)
             int r0 = r0 + r1
-            byte[] r0 = new byte[r0]     // Catch: all -> 0x0096
+            byte[] r0 = new byte[r0]     // Catch: all -> 0x0095
             r12 = r0
             r0 = r8
             r1 = 0
             r2 = r12
             r3 = 0
             r4 = r9
-            java.lang.System.arraycopy(r0, r1, r2, r3, r4)     // Catch: all -> 0x0096
+            java.lang.System.arraycopy(r0, r1, r2, r3, r4)     // Catch: all -> 0x0095
             r0 = r12
             r1 = r9
             int r9 = r9 + 1
             r2 = r11
-            byte r2 = (byte) r2     // Catch: all -> 0x0096
-            r0[r1] = r2     // Catch: all -> 0x0096
+            byte r2 = (byte) r2     // Catch: all -> 0x0095
+            r0[r1] = r2     // Catch: all -> 0x0095
             r0 = r12
             r8 = r0
-        L_0x0093:
-            goto L_0x0018
-        L_0x0096:
+        L_0x0092:
+            goto L_0x0017
+        L_0x0095:
             r13 = move-exception
             r0 = r7
-            if (r0 == 0) goto L_0x00a0
+            if (r0 == 0) goto L_0x009f
             r0 = r6
             r0.close()
-        L_0x00a0:
+        L_0x009f:
             r0 = r13
             throw r0
         */
-        throw new UnsupportedOperationException("Method not decompiled: org.objectweb.asm.ClassReader.a(java.io.InputStream, boolean):byte[]");
+        throw new UnsupportedOperationException("Method not decompiled: com.esotericsoftware.asm.ClassReader.a(java.io.InputStream, boolean):byte[]");
     }
 
     public void accept(ClassVisitor classVisitor, int i) {
@@ -1798,7 +1798,7 @@ public class ClassReader {
     }
 
     /*  JADX ERROR: Method load error
-        jadx.core.utils.exceptions.DecodeException: Load method exception: JavaClassParseException: Unknown opcode: 0x5e in method: org.objectweb.asm.ClassReader.readConst(int, char[]):java.lang.Object, file: asm-5.1.jar:org/objectweb/asm/ClassReader.class
+        jadx.core.utils.exceptions.DecodeException: Load method exception: JavaClassParseException: Unknown opcode: 0x5e in method: com.esotericsoftware.asm.ClassReader.readConst(int, char[]):java.lang.Object, file: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/ClassReader.class
         	at jadx.core.dex.nodes.MethodNode.load(MethodNode.java:157)
         	at jadx.core.dex.nodes.ClassNode.load(ClassNode.java:359)
         	at jadx.core.ProcessClass.process(ProcessClass.java:62)
@@ -1813,8 +1813,8 @@ public class ClassReader {
         */
     public java.lang.Object readConst(int r1, char[] r2) {
         /*
-        // Can't load method instructions: Load method exception: JavaClassParseException: Unknown opcode: 0x5e in method: org.objectweb.asm.ClassReader.readConst(int, char[]):java.lang.Object, file: asm-5.1.jar:org/objectweb/asm/ClassReader.class
+        // Can't load method instructions: Load method exception: JavaClassParseException: Unknown opcode: 0x5e in method: com.esotericsoftware.asm.ClassReader.readConst(int, char[]):java.lang.Object, file: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/ClassReader.class
         */
-        throw new UnsupportedOperationException("Method not decompiled: org.objectweb.asm.ClassReader.readConst(int, char[]):java.lang.Object");
+        throw new UnsupportedOperationException("Method not decompiled: com.esotericsoftware.asm.ClassReader.readConst(int, char[]):java.lang.Object");
     }
 }

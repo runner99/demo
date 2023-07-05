@@ -1,6 +1,6 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/Label.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/Label.class */
 public class Label {
     public Object info;
     int a;
@@ -132,7 +132,7 @@ public class Label {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public void b(org.objectweb.asm.Label r6, long r7, int r9) {
+    public void b(com.esotericsoftware.asm.Label r6, long r7, int r9) {
         /*
             r5 = this;
             r0 = r5
@@ -143,7 +143,7 @@ public class Label {
             r0 = r10
             r11 = r0
             r0 = r11
-            org.objectweb.asm.Label r0 = r0.k
+            com.esotericsoftware.asm.Label r0 = r0.k
             r10 = r0
             r0 = r11
             r1 = 0
@@ -172,7 +172,7 @@ public class Label {
             r1 = r6
             boolean r0 = r0.a(r1)
             if (r0 != 0) goto L_0x0095
-            org.objectweb.asm.Edge r0 = new org.objectweb.asm.Edge
+            com.esotericsoftware.asm.Edge r0 = new com.esotericsoftware.asm.Edge
             r1 = r0
             r1.<init>()
             r12 = r0
@@ -182,12 +182,12 @@ public class Label {
             r0.a = r1
             r0 = r12
             r1 = r6
-            org.objectweb.asm.Edge r1 = r1.j
-            org.objectweb.asm.Label r1 = r1.b
+            com.esotericsoftware.asm.Edge r1 = r1.j
+            com.esotericsoftware.asm.Label r1 = r1.b
             r0.b = r1
             r0 = r12
             r1 = r11
-            org.objectweb.asm.Edge r1 = r1.j
+            com.esotericsoftware.asm.Edge r1 = r1.j
             r0.c = r1
             r0 = r11
             r1 = r12
@@ -206,7 +206,7 @@ public class Label {
             r0.a(r1, r2)
         L_0x0095:
             r0 = r11
-            org.objectweb.asm.Edge r0 = r0.j
+            com.esotericsoftware.asm.Edge r0 = r0.j
             r12 = r0
         L_0x009c:
             r0 = r12
@@ -218,24 +218,24 @@ public class Label {
             if (r0 == 0) goto L_0x00ba
             r0 = r12
             r1 = r11
-            org.objectweb.asm.Edge r1 = r1.j
-            org.objectweb.asm.Edge r1 = r1.c
+            com.esotericsoftware.asm.Edge r1 = r1.j
+            com.esotericsoftware.asm.Edge r1 = r1.c
             if (r0 == r1) goto L_0x00d6
         L_0x00ba:
             r0 = r12
-            org.objectweb.asm.Label r0 = r0.b
-            org.objectweb.asm.Label r0 = r0.k
+            com.esotericsoftware.asm.Label r0 = r0.b
+            com.esotericsoftware.asm.Label r0 = r0.k
             if (r0 != 0) goto L_0x00d6
             r0 = r12
-            org.objectweb.asm.Label r0 = r0.b
+            com.esotericsoftware.asm.Label r0 = r0.b
             r1 = r10
             r0.k = r1
             r0 = r12
-            org.objectweb.asm.Label r0 = r0.b
+            com.esotericsoftware.asm.Label r0 = r0.b
             r10 = r0
         L_0x00d6:
             r0 = r12
-            org.objectweb.asm.Edge r0 = r0.c
+            com.esotericsoftware.asm.Edge r0 = r0.c
             r12 = r0
             goto L_0x009c
         L_0x00e0:
@@ -243,7 +243,7 @@ public class Label {
         L_0x00e3:
             return
         */
-        throw new UnsupportedOperationException("Method not decompiled: org.objectweb.asm.Label.b(org.objectweb.asm.Label, long, int):void");
+        throw new UnsupportedOperationException("Method not decompiled: com.esotericsoftware.asm.Label.b(com.esotericsoftware.asm.Label, long, int):void");
     }
 
     public String toString() {

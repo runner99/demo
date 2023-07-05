@@ -1,9 +1,9 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
-import org.objectweb.asm.signature.SignatureVisitor;
+import com.esotericsoftware.asm.signature.SignatureVisitor;
 
 /* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: asm-5.1.jar:org/objectweb/asm/Frame.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/Frame.class */
 public final class Frame {
     static final int[] a;
     Label b;

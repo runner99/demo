@@ -1,7 +1,8 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/Item.class */
-final class Item {
+/* JADX INFO: Access modifiers changed from: package-private */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/Item.class */
+public final class Item {
     int a;
     int b;
     int c;

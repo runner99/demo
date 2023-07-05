@@ -1,6 +1,6 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/AnnotationVisitor.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/AnnotationVisitor.class */
 public abstract class AnnotationVisitor {
     protected final int api;
     protected AnnotationVisitor av;

@@ -1,7 +1,8 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/FieldWriter.class */
-final class FieldWriter extends FieldVisitor {
+/* JADX INFO: Access modifiers changed from: package-private */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/FieldWriter.class */
+public final class FieldWriter extends FieldVisitor {
     private final ClassWriter b;
     private final int c;
     private final int d;
@@ -35,7 +36,7 @@ final class FieldWriter extends FieldVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.FieldVisitor
+    @Override // com.esotericsoftware.asm.FieldVisitor
     public AnnotationVisitor visitAnnotation(String str, boolean z) {
         ByteVector byteVector = new ByteVector();
         byteVector.putShort(this.b.newUTF8(str)).putShort(0);
@@ -50,7 +51,7 @@ final class FieldWriter extends FieldVisitor {
         return annotationWriter;
     }
 
-    @Override // org.objectweb.asm.FieldVisitor
+    @Override // com.esotericsoftware.asm.FieldVisitor
     public AnnotationVisitor visitTypeAnnotation(int i, TypePath typePath, String str, boolean z) {
         ByteVector byteVector = new ByteVector();
         AnnotationWriter.a(i, typePath, byteVector);
@@ -66,13 +67,13 @@ final class FieldWriter extends FieldVisitor {
         return annotationWriter;
     }
 
-    @Override // org.objectweb.asm.FieldVisitor
+    @Override // com.esotericsoftware.asm.FieldVisitor
     public void visitAttribute(Attribute attribute) {
         attribute.a = this.j;
         this.j = attribute;
     }
 
-    @Override // org.objectweb.asm.FieldVisitor
+    @Override // com.esotericsoftware.asm.FieldVisitor
     public void visitEnd() {
     }
 

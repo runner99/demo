@@ -1,6 +1,6 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/TypePath.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/TypePath.class */
 public class TypePath {
     public static final int ARRAY_ELEMENT = 0;
     public static final int INNER_TYPE = 1;

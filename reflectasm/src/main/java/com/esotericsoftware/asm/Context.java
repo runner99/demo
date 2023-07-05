@@ -1,7 +1,7 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
 /* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: asm-5.1.jar:org/objectweb/asm/Context.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/Context.class */
 public class Context {
     Attribute[] a;
     int b;

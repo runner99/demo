@@ -1,7 +1,7 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
 /* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: asm-5.1.jar:org/objectweb/asm/MethodWriter.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/MethodWriter.class */
 public class MethodWriter extends MethodVisitor {
     final ClassWriter b;
     private int c;
@@ -92,7 +92,7 @@ public class MethodWriter extends MethodVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitParameter(String str, int i) {
         if (this.$ == null) {
             this.$ = new ByteVector();
@@ -101,13 +101,13 @@ public class MethodWriter extends MethodVisitor {
         this.$.putShort(str == null ? 0 : this.b.newUTF8(str)).putShort(i);
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public AnnotationVisitor visitAnnotationDefault() {
         this.l = new ByteVector();
         return new AnnotationWriter(this.b, false, this.l, null, 0);
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public AnnotationVisitor visitAnnotation(String str, boolean z) {
         ByteVector byteVector = new ByteVector();
         byteVector.putShort(this.b.newUTF8(str)).putShort(0);
@@ -122,7 +122,7 @@ public class MethodWriter extends MethodVisitor {
         return annotationWriter;
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public AnnotationVisitor visitTypeAnnotation(int i, TypePath typePath, String str, boolean z) {
         ByteVector byteVector = new ByteVector();
         AnnotationWriter.a(i, typePath, byteVector);
@@ -138,7 +138,7 @@ public class MethodWriter extends MethodVisitor {
         return annotationWriter;
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public AnnotationVisitor visitParameterAnnotation(int i, String str, boolean z) {
         ByteVector byteVector = new ByteVector();
         if ("Ljava/lang/Synthetic;".equals(str)) {
@@ -163,7 +163,7 @@ public class MethodWriter extends MethodVisitor {
         return annotationWriter;
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitAttribute(Attribute attribute) {
         if (attribute.isCodeAttribute()) {
             attribute.a = this.J;
@@ -174,11 +174,11 @@ public class MethodWriter extends MethodVisitor {
         this.q = attribute;
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitCode() {
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitFrame(int i, int i2, Object[] objArr, int i3, Object[] objArr2) {
         int i4;
         if (this.M != 0) {
@@ -274,7 +274,7 @@ public class MethodWriter extends MethodVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitInsn(int i) {
         this.Y = this.r.b;
         this.r.putByte(i);
@@ -294,7 +294,7 @@ public class MethodWriter extends MethodVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitIntInsn(int i, int i2) {
         this.Y = this.r.b;
         if (this.P != null) {
@@ -315,7 +315,7 @@ public class MethodWriter extends MethodVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitVarInsn(int i, int i2) {
         this.Y = this.r.b;
         if (this.P != null) {
@@ -351,7 +351,7 @@ public class MethodWriter extends MethodVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitTypeInsn(int i, String str) {
         this.Y = this.r.b;
         Item a = this.b.a(str);
@@ -369,7 +369,7 @@ public class MethodWriter extends MethodVisitor {
         this.r.b(i, a.a);
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitFieldInsn(int i, String str, String str2, String str3) {
         int i2;
         this.Y = this.r.b;
@@ -402,7 +402,7 @@ public class MethodWriter extends MethodVisitor {
         this.r.b(i, a.a);
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitMethodInsn(int i, String str, String str2, String str3, boolean z) {
         this.Y = this.r.b;
         Item a = this.b.a(str, str2, str3, z);
@@ -433,7 +433,7 @@ public class MethodWriter extends MethodVisitor {
         this.r.b(i, a.a);
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitInvokeDynamicInsn(String str, String str2, Handle handle, Object... objArr) {
         this.Y = this.r.b;
         Item a = this.b.a(str, str2, handle, objArr);
@@ -457,7 +457,7 @@ public class MethodWriter extends MethodVisitor {
         this.r.putShort(0);
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitJumpInsn(int i, Label label) {
         this.Y = this.r.b;
         Label label2 = null;
@@ -510,7 +510,7 @@ public class MethodWriter extends MethodVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitLabel(Label label) {
         this.K |= label.a(this, this.r.b, this.r.a);
         if ((label.a & 1) == 0) {
@@ -554,7 +554,7 @@ public class MethodWriter extends MethodVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitLdcInsn(Object obj) {
         this.Y = this.r.b;
         Item a = this.b.a(obj);
@@ -579,7 +579,7 @@ public class MethodWriter extends MethodVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitIincInsn(int i, int i2) {
         int i3;
         this.Y = this.r.b;
@@ -596,7 +596,7 @@ public class MethodWriter extends MethodVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitTableSwitchInsn(int i, int i2, Label label, Label... labelArr) {
         this.Y = this.r.b;
         int i3 = this.r.b;
@@ -610,7 +610,7 @@ public class MethodWriter extends MethodVisitor {
         a(label, labelArr);
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitLookupSwitchInsn(Label label, int[] iArr, Label[] labelArr) {
         this.Y = this.r.b;
         int i = this.r.b;
@@ -646,7 +646,7 @@ public class MethodWriter extends MethodVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitMultiANewArrayInsn(String str, int i) {
         this.Y = this.r.b;
         Item a = this.b.a(str);
@@ -660,7 +660,7 @@ public class MethodWriter extends MethodVisitor {
         this.r.b(Opcodes.MULTIANEWARRAY, a.a).putByte(i);
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public AnnotationVisitor visitInsnAnnotation(int i, TypePath typePath, String str, boolean z) {
         ByteVector byteVector = new ByteVector();
         AnnotationWriter.a((i & -16776961) | (this.Y << 8), typePath, byteVector);
@@ -676,7 +676,7 @@ public class MethodWriter extends MethodVisitor {
         return annotationWriter;
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitTryCatchBlock(Label label, Label label2, Label label3, String str) {
         this.A++;
         Handler handler = new Handler();
@@ -693,7 +693,7 @@ public class MethodWriter extends MethodVisitor {
         this.C = handler;
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public AnnotationVisitor visitTryCatchAnnotation(int i, TypePath typePath, String str, boolean z) {
         ByteVector byteVector = new ByteVector();
         AnnotationWriter.a(i, typePath, byteVector);
@@ -709,7 +709,7 @@ public class MethodWriter extends MethodVisitor {
         return annotationWriter;
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitLocalVariable(String str, String str2, String str3, Label label, Label label2, int i) {
         if (str3 != null) {
             if (this.G == null) {
@@ -732,7 +732,7 @@ public class MethodWriter extends MethodVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public AnnotationVisitor visitLocalVariableAnnotation(int i, TypePath typePath, Label[] labelArr, Label[] labelArr2, int[] iArr, String str, boolean z) {
         ByteVector byteVector = new ByteVector();
         byteVector.putByte(i >>> 24).putShort(labelArr.length);
@@ -756,7 +756,7 @@ public class MethodWriter extends MethodVisitor {
         return annotationWriter;
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitLineNumber(int i, Label label) {
         if (this.I == null) {
             this.I = new ByteVector();
@@ -766,7 +766,7 @@ public class MethodWriter extends MethodVisitor {
         this.I.putShort(i);
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitMaxs(int i, int i2) {
         if (this.K) {
             d();
@@ -905,7 +905,7 @@ public class MethodWriter extends MethodVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.MethodVisitor
+    @Override // com.esotericsoftware.asm.MethodVisitor
     public void visitEnd() {
     }
 

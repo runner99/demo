@@ -1,6 +1,6 @@
-package org.objectweb.asm.signature;
+package com.esotericsoftware.asm.signature;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/signature/SignatureVisitor.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/signature/SignatureVisitor.class */
 public abstract class SignatureVisitor {
     public static final char EXTENDS = '+';
     public static final char SUPER = '-';

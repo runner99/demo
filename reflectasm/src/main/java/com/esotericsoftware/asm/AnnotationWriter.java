@@ -1,7 +1,8 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/AnnotationWriter.class */
-final class AnnotationWriter extends AnnotationVisitor {
+/* JADX INFO: Access modifiers changed from: package-private */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/AnnotationWriter.class */
+public final class AnnotationWriter extends AnnotationVisitor {
     private final ClassWriter a;
     private int b;
     private final boolean c;
@@ -21,7 +22,7 @@ final class AnnotationWriter extends AnnotationVisitor {
         this.f = i;
     }
 
-    @Override // org.objectweb.asm.AnnotationVisitor
+    @Override // com.esotericsoftware.asm.AnnotationVisitor
     public void visit(String str, Object obj) {
         this.b++;
         if (this.c) {
@@ -93,7 +94,7 @@ final class AnnotationWriter extends AnnotationVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.AnnotationVisitor
+    @Override // com.esotericsoftware.asm.AnnotationVisitor
     public void visitEnum(String str, String str2, String str3) {
         this.b++;
         if (this.c) {
@@ -102,7 +103,7 @@ final class AnnotationWriter extends AnnotationVisitor {
         this.d.b(Opcodes.LSUB, this.a.newUTF8(str2)).putShort(this.a.newUTF8(str3));
     }
 
-    @Override // org.objectweb.asm.AnnotationVisitor
+    @Override // com.esotericsoftware.asm.AnnotationVisitor
     public AnnotationVisitor visitAnnotation(String str, String str2) {
         this.b++;
         if (this.c) {
@@ -112,7 +113,7 @@ final class AnnotationWriter extends AnnotationVisitor {
         return new AnnotationWriter(this.a, true, this.d, this.d, this.d.b - 2);
     }
 
-    @Override // org.objectweb.asm.AnnotationVisitor
+    @Override // com.esotericsoftware.asm.AnnotationVisitor
     public AnnotationVisitor visitArray(String str) {
         this.b++;
         if (this.c) {
@@ -122,7 +123,7 @@ final class AnnotationWriter extends AnnotationVisitor {
         return new AnnotationWriter(this.a, false, this.d, this.d, this.d.b - 2);
     }
 
-    @Override // org.objectweb.asm.AnnotationVisitor
+    @Override // com.esotericsoftware.asm.AnnotationVisitor
     public void visitEnd() {
         if (this.e != null) {
             byte[] bArr = this.e.a;

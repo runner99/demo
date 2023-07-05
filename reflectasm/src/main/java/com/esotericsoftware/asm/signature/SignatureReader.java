@@ -1,9 +1,9 @@
-package org.objectweb.asm.signature;
+package com.esotericsoftware.asm.signature;
 
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.TypeReference;
+import com.esotericsoftware.asm.Opcodes;
+import com.esotericsoftware.asm.TypeReference;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/signature/SignatureReader.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/signature/SignatureReader.class */
 public class SignatureReader {
     private final String a;
 

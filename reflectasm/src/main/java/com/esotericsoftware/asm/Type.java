@@ -1,9 +1,9 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/Type.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/Type.class */
 public class Type {
     public static final int VOID = 0;
     public static final int BOOLEAN = 1;

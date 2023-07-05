@@ -1,6 +1,6 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/ClassWriter.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/ClassWriter.class */
 public class ClassWriter extends ClassVisitor {
     public static final int COMPUTE_MAXS = 1;
     public static final int COMPUTE_FRAMES = 2;
@@ -65,7 +65,7 @@ public class ClassWriter extends ClassVisitor {
         this.M = classReader;
     }
 
-    @Override // org.objectweb.asm.ClassVisitor
+    @Override // com.esotericsoftware.asm.ClassVisitor
     public final void visit(int i, int i2, String str, String str2, String str3, String[] strArr) {
         this.b = i;
         this.k = i2;
@@ -84,7 +84,7 @@ public class ClassWriter extends ClassVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.ClassVisitor
+    @Override // com.esotericsoftware.asm.ClassVisitor
     public final void visitSource(String str, String str2) {
         if (str != null) {
             this.q = newUTF8(str);
@@ -94,7 +94,7 @@ public class ClassWriter extends ClassVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.ClassVisitor
+    @Override // com.esotericsoftware.asm.ClassVisitor
     public final void visitOuterClass(String str, String str2, String str3) {
         this.s = newClass(str);
         if (str2 != null && str3 != null) {
@@ -102,7 +102,7 @@ public class ClassWriter extends ClassVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.ClassVisitor
+    @Override // com.esotericsoftware.asm.ClassVisitor
     public final AnnotationVisitor visitAnnotation(String str, boolean z) {
         ByteVector byteVector = new ByteVector();
         byteVector.putShort(newUTF8(str)).putShort(0);
@@ -117,7 +117,7 @@ public class ClassWriter extends ClassVisitor {
         return annotationWriter;
     }
 
-    @Override // org.objectweb.asm.ClassVisitor
+    @Override // com.esotericsoftware.asm.ClassVisitor
     public final AnnotationVisitor visitTypeAnnotation(int i, TypePath typePath, String str, boolean z) {
         ByteVector byteVector = new ByteVector();
         AnnotationWriter.a(i, typePath, byteVector);
@@ -133,13 +133,13 @@ public class ClassWriter extends ClassVisitor {
         return annotationWriter;
     }
 
-    @Override // org.objectweb.asm.ClassVisitor
+    @Override // com.esotericsoftware.asm.ClassVisitor
     public final void visitAttribute(Attribute attribute) {
         attribute.a = this.w;
         this.w = attribute;
     }
 
-    @Override // org.objectweb.asm.ClassVisitor
+    @Override // com.esotericsoftware.asm.ClassVisitor
     public final void visitInnerClass(String str, String str2, String str3, int i) {
         if (this.y == null) {
             this.y = new ByteVector();
@@ -155,17 +155,17 @@ public class ClassWriter extends ClassVisitor {
         }
     }
 
-    @Override // org.objectweb.asm.ClassVisitor
+    @Override // com.esotericsoftware.asm.ClassVisitor
     public final FieldVisitor visitField(int i, String str, String str2, String str3, Object obj) {
         return new FieldWriter(this, i, str, str2, str3, obj);
     }
 
-    @Override // org.objectweb.asm.ClassVisitor
+    @Override // com.esotericsoftware.asm.ClassVisitor
     public final MethodVisitor visitMethod(int i, String str, String str2, String str3, String[] strArr) {
         return new MethodWriter(this, i, str, str2, str3, strArr, this.K, this.J);
     }
 
-    @Override // org.objectweb.asm.ClassVisitor
+    @Override // com.esotericsoftware.asm.ClassVisitor
     public final void visitEnd() {
     }
 

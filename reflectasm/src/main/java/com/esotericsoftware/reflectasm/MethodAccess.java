@@ -1,306 +1,278 @@
-/**
- * Copyright (c) 2008, Nathan Sweet
- *  All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
- *
- *  1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
- *  2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
- *  3. Neither the name of Esoteric Software nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- */
-
 package com.esotericsoftware.reflectasm;
 
-import static org.objectweb.asm.Opcodes.*;
-
+import com.esotericsoftware.asm.ClassWriter;
+import com.esotericsoftware.asm.Label;
+import com.esotericsoftware.asm.MethodVisitor;
+import com.esotericsoftware.asm.Opcodes;
+import com.esotericsoftware.asm.Type;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/reflectasm/MethodAccess.class */
 public abstract class MethodAccess {
 	private String[] methodNames;
 	private Class[][] parameterTypes;
 	private Class[] returnTypes;
 
-	abstract public Object invoke (Object object, int methodIndex, Object... args);
+	public abstract Object invoke(Object obj, int i, Object... objArr);
 
-	/** Invokes the method with the specified name and the specified param types. */
-	public Object invoke (Object object, String methodName, Class[] paramTypes, Object... args) {
-		return invoke(object, getIndex(methodName, paramTypes), args);
+	public Object invoke(Object obj, String str, Class[] clsArr, Object... objArr) {
+		return invoke(obj, getIndex(str, clsArr), objArr);
 	}
 
-	/** Invokes the first method with the specified name and the specified number of arguments. */
-	public Object invoke (Object object, String methodName, Object... args) {
-		return invoke(object, getIndex(methodName, args == null ? 0 : args.length), args);
+	public Object invoke(Object obj, String str, Object... objArr) {
+		return invoke(obj, getIndex(str, objArr == null ? 0 : objArr.length), objArr);
 	}
 
-	/** Returns the index of the first method with the specified name. */
-	public int getIndex (String methodName) {
-		for (int i = 0, n = methodNames.length; i < n; i++)
-			if (methodNames[i].equals(methodName)) return i;
-		throw new IllegalArgumentException("Unable to find non-private method: " + methodName);
-	}
-
-	/** Returns the index of the first method with the specified name and param types. */
-	public int getIndex (String methodName, Class... paramTypes) {
-		for (int i = 0, n = methodNames.length; i < n; i++)
-			if (methodNames[i].equals(methodName) && Arrays.equals(paramTypes, parameterTypes[i])) return i;
-		throw new IllegalArgumentException("Unable to find non-private method: " + methodName + " " + Arrays.toString(paramTypes));
-	}
-
-	/** Returns the index of the first method with the specified name and the specified number of arguments. */
-	public int getIndex (String methodName, int paramsCount) {
-		for (int i = 0, n = methodNames.length; i < n; i++)
-			if (methodNames[i].equals(methodName) && parameterTypes[i].length == paramsCount) return i;
-		throw new IllegalArgumentException(
-			"Unable to find non-private method: " + methodName + " with " + paramsCount + " params.");
-	}
-
-	public String[] getMethodNames () {
-		return methodNames;
-	}
-
-	public Class[][] getParameterTypes () {
-		return parameterTypes;
-	}
-
-	public Class[] getReturnTypes () {
-		return returnTypes;
-	}
-
-	/** Creates a new MethodAccess for the specified type.
-	 * @param type Must not be a primitive type, or void. */
-	static public MethodAccess get (Class type) {
-		boolean isInterface = type.isInterface();
-		if (!isInterface && type.getSuperclass() == null && type != Object.class)
-			throw new IllegalArgumentException("The type must not be an interface, a primitive type, or void.");
-
-		ArrayList<Method> methods = new ArrayList<Method>();
-		if (!isInterface) {
-			Class nextClass = type;
-			while (nextClass != Object.class) {
-				addDeclaredMethodsToList(nextClass, methods);
-				nextClass = nextClass.getSuperclass();
+	public int getIndex(String str) {
+		int length = this.methodNames.length;
+		for (int i = 0; i < length; i++) {
+			if (this.methodNames[i].equals(str)) {
+				return i;
 			}
-		} else
-			recursiveAddInterfaceMethodsToList(type, methods);
-
-		int n = methods.size();
-		String[] methodNames = new String[n];
-		Class[][] parameterTypes = new Class[n][];
-		Class[] returnTypes = new Class[n];
-		for (int i = 0; i < n; i++) {
-			Method method = methods.get(i);
-			methodNames[i] = method.getName();
-			parameterTypes[i] = method.getParameterTypes();
-			returnTypes[i] = method.getReturnType();
 		}
+		throw new IllegalArgumentException("Unable to find non-private method: " + str);
+	}
 
-		String className = type.getName();
-		String accessClassName = className + "MethodAccess";
-		if (accessClassName.startsWith("java.")) accessClassName = "reflectasm." + accessClassName;
+	public int getIndex(String str, Class... clsArr) {
+		int length = this.methodNames.length;
+		for (int i = 0; i < length; i++) {
+			if (this.methodNames[i].equals(str) && Arrays.equals(clsArr, this.parameterTypes[i])) {
+				return i;
+			}
+		}
+		throw new IllegalArgumentException("Unable to find non-private method: " + str + " " + Arrays.toString(clsArr));
+	}
 
-		Class accessClass;
-		AccessClassLoader loader = AccessClassLoader.get(type);
-		synchronized (loader) {
-			accessClass = loader.loadAccessClass(accessClassName);
-			if (accessClass == null) {
-				String accessClassNameInternal = accessClassName.replace('.', '/');
-				String classNameInternal = className.replace('.', '/');
+	public int getIndex(String str, int i) {
+		int length = this.methodNames.length;
+		for (int i2 = 0; i2 < length; i2++) {
+			if (this.methodNames[i2].equals(str) && this.parameterTypes[i2].length == i) {
+				return i2;
+			}
+		}
+		throw new IllegalArgumentException("Unable to find non-private method: " + str + " with " + i + " params.");
+	}
 
-				ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
-				MethodVisitor mv;
-				cw.visit(V1_1, ACC_PUBLIC + ACC_SUPER, accessClassNameInternal, null, "com/esotericsoftware/reflectasm/MethodAccess",
-					null);
-				{
-					mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
-					mv.visitCode();
-					mv.visitVarInsn(ALOAD, 0);
-					mv.visitMethodInsn(INVOKESPECIAL, "com/esotericsoftware/reflectasm/MethodAccess", "<init>", "()V");
-					mv.visitInsn(RETURN);
-					mv.visitMaxs(0, 0);
-					mv.visitEnd();
-				}
-				{
-					mv = cw.visitMethod(ACC_PUBLIC + ACC_VARARGS, "invoke",
-						"(Ljava/lang/Object;I[Ljava/lang/Object;)Ljava/lang/Object;", null, null);
-					mv.visitCode();
+	public String[] getMethodNames() {
+		return this.methodNames;
+	}
 
-					if (!methods.isEmpty()) {
-						mv.visitVarInsn(ALOAD, 1);
-						mv.visitTypeInsn(CHECKCAST, classNameInternal);
-						mv.visitVarInsn(ASTORE, 4);
+	public Class[][] getParameterTypes() {
+		return this.parameterTypes;
+	}
 
-						mv.visitVarInsn(ILOAD, 2);
-						Label[] labels = new Label[n];
-						for (int i = 0; i < n; i++)
-							labels[i] = new Label();
-						Label defaultLabel = new Label();
-						mv.visitTableSwitchInsn(0, labels.length - 1, defaultLabel, labels);
+	public Class[] getReturnTypes() {
+		return this.returnTypes;
+	}
 
-						StringBuilder buffer = new StringBuilder(128);
-						for (int i = 0; i < n; i++) {
-							mv.visitLabel(labels[i]);
-							if (i == 0)
-								mv.visitFrame(Opcodes.F_APPEND, 1, new Object[] {classNameInternal}, 0, null);
-							else
-								mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
-							mv.visitVarInsn(ALOAD, 4);
-
-							buffer.setLength(0);
-							buffer.append('(');
-
-							Class[] paramTypes = parameterTypes[i];
-							Class returnType = returnTypes[i];
-							for (int paramIndex = 0; paramIndex < paramTypes.length; paramIndex++) {
-								mv.visitVarInsn(ALOAD, 3);
-								mv.visitIntInsn(BIPUSH, paramIndex);
-								mv.visitInsn(AALOAD);
-								Type paramType = Type.getType(paramTypes[paramIndex]);
-								switch (paramType.getSort()) {
-								case Type.BOOLEAN:
-									mv.visitTypeInsn(CHECKCAST, "java/lang/Boolean");
-									mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Boolean", "booleanValue", "()Z");
-									break;
-								case Type.BYTE:
-									mv.visitTypeInsn(CHECKCAST, "java/lang/Byte");
-									mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Byte", "byteValue", "()B");
-									break;
-								case Type.CHAR:
-									mv.visitTypeInsn(CHECKCAST, "java/lang/Character");
-									mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Character", "charValue", "()C");
-									break;
-								case Type.SHORT:
-									mv.visitTypeInsn(CHECKCAST, "java/lang/Short");
-									mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Short", "shortValue", "()S");
-									break;
-								case Type.INT:
-									mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
-									mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I");
-									break;
-								case Type.FLOAT:
-									mv.visitTypeInsn(CHECKCAST, "java/lang/Float");
-									mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Float", "floatValue", "()F");
-									break;
-								case Type.LONG:
-									mv.visitTypeInsn(CHECKCAST, "java/lang/Long");
-									mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Long", "longValue", "()J");
-									break;
-								case Type.DOUBLE:
-									mv.visitTypeInsn(CHECKCAST, "java/lang/Double");
-									mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D");
-									break;
-								case Type.ARRAY:
-									mv.visitTypeInsn(CHECKCAST, paramType.getDescriptor());
-									break;
-								case Type.OBJECT:
-									mv.visitTypeInsn(CHECKCAST, paramType.getInternalName());
-									break;
-								}
-								buffer.append(paramType.getDescriptor());
-							}
-
-							buffer.append(')');
-							buffer.append(Type.getDescriptor(returnType));
-							int invoke;
-							if (isInterface)
-								invoke = INVOKEINTERFACE;
-							else if (Modifier.isStatic(methods.get(i).getModifiers()))
-								invoke = INVOKESTATIC;
-							else
-								invoke = INVOKEVIRTUAL;
-							mv.visitMethodInsn(invoke, classNameInternal, methodNames[i], buffer.toString());
-
-							switch (Type.getType(returnType).getSort()) {
-							case Type.VOID:
-								mv.visitInsn(ACONST_NULL);
-								break;
-							case Type.BOOLEAN:
-								mv.visitMethodInsn(INVOKESTATIC, "java/lang/Boolean", "valueOf", "(Z)Ljava/lang/Boolean;");
-								break;
-							case Type.BYTE:
-								mv.visitMethodInsn(INVOKESTATIC, "java/lang/Byte", "valueOf", "(B)Ljava/lang/Byte;");
-								break;
-							case Type.CHAR:
-								mv.visitMethodInsn(INVOKESTATIC, "java/lang/Character", "valueOf", "(C)Ljava/lang/Character;");
-								break;
-							case Type.SHORT:
-								mv.visitMethodInsn(INVOKESTATIC, "java/lang/Short", "valueOf", "(S)Ljava/lang/Short;");
-								break;
-							case Type.INT:
-								mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;");
-								break;
-							case Type.FLOAT:
-								mv.visitMethodInsn(INVOKESTATIC, "java/lang/Float", "valueOf", "(F)Ljava/lang/Float;");
-								break;
-							case Type.LONG:
-								mv.visitMethodInsn(INVOKESTATIC, "java/lang/Long", "valueOf", "(J)Ljava/lang/Long;");
-								break;
-							case Type.DOUBLE:
-								mv.visitMethodInsn(INVOKESTATIC, "java/lang/Double", "valueOf", "(D)Ljava/lang/Double;");
-								break;
-							}
-
-							mv.visitInsn(ARETURN);
+	public static MethodAccess get(Class cls) {
+		Class<?> cls2;
+		int i;
+		ArrayList arrayList = new ArrayList();
+		boolean isInterface = cls.isInterface();
+		if (!isInterface) {
+			for (Class cls3 = cls; cls3 != Object.class; cls3 = cls3.getSuperclass()) {
+				addDeclaredMethodsToList(cls3, arrayList);
+			}
+		} else {
+			recursiveAddInterfaceMethodsToList(cls, arrayList);
+		}
+		int size = arrayList.size();
+		String[] strArr = new String[size];
+		Class[][] clsArr = new Class[size];
+		Class[] clsArr2 = new Class[size];
+		for (int i2 = 0; i2 < size; i2++) {
+			Method method = (Method) arrayList.get(i2);
+			strArr[i2] = method.getName();
+			clsArr[i2] = method.getParameterTypes();
+			clsArr2[i2] = method.getReturnType();
+		}
+		String name = cls.getName();
+		String str = name + "MethodAccess";
+		if (str.startsWith("java.")) {
+			str = "reflectasm." + str;
+		}
+		AccessClassLoader accessClassLoader = AccessClassLoader.get(cls);
+		try {
+			cls2 = accessClassLoader.loadClass(str);
+		} catch (ClassNotFoundException e) {
+			synchronized (accessClassLoader) {
+				try {
+					cls2 = accessClassLoader.loadClass(str);
+				} catch (ClassNotFoundException e2) {
+					String replace = str.replace('.', '/');
+					String replace2 = name.replace('.', '/');
+					ClassWriter classWriter = new ClassWriter(1);
+					classWriter.visit(Opcodes.V1_1, 33, replace, null, "com/esotericsoftware/reflectasm/MethodAccess", null);
+					MethodVisitor visitMethod = classWriter.visitMethod(1, "<init>", "()V", null, null);
+					visitMethod.visitCode();
+					visitMethod.visitVarInsn(25, 0);
+					visitMethod.visitMethodInsn(Opcodes.INVOKESPECIAL, "com/esotericsoftware/reflectasm/MethodAccess", "<init>", "()V");
+					visitMethod.visitInsn(Opcodes.RETURN);
+					visitMethod.visitMaxs(0, 0);
+					visitMethod.visitEnd();
+					MethodVisitor visitMethod2 = classWriter.visitMethod(Opcodes.LOR, "invoke", "(Ljava/lang/Object;I[Ljava/lang/Object;)Ljava/lang/Object;", null, null);
+					visitMethod2.visitCode();
+					if (!arrayList.isEmpty()) {
+						visitMethod2.visitVarInsn(25, 1);
+						visitMethod2.visitTypeInsn(Opcodes.CHECKCAST, replace2);
+						visitMethod2.visitVarInsn(58, 4);
+						visitMethod2.visitVarInsn(21, 2);
+						Label[] labelArr = new Label[size];
+						for (int i3 = 0; i3 < size; i3++) {
+							labelArr[i3] = new Label();
 						}
-
-						mv.visitLabel(defaultLabel);
-						mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+						Label label = new Label();
+						visitMethod2.visitTableSwitchInsn(0, labelArr.length - 1, label, labelArr);
+						StringBuilder sb = new StringBuilder(128);
+						for (int i4 = 0; i4 < size; i4++) {
+							visitMethod2.visitLabel(labelArr[i4]);
+							if (i4 == 0) {
+								visitMethod2.visitFrame(1, 1, new Object[]{replace2}, 0, null);
+							} else {
+								visitMethod2.visitFrame(3, 0, null, 0, null);
+							}
+							visitMethod2.visitVarInsn(25, 4);
+							sb.setLength(0);
+							sb.append('(');
+							Class[] clsArr3 = clsArr[i4];
+							Class cls4 = clsArr2[i4];
+							for (int i5 = 0; i5 < clsArr3.length; i5++) {
+								visitMethod2.visitVarInsn(25, 3);
+								visitMethod2.visitIntInsn(16, i5);
+								visitMethod2.visitInsn(50);
+								Type type = Type.getType(clsArr3[i5]);
+								switch (type.getSort()) {
+									case 1:
+										visitMethod2.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Boolean");
+										visitMethod2.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Boolean", "booleanValue", "()Z");
+										break;
+									case 2:
+										visitMethod2.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Character");
+										visitMethod2.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Character", "charValue", "()C");
+										break;
+									case 3:
+										visitMethod2.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Byte");
+										visitMethod2.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Byte", "byteValue", "()B");
+										break;
+									case 4:
+										visitMethod2.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Short");
+										visitMethod2.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Short", "shortValue", "()S");
+										break;
+									case 5:
+										visitMethod2.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Integer");
+										visitMethod2.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I");
+										break;
+									case 6:
+										visitMethod2.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Float");
+										visitMethod2.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Float", "floatValue", "()F");
+										break;
+									case 7:
+										visitMethod2.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Long");
+										visitMethod2.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Long", "longValue", "()J");
+										break;
+									case 8:
+										visitMethod2.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Double");
+										visitMethod2.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D");
+										break;
+									case 9:
+										visitMethod2.visitTypeInsn(Opcodes.CHECKCAST, type.getDescriptor());
+										break;
+									case 10:
+										visitMethod2.visitTypeInsn(Opcodes.CHECKCAST, type.getInternalName());
+										break;
+								}
+								sb.append(type.getDescriptor());
+							}
+							sb.append(')');
+							sb.append(Type.getDescriptor(cls4));
+							if (isInterface) {
+								i = 185;
+							} else if (Modifier.isStatic(((Method) arrayList.get(i4)).getModifiers())) {
+								i = 184;
+							} else {
+								i = 182;
+							}
+							visitMethod2.visitMethodInsn(i, replace2, strArr[i4], sb.toString());
+							switch (Type.getType(cls4).getSort()) {
+								case 0:
+									visitMethod2.visitInsn(1);
+									break;
+								case 1:
+									visitMethod2.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Boolean", "valueOf", "(Z)Ljava/lang/Boolean;");
+									break;
+								case 2:
+									visitMethod2.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Character", "valueOf", "(C)Ljava/lang/Character;");
+									break;
+								case 3:
+									visitMethod2.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Byte", "valueOf", "(B)Ljava/lang/Byte;");
+									break;
+								case 4:
+									visitMethod2.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Short", "valueOf", "(S)Ljava/lang/Short;");
+									break;
+								case 5:
+									visitMethod2.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;");
+									break;
+								case 6:
+									visitMethod2.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Float", "valueOf", "(F)Ljava/lang/Float;");
+									break;
+								case 7:
+									visitMethod2.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Long", "valueOf", "(J)Ljava/lang/Long;");
+									break;
+								case 8:
+									visitMethod2.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Double", "valueOf", "(D)Ljava/lang/Double;");
+									break;
+							}
+							visitMethod2.visitInsn(Opcodes.ARETURN);
+						}
+						visitMethod2.visitLabel(label);
+						visitMethod2.visitFrame(3, 0, null, 0, null);
 					}
-					mv.visitTypeInsn(NEW, "java/lang/IllegalArgumentException");
-					mv.visitInsn(DUP);
-					mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
-					mv.visitInsn(DUP);
-					mv.visitLdcInsn("Method not found: ");
-					mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "(Ljava/lang/String;)V");
-					mv.visitVarInsn(ILOAD, 2);
-					mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;");
-					mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;");
-					mv.visitMethodInsn(INVOKESPECIAL, "java/lang/IllegalArgumentException", "<init>", "(Ljava/lang/String;)V");
-					mv.visitInsn(ATHROW);
-					mv.visitMaxs(0, 0);
-					mv.visitEnd();
+					visitMethod2.visitTypeInsn(Opcodes.NEW, "java/lang/IllegalArgumentException");
+					visitMethod2.visitInsn(89);
+					visitMethod2.visitTypeInsn(Opcodes.NEW, "java/lang/StringBuilder");
+					visitMethod2.visitInsn(89);
+					visitMethod2.visitLdcInsn("Method not found: ");
+					visitMethod2.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "(Ljava/lang/String;)V");
+					visitMethod2.visitVarInsn(21, 2);
+					visitMethod2.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;");
+					visitMethod2.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;");
+					visitMethod2.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/IllegalArgumentException", "<init>", "(Ljava/lang/String;)V");
+					visitMethod2.visitInsn(Opcodes.ATHROW);
+					visitMethod2.visitMaxs(0, 0);
+					visitMethod2.visitEnd();
+					classWriter.visitEnd();
+					cls2 = accessClassLoader.defineClass(str, classWriter.toByteArray());
 				}
-				cw.visitEnd();
-				byte[] data = cw.toByteArray();
-				accessClass = loader.defineAccessClass(accessClassName, data);
 			}
 		}
 		try {
-			MethodAccess access = (MethodAccess)accessClass.newInstance();
-			access.methodNames = methodNames;
-			access.parameterTypes = parameterTypes;
-			access.returnTypes = returnTypes;
-			return access;
-		} catch (Throwable t) {
-			throw new RuntimeException("Error constructing method access class: " + accessClassName, t);
+			MethodAccess methodAccess = (MethodAccess) cls2.newInstance();
+			methodAccess.methodNames = strArr;
+			methodAccess.parameterTypes = clsArr;
+			methodAccess.returnTypes = clsArr2;
+			return methodAccess;
+		} catch (Throwable th) {
+			throw new RuntimeException("Error constructing method access class: " + str, th);
 		}
 	}
 
-	static private void addDeclaredMethodsToList (Class type, ArrayList<Method> methods) {
-		Method[] declaredMethods = type.getDeclaredMethods();
-		for (int i = 0, n = declaredMethods.length; i < n; i++) {
-			Method method = declaredMethods[i];
-			int modifiers = method.getModifiers();
-			// if (Modifier.isStatic(modifiers)) continue;
-			if (Modifier.isPrivate(modifiers)) continue;
-			methods.add(method);
+	private static void addDeclaredMethodsToList(Class cls, ArrayList<Method> arrayList) {
+		Method[] declaredMethods = cls.getDeclaredMethods();
+		for (Method method : declaredMethods) {
+			if (!Modifier.isPrivate(method.getModifiers())) {
+				arrayList.add(method);
+			}
 		}
 	}
 
-	static private void recursiveAddInterfaceMethodsToList (Class interfaceType, ArrayList<Method> methods) {
-		addDeclaredMethodsToList(interfaceType, methods);
-		for (Class nextInterface : interfaceType.getInterfaces())
-			recursiveAddInterfaceMethodsToList(nextInterface, methods);
+	private static void recursiveAddInterfaceMethodsToList(Class cls, ArrayList<Method> arrayList) {
+		addDeclaredMethodsToList(cls, arrayList);
+		for (Class<?> cls2 : cls.getInterfaces()) {
+			recursiveAddInterfaceMethodsToList(cls2, arrayList);
+		}
 	}
 }

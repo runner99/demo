@@ -1,6 +1,6 @@
-package org.objectweb.asm;
+package com.esotericsoftware.asm;
 
-/* loaded from: asm-5.1.jar:org/objectweb/asm/TypeReference.class */
+/* loaded from: reflectasm-1.11.5-all.jar:com/esotericsoftware/asm/TypeReference.class */
 public class TypeReference {
     public static final int CLASS_TYPE_PARAMETER = 0;
     public static final int METHOD_TYPE_PARAMETER = 1;
