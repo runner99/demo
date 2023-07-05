@@ -246,7 +246,7 @@ public class ClassReader {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private static byte[] a(InputStream r6, boolean r7) throws IOException {
+    private static byte[] a(java.io.InputStream r6, boolean r7) throws java.io.IOException {
         /*
             r0 = r6
             if (r0 != 0) goto L_0x000f
@@ -1811,7 +1811,7 @@ public class ClassReader {
         	at jadx.core.dex.nodes.MethodNode.load(MethodNode.java:147)
         	... 5 more
         */
-    public Object readConst(int r1, char[] r2) {
+    public java.lang.Object readConst(int r1, char[] r2) {
         /*
         // Can't load method instructions: Load method exception: JavaClassParseException: Unknown opcode: 0x5e in method: org.objectweb.asm.ClassReader.readConst(int, char[]):java.lang.Object, file: asm-5.1.jar:org/objectweb/asm/ClassReader.class
         */

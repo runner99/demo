@@ -14,13 +14,13 @@
 
 package com.esotericsoftware.reflectasm;
 
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
+import static org.objectweb.asm.Opcodes.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import static org.objectweb.asm.Opcodes.*;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 
 abstract public class ConstructorAccess<T> {
 	boolean isNonStaticMemberClass;
@@ -89,7 +89,7 @@ abstract public class ConstructorAccess<T> {
 					: "com/esotericsoftware/reflectasm/ConstructorAccess";
 
 				ClassWriter cw = new ClassWriter(0);
-				cw.visit(V1_6, ACC_PUBLIC + ACC_SUPER, accessClassNameInternal, null, superclassNameInternal, null);
+				cw.visit(V1_1, ACC_PUBLIC + ACC_SUPER, accessClassNameInternal, null, superclassNameInternal, null);
 
 				insertConstructor(cw, superclassNameInternal);
 				insertNewInstance(cw, classNameInternal);

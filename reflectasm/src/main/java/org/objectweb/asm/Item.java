@@ -1,8 +1,7 @@
 package org.objectweb.asm;
 
-/* JADX INFO: Access modifiers changed from: package-private */
 /* loaded from: asm-5.1.jar:org/objectweb/asm/Item.class */
-public final class Item {
+final class Item {
     int a;
     int b;
     int c;

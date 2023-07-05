@@ -132,7 +132,7 @@ public class Label {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public void b(Label r6, long r7, int r9) {
+    public void b(org.objectweb.asm.Label r6, long r7, int r9) {
         /*
             r5 = this;
             r0 = r5

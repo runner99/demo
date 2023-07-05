@@ -99,7 +99,7 @@ public class ReflectasmTest {
          * 处理1783843条数据耗时：2385毫秒
          *
          */
-//        int count = asmTestIndexAttr();
+        int count = asmTestIndexAttr();
 
         /**单个属性读取
          * 处理5564163条数据耗时：2472毫秒
@@ -118,7 +118,7 @@ public class ReflectasmTest {
          * 处理1348724条数据耗时：321毫秒
          * 处理1382401条数据耗时：352毫秒
          */
-        int count = getAttr();
+//        int count = getAttr();
 
 
         long end = System.currentTimeMillis();
