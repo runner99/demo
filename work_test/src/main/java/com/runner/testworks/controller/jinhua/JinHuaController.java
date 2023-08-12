@@ -3,6 +3,7 @@ package com.runner.testworks.controller.jinhua;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.fastjson.JSONObject;
 import com.runner.testworks.config.RestTemplateConfig;
 import com.runner.testworks.config.Result;
@@ -291,9 +292,9 @@ public class JinHuaController {
         try {
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setCharacterEncoding("utf-8");
-            String fileName = URLEncoder.encode("测试.xlsx", "UTF-8").replaceAll("\\+", "%20");
+            String fileName = URLEncoder.encode("测试.csv", "UTF-8").replaceAll("\\+", "%20");
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName);
-            EasyExcel.write(response.getOutputStream(), Export01.class).sheet("数据统计").doWrite(list);
+            EasyExcel.write(response.getOutputStream(), Export01.class).excelType(ExcelTypeEnum.CSV).sheet("数据统计").doWrite(list);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -39,6 +39,7 @@ public class ReflectasmDemo {
         long begin = System.currentTimeMillis();
         MethodAccess methodAccess = MethodAccess.get(reflectasm.getClass());
         int index = methodAccess.getIndex("getName");
+
         while (count>0){
             String invoke = (String) methodAccess.invoke(reflectasm, index);
             count--;

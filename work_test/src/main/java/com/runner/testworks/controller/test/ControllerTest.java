@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ControllerTest {
 
     public static void main(String[] args) {
-        User user = new User(12,"jlk");
-        User user1 = new User();
+
     }
 }
