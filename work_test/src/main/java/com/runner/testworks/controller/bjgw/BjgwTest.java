@@ -1,10 +1,16 @@
 package com.runner.testworks.controller.bjgw;
 
 import com.alibaba.fastjson.JSON;
+import com.runner.testworks.controller.bjgw.vo.AssetHot;
 import com.runner.testworks.controller.bjgw.vo.IsolationTop5;
 import com.runner.testworks.controller.bjgw.vo.Result;
+import com.runner.testworks.controller.suzhou.utils.TimeUtils;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author weizhenqiang
@@ -48,15 +54,30 @@ public class BjgwTest {
 //        String jsonString = JSON.toJSONString(Result.ofSuccess(list));
 //        System.out.println(jsonString);
 
-        ArrayList<IsolationTop5> list = new ArrayList<>();
-        for (int i = 1; i < 4; i++) {
-            IsolationTop5 isolationTop5 = new IsolationTop5();
-            isolationTop5.setCount(i+100);
-            isolationTop5.setIp("192.168.21."+i);
-            list.add(isolationTop5);
-        }
-        String jsonString = JSON.toJSONString(Result.ofSuccess(list));
-        System.out.println(jsonString);
+//        ArrayList<IsolationTop5> list = new ArrayList<>();
+//        for (int i = 1; i < 4; i++) {
+//            IsolationTop5 isolationTop5 = new IsolationTop5();
+//            isolationTop5.setCount(i+100);
+//            isolationTop5.setIp("192.168.21."+i);
+//            list.add(isolationTop5);
+//        }
+//        list.stream().forEach(System.out::println);
+//        System.out.println("/////////////////");
+//        List<IsolationTop5> collect = list.stream().filter(obj -> obj.getCount() > 100).collect(Collectors.toList());
+//        collect.stream().forEach(System.out::println);
+
+
+//        System.out.println(System.currentTimeMillis()%TimeUtils.DAY_TIME_STAMP);
+
+        ArrayList<AssetHot> list = new ArrayList<>();
+        list.add(new AssetHot(1,"y",10));
+        list.add(new AssetHot(2,"n",11));
+        list.add(new AssetHot(3,"N",12));
+        list.add(new AssetHot(4,null,13));
+
+        List<AssetHot> collect = list.stream().filter(obj -> !"N".equalsIgnoreCase(obj.getDbName())).collect(Collectors.toList());
+
+        System.out.println(collect);
 
 
     }

@@ -48,4 +48,33 @@ public class ReflectasmEntity {
         this.name09 = name09;
         this.name10 = name10;
     }
+
+
+    public Object getProperty(Object obj, String propertyName) {
+        if (obj instanceof ReflectasmEntity) {
+            ReflectasmEntity reflectasmEntity = (ReflectasmEntity) obj;
+            if ("name01".equals(propertyName)) {
+                return reflectasmEntity.getName01();
+            } else if ("name02".equals(propertyName)) {
+                return reflectasmEntity.getName02();
+            } else if ("name03".equals(propertyName)) {
+                return reflectasmEntity.getName03();
+            } else if ("name04".equals(propertyName)) {
+                return reflectasmEntity.getName04();
+            } else if ("name05".equals(propertyName)) {
+                return reflectasmEntity.getName05();
+            } else if ("name06".equals(propertyName)) {
+                return reflectasmEntity.getName06();
+            } else if ("name07".equals(propertyName)) {
+                return reflectasmEntity.getName07();
+            } else if ("name08".equals(propertyName)) {
+                return reflectasmEntity.getName08();
+            } else if ("name09".equals(propertyName)) {
+                return reflectasmEntity.getName09();
+            } else if ("name10".equals(propertyName)) {
+                return reflectasmEntity.getName10();
+            }
+        }
+        throw new IllegalArgumentException("Invalid object or property name");
+    }
 }

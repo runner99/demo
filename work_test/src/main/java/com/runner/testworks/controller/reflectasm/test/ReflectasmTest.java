@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 public class ReflectasmTest {
 
 
-    private static int ADD_THREAD_SIZE=10;
+    private static int ADD_THREAD_SIZE=3;
 
     private static MethodAccess methodAccess;
 
@@ -61,7 +61,10 @@ public class ReflectasmTest {
             executorService.execute(new AddData());
         }
 
-        Thread.sleep(15000L);
+        Thread.sleep(1000L);
+
+//        ReflectasmEntity reflectasm = new ReflectasmEntity();
+//        reflectasm.getProperty()
 
         long begin = System.nanoTime();
 
@@ -109,7 +112,7 @@ public class ReflectasmTest {
          * 处理2727539条数据耗时：2597726800纳秒，平均每条数据：952纳秒
          *
          */
-        int count = asmTestIndexAttr();
+//        int count = asmTestIndexAttr();
 
         /**单个属性读取
          * 处理5564163条数据耗时：2472毫秒
@@ -141,6 +144,8 @@ public class ReflectasmTest {
 //        int count = getAttr();
 
 
+        int count = staticTest();
+
         long end = System.nanoTime();
 
 
@@ -149,6 +154,59 @@ public class ReflectasmTest {
 
 
 
+    }
+
+
+    public static int staticTest(){
+        int count=0;
+
+        while (true){
+            ReflectasmEntity poll = DataQueue.EVENT_QUEUE.poll();
+            if (poll!=null){
+                String name01 = (String) getProperty(poll, "name01");
+                String name02 = (String) getProperty(poll, "name02");
+                String name03 = (String) getProperty(poll, "name03");
+                String name04 = (String) getProperty(poll, "name04");
+                String name05 = (String) getProperty(poll, "name05");
+                String name06 = (String) getProperty(poll, "name06");
+                String name07 = (String) getProperty(poll, "name07");
+                String name08 = (String) getProperty(poll, "name08");
+                String name09 = (String) getProperty(poll, "name09");
+                String name10 = (String) getProperty(poll, "name10");
+                count++;
+                continue;
+            }
+            break;
+        }
+        return count;
+    }
+
+    public static Object getProperty(Object obj, String propertyName) {
+        if (obj instanceof ReflectasmEntity) {
+            ReflectasmEntity reflectasmEntity = (ReflectasmEntity) obj;
+            if ("name01".equals(propertyName)) {
+                return reflectasmEntity.getName01();
+            } else if ("name02".equals(propertyName)) {
+                return reflectasmEntity.getName02();
+            } else if ("name03".equals(propertyName)) {
+                return reflectasmEntity.getName03();
+            } else if ("name04".equals(propertyName)) {
+                return reflectasmEntity.getName04();
+            } else if ("name05".equals(propertyName)) {
+                return reflectasmEntity.getName05();
+            } else if ("name06".equals(propertyName)) {
+                return reflectasmEntity.getName06();
+            } else if ("name07".equals(propertyName)) {
+                return reflectasmEntity.getName07();
+            } else if ("name08".equals(propertyName)) {
+                return reflectasmEntity.getName08();
+            } else if ("name09".equals(propertyName)) {
+                return reflectasmEntity.getName09();
+            } else if ("name10".equals(propertyName)) {
+                return reflectasmEntity.getName10();
+            }
+        }
+        throw new IllegalArgumentException("Invalid object or property name");
     }
 
 
