@@ -385,7 +385,7 @@ public class BjgwController {
 
     @GetMapping("/remove")
     public Result remove() {
-        List<String> ipList = getIpList();
+        List<String> ipList = getResult();
 
         HashSet<String> set = new HashSet<>();
         ipList.stream().forEach(obj->{
@@ -409,8 +409,36 @@ public class BjgwController {
         }
 
         return Result.ofSuccess("666");
+    }
 
 
+    public static List<String> getResult() {
+        String pathname = "/test/result.txt";
+
+        StringBuffer buffer = new StringBuffer();
+
+        try (FileReader reader = new FileReader(pathname);
+             BufferedReader br = new BufferedReader(reader)
+        ) {
+            String line;
+
+            while ((line = br.readLine()) != null) {
+
+                buffer.append(line);
+
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String> result = new ArrayList<>();
+
+        String[] split = buffer.toString().replaceAll(" ", "").split(",");
+        for (int i = 0; i < split.length; i++) {
+            result.add(split[i].trim());
+        }
+
+        return result;
     }
 
 }
