@@ -3,6 +3,9 @@ package com.runner.testworks.controller.bjgw;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.runner.testworks.controller.bjgw.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -439,6 +442,97 @@ public class BjgwController {
         }
 
         return result;
+    }
+
+
+    @GetMapping("/getIpMapping")
+    public Result getIpMapping() {
+        String json = getIpMappingJson();
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        StringBuffer isolatorsIps = new StringBuffer();
+        List<IsolatorsVo> list = JSONArray.parseArray(jsonObject.getJSONArray("Isolators").toJSONString(), IsolatorsVo.class);
+        list.stream().forEach(obj->{
+            obj.getChilds().stream().forEach(da->{
+                String s = (String) da.get("ip");
+                if (StringUtils.isNotBlank(s)){
+                    isolatorsIps.append("\""+s+"\",");
+                }
+            });
+        });
+
+
+        StringBuffer outAndInner = new StringBuffer();
+
+        jsonObject.getJSONArray("OuterApplication").stream().forEach(obj->{
+            String obj1 = (String) obj;
+            if (StringUtils.isNotBlank(obj1)){
+                outAndInner.append("\""+obj1+"\",");
+            }
+        });
+        jsonObject.getJSONArray("OuterOM").stream().forEach(obj->{
+            String obj1 = (String) obj;
+            if (StringUtils.isNotBlank(obj1)){
+                outAndInner.append("\""+obj1+"\",");
+            }
+        });
+        jsonObject.getJSONArray("InnerApplication").stream().forEach(obj->{
+            String obj1 = (String) obj;
+            if (StringUtils.isNotBlank(obj1)){
+                outAndInner.append("\""+obj1+"\",");
+            }
+        });
+        jsonObject.getJSONArray("InnerOM").stream().forEach(obj->{
+            String obj1 = (String) obj;
+            if (StringUtils.isNotBlank(obj1)){
+                outAndInner.append("\""+obj1+"\",");
+            }
+        });
+
+        String substring = "isolatorsIps:"+isolatorsIps.toString().substring(0, isolatorsIps.toString().length() - 1);
+        System.out.println("isolatorsIps:"+substring);
+
+        String substring1 = "outAndInner:"+outAndInner.toString().substring(0, outAndInner.toString().length() - 1);
+        System.out.println("outAndInner:"+substring1);
+
+
+
+        String result = substring+"\r\n"+substring1;
+        try {
+            FileWriter write = new FileWriter("/test/ipmap.txt");
+            BufferedWriter bw = new BufferedWriter(write);
+            bw.write(result);
+            bw.close();
+            write.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return Result.ofSuccess(666);
+    }
+
+    public static String getIpMappingJson() {
+        String pathname = "/test/ip_mapping.json";
+
+        StringBuffer buffer = new StringBuffer();
+
+        try (FileReader reader = new FileReader(pathname);
+             BufferedReader br = new BufferedReader(reader)
+        ) {
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                buffer.append(line.trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return buffer.toString();
+    }
+
+    public static void main(String[] args) {
+
+
+
     }
 
 }
