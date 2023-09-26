@@ -448,7 +448,6 @@ public class BjgwController {
     @GetMapping("/getIpMapping")
     public Result getIpMapping() {
 
-
         String json = getIpMappingJson();
         JSONObject jsonObject = JSONObject.parseObject(json);
         StringBuffer isolatorsIps = new StringBuffer();
