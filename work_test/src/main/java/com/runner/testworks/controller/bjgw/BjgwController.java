@@ -447,6 +447,8 @@ public class BjgwController {
 
     @GetMapping("/getIpMapping")
     public Result getIpMapping() {
+
+
         String json = getIpMappingJson();
         JSONObject jsonObject = JSONObject.parseObject(json);
         StringBuffer isolatorsIps = new StringBuffer();
@@ -494,7 +496,8 @@ public class BjgwController {
         String substring1 = "outAndInner:"+outAndInner.toString().substring(0, outAndInner.toString().length() - 1);
         System.out.println("outAndInner:"+substring1);
 
-
+        String[] split = outAndInner.toString().split(",");
+        System.out.println("四大部分的ip数量"+split.length);
 
         String result = substring+"\r\n"+substring1;
         try {
@@ -530,8 +533,6 @@ public class BjgwController {
     }
 
     public static void main(String[] args) {
-
-
 
     }
 
