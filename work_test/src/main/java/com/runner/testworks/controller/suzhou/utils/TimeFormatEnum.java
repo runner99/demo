@@ -44,6 +44,10 @@ public enum TimeFormatEnum {
      */
     hourFormat4("HH:mm"),
     /**
+     *年：月：日：时
+     */
+    hourFormat6("yyyyMMdd-HH"),
+    /**
      *时
      */
     hourFormat3("HH")

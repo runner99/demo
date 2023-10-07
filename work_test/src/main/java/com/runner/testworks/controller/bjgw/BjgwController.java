@@ -3,10 +3,11 @@ package com.runner.testworks.controller.bjgw;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.runner.testworks.controller.bjgw.vo.*;
+import com.runner.testworks.controller.suzhou.utils.TimeFormatEnum;
+import com.runner.testworks.controller.suzhou.utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
@@ -17,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.stream.Collectors;
 
 /**
@@ -533,6 +537,32 @@ public class BjgwController {
 
     public static void main(String[] args) {
 
+        String msg="jkl||aa";
+        System.out.println(msg.replaceAll("\\|\\|","hello"));
+
+
+    }
+
+    public static void logToFile(String filename, String content) {
+
+        BufferedWriter bw = null;
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(filename, true);
+            bw = new BufferedWriter(fw);
+            bw.write(content+"\r\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bw != null)
+                    bw.close();
+                if (fw != null)
+                    fw.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 }
