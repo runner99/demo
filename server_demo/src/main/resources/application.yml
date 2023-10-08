@@ -1,0 +1,6 @@
+server:
+  port: 8081
+logging:
+  level:
+    com.runner99.serverDemo: info
+  config: classpath:log4j2-spring.xml
