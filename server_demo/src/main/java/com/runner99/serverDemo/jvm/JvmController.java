@@ -28,6 +28,7 @@ public class JvmController {
     @GetMapping("/oom")
     public void oom(){
         log.info("开始oom");
+        flag=true;
         while (flag){
             list.add(new User(System.nanoTime(),"渣渣辉"+System.nanoTime()));
         }
@@ -36,8 +37,8 @@ public class JvmController {
     @GetMapping("/oomStop")
     public void oomStop(){
         flag=false;
+        log.info("oom结束,list集合中共产生{}个user对象",list.size());
         list.clear();
-        log.info("oom结束");
 
     }
 
