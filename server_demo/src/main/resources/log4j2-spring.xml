@@ -2,7 +2,7 @@
 <Configuration status="off" monitorInterval="30">
     <properties>
         <property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} |-%-5level [%thread] %c [%L] -| %msg%n</property>
-        <property name="LOGDIR">/user/local/app</property>
+        <property name="LOGDIR">/user/local/service/log</property>
     </properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
