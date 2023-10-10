@@ -1,17 +1,20 @@
-package com.runner99;
+package com.runner.testworks.controller.bjgw.kafkaTest;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.serialization.*;
+import org.apache.kafka.common.serialization.ByteArrayDeserializer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.util.Arrays;
 import java.util.Properties;
 
 /**
  * @author weizhenqiang
- * @date 2023/4/9 23:09
+ * @date 2023/10/9 18:14
  */
+@Slf4j
 public class Consumer {
     public static void main(String[] args) {
         Properties props = new Properties();
@@ -25,11 +28,6 @@ public class Consumer {
         props.put("sasl.jaas.config",
                 "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"" + username
                         + "\" password=\"" + passwd + "\";");
-
-//        props.put("enable.auto.commit","true");
-//        props.put("auto.commit.interval.ms","1000");
-//        props.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
-//        props.put("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
 
 
         props.put("bootstrap.servers", "192.168.52.201:9092");
