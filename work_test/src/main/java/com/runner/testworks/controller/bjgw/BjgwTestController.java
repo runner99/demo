@@ -1,6 +1,5 @@
 package com.runner.testworks.controller.bjgw;
 
-import com.runner.testworks.controller.bjgw.vo.AssetHot;
 import com.runner.testworks.controller.suzhou.utils.TimeFormatEnum;
 import com.runner.testworks.controller.suzhou.utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -11,11 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 /**
  * @author weizhenqiang
@@ -56,7 +52,7 @@ public class BjgwTestController {
                         syslog.log(0, msg);
 //                log.info("成功发送消息:{} 碎觉碎觉", msg);
 //                break;
-//                Thread.sleep(1000L);
+                Thread.sleep(10L);
                     }
 
                 } catch (Exception e) {
@@ -72,4 +68,10 @@ public class BjgwTestController {
         flag=false;
         log.info("消息外发关闭");
     }
+
+
+    public static void main(String[] args) {
+
+    }
+
 }
