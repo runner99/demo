@@ -1,6 +1,6 @@
-package com.runner99.reflect;
+package com.runner.reflect;
 
-import com.runner99.pojo.User;
+import com.runner.pojo.User;
 import org.junit.Test;
 
 import java.lang.reflect.Field;

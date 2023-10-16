@@ -27,7 +27,14 @@
 <!--            <version>1.7</version>-->
 <!--        </dependency>-->
 
-<!--       reflectasm框架性能调查-->
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.21</version>
+        </dependency>
+
+        <!--       reflectasm框架性能调查-->
         <dependency>
             <groupId>com.esotericsoftware</groupId>
             <artifactId>reflectasm</artifactId>

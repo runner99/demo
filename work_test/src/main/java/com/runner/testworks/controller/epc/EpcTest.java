@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import javax.print.attribute.standard.Media;
+import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * @author weizhenqiang
@@ -11,17 +12,8 @@ import javax.print.attribute.standard.Media;
  */
 public class EpcTest {
     public static void main(String[] args) {
-        String msg="dev=\"jkl\" dname=\"测试\"";
 
-        msg="{"+msg+"}";
-        System.out.println(msg);
-        msg=msg.replaceAll("=",":");
-        System.out.println(msg);
-        msg=msg.replaceAll(" ",",");
-        System.out.println(msg);
 
-        JSONObject jsonObject = JSONObject.parseObject(msg);
-        System.out.println(jsonObject);
     }
 }
 

@@ -2,9 +2,11 @@ package com.runner.time;
 
 import org.junit.Test;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class TimeTest {
@@ -32,6 +34,17 @@ public class TimeTest {
         String yyyyMMddHHmmss = new SimpleDateFormat("yyyyMMddHHmmss").format(1668064236000L);
 
         System.out.println(yyyyMMddHHmmss);
+    }
+
+    //分别获取日期，
+    @Test
+    public void test04() {
+        LocalDate now = LocalDate.now();
+        System.out.println(now);//2023-10-16
+        LocalTime now2 = LocalTime.now();
+        System.out.println(now2.toString());//15:27:16.278
+        LocalDateTime now1 = LocalDateTime.now();
+        System.out.println(now1);//2023-10-16T15:27:16.278
     }
 
 }

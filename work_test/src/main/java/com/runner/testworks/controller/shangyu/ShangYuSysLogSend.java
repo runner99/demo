@@ -13,7 +13,7 @@ import java.net.URLDecoder;
  */
 @Slf4j
 public class ShangYuSysLogSend {
-    private static final String HOST = "192.168.52.201";
+    private static final String HOST = "192.168.152.142";
     private static final int PORT = 1468;
 
     public static void main(String[] args) {
