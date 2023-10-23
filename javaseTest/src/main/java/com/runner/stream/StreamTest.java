@@ -3,12 +3,10 @@ package com.runner.stream;
 import com.runner.pojo.User;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 /**
@@ -167,5 +165,32 @@ public class StreamTest {
         System.out.println(max.get() == 9);
 
     }
+
+    //list中的对象属性(id,name)转map
+//    统计list中的对象的id 累加和
+//     根据某个字段值升序，降序
+    @Test
+    public void test09() {
+        List<User> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add(new User(i, "渣渣辉" + i + "号"));
+        }
+        //list中的对象属性(id,name)转map
+        Map<Integer, String> map = list.stream().collect(Collectors.toMap(User::getId, User::getName));
+        //    统计list中的对象的id 累加和
+        int sum = list.stream().mapToInt(User::getId).sum();
+        System.out.println(sum);
+        System.out.println(map);
+
+//     根据某个字段值升序，降序(默认是升序)
+        list.sort(Comparator.comparingInt(User::getId).reversed());
+        list.stream().forEach(System.out::println);
+
+        for (int i=0;i<20;i++) {
+            map.computeIfAbsent(i,k->"jkl");
+        }
+        System.out.println(map.toString());
+    }
+
 
 }
