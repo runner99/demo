@@ -1,9 +1,10 @@
 package com.runner99.serverDemo.arthas;
 
+import com.runner99.serverDemo.arthas.testutils.UtilsTest;
+import com.runner99.serverDemo.common.Result;
+import com.runner99.serverDemo.jvm.pojo.User;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
 
@@ -13,26 +14,52 @@ import java.time.LocalTime;
  */
 @Slf4j
 @RestController
-@RequestMapping("/log")
+@RequestMapping("/arthas")
 public class ArthasController {
 
-    public static boolean flag=true;
     @GetMapping("/test01")
-    public void test01(){
-        flag=true;
-        while (flag){
-            System.out.println(LocalTime.now().toString());
-            try {
-                Thread.sleep(1000L);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public Result<String> test01() {
+        log.info("test compile");
+        return Result.ofSuccess(UtilsTest.testString());
+
     }
 
     @GetMapping("/test02")
-    public void test02(){
-        flag=false;
+    public Result<String> test02(@RequestParam(value = "name", required = false) String name) {
+        return Result.ofSuccess(name);
+    }
+
+    @PostMapping("/test03")
+    public Result<User> test03(@RequestBody User user) {
+        return Result.ofSuccess(user);
+    }
+
+    @GetMapping("/test04")
+    public Result<String> test04() {
+        int i = 0;
+        int i1 = 12 / i;
+        return Result.ofFailed("gggg");
+    }
+
+    @GetMapping("/test05")
+    public Result<String> test05() {
+        try {
+            int i = 0;
+            int i1 = 12 / i;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new RuntimeException();
+        }
+
+        return Result.ofFailed("gggg");
+    }
+
+    @GetMapping("/test06")
+    public Result<String> test06() {
+        if (log.isDebugEnabled()){
+            System.out.println("debug");
+        }
+        return Result.ofFailed("gggg");
     }
 
     public static void main(String[] args) {

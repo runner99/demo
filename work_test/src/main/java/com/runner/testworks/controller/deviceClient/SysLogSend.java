@@ -49,7 +49,7 @@ public class SysLogSend {
 
 
                 syslog.log(0, URLDecoder.decode(msg, "utf-8"));
-                log.info("成功发送消息：{} 碎觉碎觉",msg);
+//                log.info("成功发送消息：{} 碎觉碎觉",msg);
 //                break;
 //                Thread.sleep(1000L);
             }

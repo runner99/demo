@@ -1,9 +1,12 @@
 package com.runner99.serverDemo.common;
 
+import lombok.Data;
+
 /**
  * @author weizhenqiang
  * @date 2023/10/10 14:12
  */
+@Data
 public class Result<T> {
     private boolean success;
 
