@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author weizhenqiang
@@ -70,8 +73,29 @@ public class BjgwTestController {
     }
 
 
-    public static void main(String[] args) {
+    @GetMapping("/ssh")
+    public void ssh(){
+        try {
+            Process process = Runtime.getRuntime().exec("capaactl restart svc_report");
+            process.waitFor();
 
+            if (process.exitValue() == 0) {
+                System.out.println("命令执行成功");
+            } else {
+                System.out.println("命令执行失败");
+            }
+        } catch (Exception e ) {
+            log.error(e.getMessage());
+        }
+    }
+
+
+    public static void main(String[] args) {
+        String msg="15507 ，drop";
+        String regEx = "[^0-9]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(msg);
+        System.out.println(m.replaceAll("").trim());
     }
 
 }

@@ -12,6 +12,7 @@ import com.runner.testworks.pojo.excel.Export01;
 import com.runner.testworks.pojo.vo.ReqVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -487,22 +489,6 @@ public class JinHuaController {
         return Result.success(null);
     }
 
-    public static void main(String[] args) {
-//        Object yml="string";
-//        String method=(String)yml;
-//        HttpMethod resolve = HttpMethod.resolve(method);
-//        HttpMethod method1 = Optional.ofNullable(resolve).orElse(HttpMethod.POST);
-//        System.out.println(resolve);
-        String path="/test/"+"指标管理.xlsx";
-        byte[] content=null;
-        try {
-            content = getContent(path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println(content);
-    }
-
 
     /**
      * 根据文件路径获取文件字节数组
@@ -534,6 +520,10 @@ public class JinHuaController {
         return buffer;
     }
 
+    public static void main(String[] args) {
+        String msg="2023%2F04&amp;start=0&amp;end=9";
+        System.out.println(StringEscapeUtils.unescapeHtml4(msg));
+    }
 
 
 }
