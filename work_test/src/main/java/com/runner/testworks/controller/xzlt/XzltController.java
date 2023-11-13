@@ -82,6 +82,10 @@ public class XzltController {
 
 
     public static void main(String[] args) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("test","jjjjj");
+//        System.out.println(JSONObject.parseObject(map.toString()));
+        System.out.println(JSON.toJSONString(map));
     }
 
 
