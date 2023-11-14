@@ -45,7 +45,6 @@ public class JvmController {
     public static void main(String[] args) {
         ArrayList<User> list = new ArrayList<>();
         User user = new User(System.nanoTime(), "jkl");
-//        list.stream().map(obj->(obj.getId(),))
         log.info(user.toString());
     }
 
