@@ -47,8 +47,8 @@ public class SysLogSendXzlt {
                         String msg = JSON.toJSONString(map);
 
                         syslog.log(0, msg);
-                        log.info("成功发送消息:{} 碎觉碎觉", msg);
-                        Thread.sleep(1000L);
+//                        log.info("成功发送消息:{} 碎觉碎觉", msg);
+//                        Thread.sleep(1000L);
                     }
 
                 } catch (Exception e) {

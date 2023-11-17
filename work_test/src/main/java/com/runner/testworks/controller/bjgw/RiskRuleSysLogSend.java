@@ -53,8 +53,8 @@ public class RiskRuleSysLogSend {
 
                 syslog.log(0, URLDecoder.decode(msg, "utf-8"));
 
-                log.info("成功发送消息：{} 碎觉碎觉",msg);
-                Thread.sleep(1000L);
+//                log.info("成功发送消息：{} 碎觉碎觉",msg);
+//                Thread.sleep(1000L);
 //                break;
             }
 
