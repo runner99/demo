@@ -8,8 +8,7 @@ import org.graylog2.syslog4j.SyslogConstants;
 import org.graylog2.syslog4j.SyslogIF;
 
 import java.net.URLDecoder;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 /**
  * @author weizhenqiang

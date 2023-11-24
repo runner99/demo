@@ -1,5 +1,7 @@
 package com.runner.testworks.controller.bjgw;
 
+import com.runner.testworks.controller.suzhou.utils.TimeFormatEnum;
+import com.runner.testworks.controller.suzhou.utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.graylog2.syslog4j.Syslog;
 import org.graylog2.syslog4j.SyslogConstants;
@@ -8,6 +10,8 @@ import org.graylog2.syslog4j.SyslogIF;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author weizhenqiang
@@ -24,6 +28,7 @@ public class RiskRuleSysLogSend {
         syslog.getConfig().setHost(HOST);
         syslog.getConfig().setPort(PORT);
         syslog.getConfig().setMaxMessageLength(1024000);
+
 
 //        绍兴大数据对接奇安全信防火墙
 //        String msg="asdf devid=\"\" dname=\"\" serial=\"\" module=\"flow\" severity=\"\" vsys=\"\" type=\"traffic-end\" session_id=\"\" time=\"\" duration=\"\" addr_src=\"\" addr_dst=\"\" nataddr_src=\"\" nataddr_dst=\"\" port_src=\"\" port_dst=\"\" natport_src=\"\" natport_dst=\"\" action=\"deny\" appname=\"\" rule=\"\" proto=\"\" session_time=\"\" sess_nth=\"\" sess_dev_id=\"\" zone_src=\"\" zone_dst=\"\" locale_src=\"\" locale_dst=\"\" user_src=\"\" user_dst=\"\" app_category=\"\" app_risk=\"\" asset_os_src=\"\" asset_os_dst=\"\" asset_name_src=\"\" asset_name_dst=\"\" asset_type_src=\"\" asset_type_dst=\"\" focus_type=\"\" profile=\"\" non_standard_port=\"\" bytes_sent=\"\" bytes_received=\"\" pkts_sent=\"\" pkts_received=\"\" total_sess=\"\" from_tunnel=\"\" to_tunnel=\"\"\\n";

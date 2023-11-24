@@ -34,6 +34,24 @@
 <!--            <version>1.7</version>-->
 <!--        </dependency>-->
 
+<!--zip文件的加解密-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.21</version> <!-- 版本号可能有更新 -->
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>commons-codec</groupId>-->
+<!--            <artifactId>commons-codec</artifactId>-->
+<!--            <version>1.15</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>net.lingala.zip4j</groupId>
+            <artifactId>zip4j</artifactId>
+            <version>2.11.5</version>
+        </dependency>
+
+
 
         <dependency>
             <groupId>com.alibaba</groupId>
