@@ -9,13 +9,21 @@ import lombok.extern.slf4j.Slf4j;
 
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+
 import net.lingala.zip4j.model.FileHeader;
 import net.lingala.zip4j.model.ZipParameters;
 
+import net.lingala.zip4j.model.enums.AesKeyStrength;
 import net.lingala.zip4j.model.enums.EncryptionMethod;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
@@ -23,6 +31,8 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 
 @RestController
@@ -38,29 +48,24 @@ public class QuZhouController {
         try {
             // 创建用户列表
             List<RuleExport> ruleExportList = createSampleRuleExportList();
+
+//          TODO 将ruleExportList生成为一个excel文件，然后压缩成zip文件，zipBytes就是这个zip文件的字节数组
+//            byte[] zipBytes = null;
+            // 将ruleExportList生成为一个excel文件
             byte[] excelBytes = exportToExcel(ruleExportList);
 
-            // 创建 Zip 文件并将 Excel 文件添加到 Zip 文件中
-            byte[] zipBytes = createZipFile(excelBytes, excelName);
-
+            // 压缩成zip文件
+            byte[] zipBytes = compressToZipWithPassword(excelBytes, password);
             // 设置响应头
             response.setContentType("application/zip");
             String fileName = URLEncoder.encode(excelName + ".zip", "UTF-8").replaceAll("\\+", "%20");
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName);
 
-            try (ByteArrayInputStream bis = new ByteArrayInputStream(zipBytes);
-                 ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = bis.read(buffer)) != -1) {
-                    bos.write(buffer, 0, bytesRead);
-                }
 
-                try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-                    outputStream.write(bos.toByteArray());
-                    response.getOutputStream().write(outputStream.toByteArray());
-                }
+            try (ServletOutputStream write = response.getOutputStream()) {
+                write.write(zipBytes);
             }
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,37 +90,118 @@ public class QuZhouController {
         }
     }
 
-    private byte[] createZipFile(byte[] sourceBytes, String entryName) throws IOException {
-        return compressAndEncryptToZip(sourceBytes, password);
+    private byte[] compressToZipWithPassword(byte[] data, String password) throws IOException, ZipException {
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            // 创建临时文件
+            File tempFile = File.createTempFile("temp", ".xlsx");
+            tempFile.deleteOnExit();
+
+            // 将数据写入临时文件
+            Files.write(tempFile.toPath(), data);
+
+            // 创建 ZIP 参数
+            ZipParameters zipParameters = new ZipParameters();
+            zipParameters.setEncryptFiles(true);
+            zipParameters.setEncryptionMethod(EncryptionMethod.AES);
+            zipParameters.setAesKeyStrength(AesKeyStrength.KEY_STRENGTH_256);
+//            zipParameters.setPassword(password);
+
+            // 创建 ZIP 文件
+            ZipFile zipFile = new ZipFile(tempFile);
+
+            // 添加文件到 ZIP
+            zipFile.addFile(tempFile, zipParameters);
+
+            // 读取 ZIP 文件内容为 byte[]
+            Files.copy(tempFile.toPath(), bos);
+
+            return bos.toByteArray();
+        }
     }
 
-    // 压缩并加密成 ZIP
-    private static byte[] compressAndEncryptToZip(byte[] data, String password) throws IOException, ZipException {
-        // 创建临时文件
-        File tempFile = File.createTempFile("temp", ".zip");
-        tempFile.deleteOnExit();
 
-        // 将数据写入临时文件
-        Files.write(tempFile.toPath(), data);
+    @GetMapping("/export2")
+    public void exportZip2(HttpServletResponse response) {
+        try {
+            response.setContentType("application/zip");
+            String fileName = URLEncoder.encode(excelName + ".zip", "UTF-8").replaceAll("\\+", "%20");
+            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName);
 
-        // 创建 ZIP 文件
+
+            try (ServletOutputStream write = response.getOutputStream()) {
+//                write.write(zipBytes);
+            }
+        }catch (Exception e){
+            log.error(e+"");
+        }
+
+    }
+    public static void main(String[] args) {
+        compress(new File("C:\\test\\自定义规则.xlsx"),password);
+    }
+
+
+    /**
+     * 压缩
+     *
+     * @param sourceFile 压缩源文件，会在源文件所在目录下新建一个zip文件夹存放压缩后的文件
+     * @param password   密码
+     */
+    public static void compress(File sourceFile, String password) {
+        File dir = new File(sourceFile.getParent() + File.separator + "zip");
+        dir.mkdir();
+
+        // 文件名
+        String fileName = sourceFile.getName();
+        // 文件真实名（不含扩展名）
+        String realName = fileName.substring(0, fileName.lastIndexOf("."));
+        String targetPathname = dir.getAbsolutePath() + File.separator + realName + ".zip";
+        File targetFile = new File(targetPathname);
+
         ZipParameters zipParameters = new ZipParameters();
-        zipParameters.setEncryptFiles(true);
-        zipParameters.setEncryptionMethod(EncryptionMethod.AES);
-//         zipParameters.setAesKeyStrength(EncryptionMethod.AES.getAesKeyStrength()); // 此行可能不再需要
-//        zipParameters.setPassword(password);
-//        zipParameters.setCompressionMethod(CompressionMethod.DEFLATE);
+        ZipFile zipFile = new ZipFile(targetFile);
+        // 是否加密
+        if (StringUtils.isNotBlank(password)) {
+            zipParameters.setEncryptFiles(true);
+            zipParameters.setEncryptionMethod(EncryptionMethod.AES);
+            zipParameters.setAesKeyStrength(AesKeyStrength.KEY_STRENGTH_256);
+            zipFile.setPassword(password.toCharArray());
+        }
+        try {
+            zipFile.addFile(sourceFile, zipParameters);
+        } catch (Exception e) {
+            log.error("压缩文件异常：", e);
+        }
 
-
-        ZipFile zipFile = new ZipFile(tempFile,password.toCharArray());
-        zipFile.addFile(tempFile, zipParameters);
-
-        // 读取 ZIP 文件内容为 byte[]
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        Files.copy(tempFile.toPath(), outputStream);
-
-        return outputStream.toByteArray();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @PostMapping("/import")
     public void importZip(@RequestParam("file") MultipartFile file) {
