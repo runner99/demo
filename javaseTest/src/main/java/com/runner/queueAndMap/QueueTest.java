@@ -1,4 +1,4 @@
-package com.runner.queueAndMa;
+package com.runner.queueAndMap;
 
 import org.junit.Test;
 

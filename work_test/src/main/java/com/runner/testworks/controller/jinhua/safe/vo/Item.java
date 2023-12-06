@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * @author weizhenqiang
  * @date 2023/11/2 22:45
@@ -16,7 +18,6 @@ public class Item {
     private String timeSlot;
     private String title;
     private String info;
-    private String fileName;
-    private String fileUrl;
+    private List<FileParam> opceSecureFileParams;
     private Integer isKeynote;
 }

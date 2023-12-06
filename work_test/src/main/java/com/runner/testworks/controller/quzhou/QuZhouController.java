@@ -4,9 +4,13 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 
+import com.alibaba.fastjson.JSONArray;
 import com.runner.testworks.controller.quzhou.vo.RuleExport;
+import com.runner.testworks.controller.suzhou.utils.TimeFormatEnum;
+import com.runner.testworks.controller.suzhou.utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
 
+import lombok.val;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 
@@ -16,6 +20,7 @@ import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.model.enums.AesKeyStrength;
 import net.lingala.zip4j.model.enums.EncryptionMethod;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -28,9 +33,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -43,101 +48,57 @@ public class QuZhouController {
     private static final String excelName = "自定义规则";
     private static final String password = "hzmc123";
 
+
     @GetMapping("/export")
     public void exportZip(HttpServletResponse response) {
         try {
-            // 创建用户列表
+            // TODO 获取导入的数据
             List<RuleExport> ruleExportList = createSampleRuleExportList();
 
-//          TODO 将ruleExportList生成为一个excel文件，然后压缩成zip文件，zipBytes就是这个zip文件的字节数组
-//            byte[] zipBytes = null;
-            // 将ruleExportList生成为一个excel文件
-            byte[] excelBytes = exportToExcel(ruleExportList);
+//            将excel文件写入临时文件夹
+            File file = exportToExcelTempFile(ruleExportList);
 
-            // 压缩成zip文件
-            byte[] zipBytes = compressToZipWithPassword(excelBytes, password);
+//            将excel压缩并将压缩加密后的zip文件写入临时文件夹
+            compress(file, password);
+
             // 设置响应头
             response.setContentType("application/zip");
             String fileName = URLEncoder.encode(excelName + ".zip", "UTF-8").replaceAll("\\+", "%20");
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName);
-
+//            获取zip文件的字节数组
+            byte[] bytes = fileToBytes(new File(System.getProperty("java.io.tmpdir") + File.separator + "zip", excelName + ".zip"));
 
             try (ServletOutputStream write = response.getOutputStream()) {
-                write.write(zipBytes);
+                write.write(bytes);
             }
 
-
         } catch (IOException e) {
-            e.printStackTrace();
-            // 处理异常，返回适当的响应
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            log.error("export is file:{}", e);
         }
+
     }
+
 
     private List<RuleExport> createSampleRuleExportList() {
         List<RuleExport> ruleExportList = new ArrayList<>();
-        ruleExportList.add(new RuleExport(1, "哈哈哈"));
-        ruleExportList.add(new RuleExport(2, "Bob"));
-        ruleExportList.add(new RuleExport(3, "Charlie"));
+
         return ruleExportList;
     }
 
-    private byte[] exportToExcel(List<RuleExport> ruleExportList) throws IOException {
-        // 使用 EasyExcel 导出 Excel
+    private File exportToExcelTempFile(List<RuleExport> ruleExportList) throws IOException {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             EasyExcel.write(bos, RuleExport.class).sheet("自定义规则").doWrite(ruleExportList);
-            return bos.toByteArray();
-        }
-    }
+            byte[] bytesExcel = bos.toByteArray();
+            String tempDir = System.getProperty("java.io.tmpdir");
+            File file = new File(tempDir, excelName + ".xlsx");
 
-    private byte[] compressToZipWithPassword(byte[] data, String password) throws IOException, ZipException {
-        try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
-            // 创建临时文件
-            File tempFile = File.createTempFile("temp", ".xlsx");
-            tempFile.deleteOnExit();
-
-            // 将数据写入临时文件
-            Files.write(tempFile.toPath(), data);
-
-            // 创建 ZIP 参数
-            ZipParameters zipParameters = new ZipParameters();
-            zipParameters.setEncryptFiles(true);
-            zipParameters.setEncryptionMethod(EncryptionMethod.AES);
-            zipParameters.setAesKeyStrength(AesKeyStrength.KEY_STRENGTH_256);
-//            zipParameters.setPassword(password);
-
-            // 创建 ZIP 文件
-            ZipFile zipFile = new ZipFile(tempFile);
-
-            // 添加文件到 ZIP
-            zipFile.addFile(tempFile, zipParameters);
-
-            // 读取 ZIP 文件内容为 byte[]
-            Files.copy(tempFile.toPath(), bos);
-
-            return bos.toByteArray();
-        }
-    }
-
-
-    @GetMapping("/export2")
-    public void exportZip2(HttpServletResponse response) {
-        try {
-            response.setContentType("application/zip");
-            String fileName = URLEncoder.encode(excelName + ".zip", "UTF-8").replaceAll("\\+", "%20");
-            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName);
-
-
-            try (ServletOutputStream write = response.getOutputStream()) {
-//                write.write(zipBytes);
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                fos.write(bytesExcel);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }catch (Exception e){
-            log.error(e+"");
+            return file;
         }
-
-    }
-    public static void main(String[] args) {
-        compress(new File("C:\\test\\自定义规则.xlsx"),password);
     }
 
 
@@ -151,16 +112,13 @@ public class QuZhouController {
         File dir = new File(sourceFile.getParent() + File.separator + "zip");
         dir.mkdir();
 
-        // 文件名
         String fileName = sourceFile.getName();
-        // 文件真实名（不含扩展名）
         String realName = fileName.substring(0, fileName.lastIndexOf("."));
         String targetPathname = dir.getAbsolutePath() + File.separator + realName + ".zip";
         File targetFile = new File(targetPathname);
 
         ZipParameters zipParameters = new ZipParameters();
         ZipFile zipFile = new ZipFile(targetFile);
-        // 是否加密
         if (StringUtils.isNotBlank(password)) {
             zipParameters.setEncryptFiles(true);
             zipParameters.setEncryptionMethod(EncryptionMethod.AES);
@@ -170,69 +128,47 @@ public class QuZhouController {
         try {
             zipFile.addFile(sourceFile, zipParameters);
         } catch (Exception e) {
-            log.error("压缩文件异常：", e);
+            log.error("压缩文件异常：{}", e);
         }
-
     }
 
 
+    private byte[] fileToBytes(File file) {
+        try (FileInputStream fis = new FileInputStream(file);
+             ByteArrayOutputStream bos = new ByteArrayOutputStream(1024)) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            byte[] b = new byte[1024];
+            int n;
+            while ((n = fis.read(b)) != -1) {
+                bos.write(b, 0, n);
+            }
+            byte[] data = bos.toByteArray();
+            return data;
+        } catch (Exception e) {
+            log.error("fileToBytes is file:{}", e);
+        }
+        return null;
+    }
 
 
     @PostMapping("/import")
     public void importZip(@RequestParam("file") MultipartFile file) {
+        checkFileValid(file.getOriginalFilename(), "zip");
         try {
             File zipFile = convertMultipartFileToFile(file);
+            ZipFile zip = new ZipFile(zipFile);
 
-            try {
-                ZipFile zip = new ZipFile(zipFile);
+            zip.setPassword(password.toCharArray());
 
-                zip.setPassword(password.toCharArray());
-
-                List<FileHeader> fileHeaders = zip.getFileHeaders();
-                for (FileHeader fileHeader : fileHeaders) {
-                    String entryName = fileHeader.getFileName();
-
-                    // 获取 InputStream
-                    InputStream inputStream = zip.getInputStream(fileHeader);
-
-                    // 处理 InputStream
-                    processInputStream(inputStream);
-                }
-
-            } catch (Exception e) {
-                log.error("处理ZIP文件时出错：{}", e.getMessage());
-                // 处理异常或返回错误响应
-            } finally {
+            List<FileHeader> fileHeaders = zip.getFileHeaders();
+            for (FileHeader fileHeader : fileHeaders) {
+                checkFileValid(fileHeader.getFileName(), "xlsx");
+                InputStream inputStream = zip.getInputStream(fileHeader);
+                processInputStream(inputStream);
             }
 
-        } catch (IOException e) {
-            log.error("转换MultipartFile到File时出错：{}", e.getMessage());
-            // 处理异常或返回错误响应
+        } catch (Exception e) {
+            log.error("" + e);
         }
     }
 
@@ -246,22 +182,81 @@ public class QuZhouController {
 
     private void processInputStream(InputStream inputStream) {
         ArrayList<RuleExport> list = new ArrayList<>();
-        EasyExcel.read(inputStream, RuleExport.class, new AnalysisEventListener() {
+        try {
+            EasyExcel.read(inputStream, RuleExport.class, new AnalysisEventListener() {
 
-            //          在读取完一行数据后调用
-            @Override
-            public void invoke(Object o, AnalysisContext analysisContext) {
-                list.add((RuleExport) o);
-            }
+                @Override
+                public void invoke(Object o, AnalysisContext analysisContext) {
+                    list.add((RuleExport) o);
+                }
 
-            //           在读取完所有数据后调用
-            @Override
-            public void doAfterAllAnalysed(AnalysisContext analysisContext) {
-                System.out.println("读完了");
-            }
-        }).sheet().doRead();
+                @Override
+                public void doAfterAllAnalysed(AnalysisContext analysisContext) {
+                    System.out.println("读完了");
+                }
+            }).sheet().doRead();
+        } catch (Exception e) {
+            log.error("文件无法解析，请重新导入！");
+            throw new RuntimeException("文件无法解析，请重新导入！");
+        }
+
+
+//        TODO 需要处理导入的数据
+        list.stream().forEach(obj -> {
+            System.out.println(obj);
+        });
+    }
+
+    public void checkFileValid(String originalFilename, String suffix) {
+        int i = originalFilename.lastIndexOf(".");
+        String substring = originalFilename.substring(i + 1, originalFilename.length());
+        if (!suffix.equals(substring)) {
+            throw new RuntimeException("文件格式错误，导入失败!");
+
+        }
+    }
+
+
+    public static void main(String[] args) {
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("DML");
+        list.add("DQL");
+        list.add("DDL");
+        list.add("LOGON");
+        list.add("OTHER");
+
+        HashMap<String, Long> map = new HashMap<>();
+        map.put("dml",123L);
+        map.put("aa",122223L);
+        map.put("嘎嘎",122223L);
+
+        HashMap<String, Long> formatMap = new HashMap<>();
+
+        map.keySet().stream().forEach(obj->{
+            formatMap.put(obj.toUpperCase(),map.get(obj)!=null?map.get(obj):0L);
+        });
+
+        list.stream().forEach(obj->{
+            formatMap.computeIfAbsent(obj,v->0L);
+        });
+
+        formatMap.keySet().stream().forEach(obj->{
+            System.out.println(obj+"::"+formatMap.get(obj));
+        });
 
     }
 
+
+    private static String formatDouble(Long a, Long b) {
+        if (b.intValue() == 0) {
+            return String.format("%.2f", 0D) + "%";
+        }
+        return String.format("%.2f", (double) a / b * 100) + "%";
+    }
+
+    private static String formatDouble(Double d) {
+        return String.format("%.2f", Math.abs(d) * 100) + "%";
+    }
 
 }

@@ -1,12 +1,10 @@
-package com.runner.queueAndMa;
+package com.runner.queueAndMap;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author weizhenqiang

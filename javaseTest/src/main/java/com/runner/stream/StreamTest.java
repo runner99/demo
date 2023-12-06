@@ -172,9 +172,9 @@ public class StreamTest {
     @Test
     public void test09() {
         List<User> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(new User(i, "渣渣辉" + i + "号"));
-        }
+//        for (int i = 0; i < 10; i++) {
+//            list.add(new User(i, "渣渣辉" + i + "号"));
+//        }
         //list中的对象属性(id,name)转map
         Map<Integer, String> map = list.stream().collect(Collectors.toMap(User::getId, User::getName));
         //    统计list中的对象的id 累加和

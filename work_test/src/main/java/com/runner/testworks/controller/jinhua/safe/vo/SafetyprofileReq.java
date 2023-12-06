@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author weizhenqiang
  * @date 2023/11/2 15:43
@@ -29,20 +32,14 @@ public class SafetyprofileReq {
      * 内容
      */
     private String info;
+
     /**
-     * 附件名称
+     * 文件详情
      */
-    private String fileName;
-    /**
-     * 附件url
-     */
-    private String fileUrl;
+    private String opceSecureFileParams;
+
     /**
      * 是否重点项 0否 1是
      */
     private Integer isKeynote;
-    /**
-     * 上次的附件
-     */
-    private MultipartFile file;
 }

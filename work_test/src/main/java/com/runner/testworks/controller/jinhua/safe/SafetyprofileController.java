@@ -1,6 +1,8 @@
 package com.runner.testworks.controller.jinhua.safe;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.runner.testworks.controller.bjgw.vo.Result;
 import com.runner.testworks.controller.jinhua.safe.vo.*;
 import com.runner.testworks.pojo.excel.Export01;
@@ -35,8 +37,13 @@ public class SafetyprofileController {
                       @RequestParam(value = "isKeynote", required = false) Integer isKeynote) {
 
         ArrayList<Item> items = new ArrayList<>();
-        items.add(new Item(1, "asdf", "asdf", "asdf", "asdf", "asdf", 12));
-        items.add(new Item(2, "asdf2", "asdf2", "asdf2", "asdf2", "asdf2", 112));
+        ArrayList<FileParam> fileParams01 = new ArrayList<>();
+        fileParams01.add(new FileParam("test.xlsl","/path/test.xlsl"));
+        items.add(new Item(1, "2023年6月", "asdf", "asdf", fileParams01, 12));
+
+        ArrayList<FileParam> fileParams02 = new ArrayList<>();
+        fileParams02.add(new FileParam("test02.xlsl","/path/test02.xlsl"));
+        items.add(new Item(2, "2023年9月", "asdf2", "asdf2", fileParams02, 112));
         SafetyprofileVo safetyprofileVo = new SafetyprofileVo(1, 2, 3, items);
         return Result.ofSuccess(safetyprofileVo);
     }
@@ -45,13 +52,25 @@ public class SafetyprofileController {
     @PostMapping("/add")
     public Result add(@RequestBody SafetyprofileReq req) {
         log.info(req.toString());
+//        req.getOpceSecureFileParams().stream().forEach(obj->{
+            log.info("文件详情：{}",req.getOpceSecureFileParams());
+
+//        });
+
         return Result.ofSuccess(req.toString());
     }
 
-
+    public static void main(String[] args) {
+        SafetyprofileReq safetyprofileReq = new SafetyprofileReq();
+        System.out.println(JSON.toJSONString(safetyprofileReq));
+    }
     @PostMapping("/update")
     public Result update(@RequestBody SafetyprofileReq req) {
         log.info(req.toString());
+//        req.getOpceSecureFileParams().stream().forEach(obj->{
+//            log.info("文件详情：{}",obj.toString());
+//
+//        });
         return Result.ofSuccess(req.toString());
     }
 
@@ -168,9 +187,5 @@ public class SafetyprofileController {
         return list;
     }
 
-    public static void main(String[] args) {
-//        %2Ffile%2F121220231106134542.docx
-        String msg = "%2Ffile%2F121220231106134542.docx";
-        System.out.println(URLDecoder.decode(URLDecoder.decode(msg)));
-    }
+
 }
