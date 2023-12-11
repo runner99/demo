@@ -1,5 +1,6 @@
 package com.runner.testworks.controller.jinhua.safe.vo;
 
+import com.alibaba.fastjson.JSONArray;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,7 +37,7 @@ public class SafetyprofileReq {
     /**
      * 文件详情
      */
-    private String opceSecureFileParams;
+    private List<FileParam> opceSecureFileParams;
 
     /**
      * 是否重点项 0否 1是

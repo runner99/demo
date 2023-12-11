@@ -35,6 +35,11 @@ import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -217,37 +222,102 @@ public class QuZhouController {
     }
 
 
+
+
     public static void main(String[] args) {
+// 假设给定的时间戳是当前时间的时间戳
+        long currentTimestamp = System.currentTimeMillis();
+        long[] time = getMSRangeBeforeTwoMonth(1675180800000L);
+        System.out.println(time[0]);
+        System.out.println(time[1]);
 
-        ArrayList<String> list = new ArrayList<>();
-        list.add("DML");
-        list.add("DQL");
-        list.add("DDL");
-        list.add("LOGON");
-        list.add("OTHER");
 
-        HashMap<String, Long> map = new HashMap<>();
-        map.put("dml",123L);
-        map.put("aa",122223L);
-        map.put("嘎嘎",122223L);
-
-        HashMap<String, Long> formatMap = new HashMap<>();
-
-        map.keySet().stream().forEach(obj->{
-            formatMap.put(obj.toUpperCase(),map.get(obj)!=null?map.get(obj):0L);
-        });
-
-        list.stream().forEach(obj->{
-            formatMap.computeIfAbsent(obj,v->0L);
-        });
-
-        formatMap.keySet().stream().forEach(obj->{
-            System.out.println(obj+"::"+formatMap.get(obj));
-        });
 
     }
 
+    private static long[] getMSRangeBeforeTwoQuarter(Long currentTimestamp){
 
+        long[] msRange = new long[2];
+
+        // 将时间戳转换为 Instant
+        Instant instant = Instant.ofEpochMilli(currentTimestamp);
+
+        // 将 Instant 转换为 LocalDate
+        LocalDate currentDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // 获取当前季度
+        int currentQuarter = (currentDate.getMonthValue() - 1) / 3 + 1;
+
+        // 计算前两个季度的季度号
+        int previousTwoQuarters = currentQuarter - 2;
+
+        // 如果季度号为负数，表示当前是年初，将其修正为上一年的最后一个季度
+        if (previousTwoQuarters <= 0) {
+            previousTwoQuarters += 4;
+        }
+
+        // 得到前两个季度的第一个月
+        Month startMonth = Month.of((previousTwoQuarters - 1) * 3 + 1);
+
+        // 得到前两个季度的起始时间戳
+        LocalDate startOfPreviousTwoQuarters = LocalDate.of(currentDate.getYear(), startMonth, 1);
+        long startOfPreviousTwoQuartersTimestamp = startOfPreviousTwoQuarters
+                .atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli();
+
+        // 得到前两个季度的结束时间戳
+        LocalDate endOfPreviousTwoQuarters = startOfPreviousTwoQuarters.plusMonths(6).minusDays(1);
+        long endOfPreviousTwoQuartersTimestamp = endOfPreviousTwoQuarters
+                .atTime(23, 59, 59)
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli();
+
+
+        msRange[0]=startOfPreviousTwoQuartersTimestamp;
+        msRange[1]=endOfPreviousTwoQuartersTimestamp+1000;
+
+        return msRange;
+
+    }
+
+    public static long[] getMSRangeBeforeTwoMonth(Long decemberTimestamp){
+
+        long[] msRange = new long[2];
+
+        // 将时间戳转换为 Instant
+        Instant instant = Instant.ofEpochMilli(decemberTimestamp);
+
+        // 将 Instant 转换为 LocalDate
+        LocalDate decemberDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // 减去两个月
+        LocalDate octoberDate = decemberDate.minusMonths(2);
+
+        // 得到前两个月的起始时间戳
+        long startOfOctoberTimestamp = octoberDate
+                .withDayOfMonth(1)
+                .atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli();
+
+        // 得到前两个月的结束时间戳
+        long endOfOctoberTimestamp = octoberDate
+                .withDayOfMonth(octoberDate.lengthOfMonth())
+                .atTime(23, 59, 59)
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli();
+
+        msRange[0]=startOfOctoberTimestamp;
+        msRange[1]=endOfOctoberTimestamp+1000;
+
+        return msRange;
+
+    }
     private static String formatDouble(Long a, Long b) {
         if (b.intValue() == 0) {
             return String.format("%.2f", 0D) + "%";

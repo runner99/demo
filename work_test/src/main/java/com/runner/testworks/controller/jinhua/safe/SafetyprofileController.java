@@ -3,6 +3,7 @@ package com.runner.testworks.controller.jinhua.safe;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.runner.testworks.controller.bjgw.vo.Result;
 import com.runner.testworks.controller.jinhua.safe.vo.*;
 import com.runner.testworks.pojo.excel.Export01;
@@ -18,6 +19,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -51,18 +53,37 @@ public class SafetyprofileController {
 
     @PostMapping("/add")
     public Result add(@RequestBody SafetyprofileReq req) {
-        log.info(req.toString());
-//        req.getOpceSecureFileParams().stream().forEach(obj->{
-            log.info("文件详情：{}",req.getOpceSecureFileParams());
 
-//        });
+        log.info(req.toString());
 
         return Result.ofSuccess(req.toString());
     }
 
     public static void main(String[] args) {
         SafetyprofileReq safetyprofileReq = new SafetyprofileReq();
+        safetyprofileReq.setTimeSlot("2023年09月");
+        safetyprofileReq.setInfo("测试测试测试");
+        safetyprofileReq.setIsKeynote(0);
+        safetyprofileReq.setTitle("测试标题1");
+
+        ArrayList<FileParam> fileParams = new ArrayList<>();
+        fileParams.add(new FileParam("name","/path/name"));
+        fileParams.add(new FileParam("name2","/path/name2"));
+        safetyprofileReq.setOpceSecureFileParams(fileParams);
+
         System.out.println(JSON.toJSONString(safetyprofileReq));
+
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("timeSlot","2023年09月");
+        map.put("info","测试测试测试");
+        map.put("isKeynote",0);
+        map.put("title","测试标题1");
+        map.put("opceSecureFileParams",fileParams);
+
+        System.out.println(JSON.toJSONString(map));
+
+
     }
     @PostMapping("/update")
     public Result update(@RequestBody SafetyprofileReq req) {
