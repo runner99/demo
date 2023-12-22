@@ -4,8 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -53,6 +58,30 @@ public class LearnController {
     }
 
 
+
+    @GetMapping("/login")
+    public void login(@RequestParam(value = "url")String url, HttpServletResponse response){
+        log.info(url);
+//        https://192.168.52.204/tenant/initten/soc/dict
+        try {
+            response.sendRedirect(url);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @GetMapping("/loginForwad")
+    public void loginForwad(HttpServletRequest request, HttpServletResponse response){
+
+        try {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/forward?method=forward");
+            requestDispatcher.forward(request,response);
+
+        }catch (Exception e){
+
+        }
+    }
     public static void main(String[] args) {
 
 //        多线程测试
