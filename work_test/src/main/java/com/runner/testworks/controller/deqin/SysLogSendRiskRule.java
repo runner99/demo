@@ -1,13 +1,13 @@
-package com.runner.testworks.controller.bjgw;
+package com.runner.testworks.controller.deqin;
 
-import com.runner.testworks.controller.suzhou.utils.TimeFormatEnum;
-import com.runner.testworks.controller.suzhou.utils.TimeUtils;
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.graylog2.syslog4j.Syslog;
 import org.graylog2.syslog4j.SyslogConstants;
 import org.graylog2.syslog4j.SyslogIF;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,12 +20,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 @Slf4j
-public class SysLogSendbug {
+public class SysLogSendRiskRule {
 
-    private static final String HOST = "192.168.52.201";
+    private static final String HOST = "192.168.52.204";
     private static final int PORT = 1468;
 
-    private static final int BATCH_SIZE=10000;
+    private static final int BATCH_SIZE=1;
 
     private static SyslogIF syslog = null;
 
@@ -57,8 +57,8 @@ public class SysLogSendbug {
                         }
                         syslog.log(SyslogConstants.LEVEL_INFO, String.join("\n", messages));
 
-                        Thread.sleep(500L);
-//                        break;
+                        Thread.sleep(1000L);
+                        break;
                     }
                 } catch (Exception e) {
                     log.error("" + e);
@@ -77,17 +77,26 @@ public class SysLogSendbug {
     }
 
     private static String buildMessage() {
-        // 你的消息构建逻辑
-        String msg = "|BSEC_DAS_DBSEC_CEF:|捕获时间:|:|:::" + TimeUtils.getStrByTime(System.currentTimeMillis(), TimeFormatEnum.formatter) + " |数据库IP:10.1.182.216 |数据库端口 :11521 |服务(实列)名 :scglib |数据库名称:N/A |客户端IP:10.1.182.136 |客户端端口:56098 |客户端MAC:C45444616D2E |客户端工具:JDBC THIN CLIENT |操作系统用户:richmail |应用用户名:N/A |数据库用户:CLOUDP |风险类型:gggggggg |风险级别:高 |规则名称:开打开打 |操作类型:SELECT |受影响对象:SGCCDB.CLOUDP.CLOUDP FILE_9 |响应时间:1182 |执行结果:" + (System.nanoTime() % 2 == 0 ? "失败" : "成功") + " |影响行数:88 |SQL语句:select * from user;"
-                + "|客户端操作系统用户:userTEST"
-                + "|主机名:GGGG"
-                + "|应用用户:AAAA"
-                + "|服务器IP:127.0.0.1"
-                + "|服务器端口:888"
-//                + "|访问对象:OBJECT"
-                + "|数据库名:USER"
-                + System.nanoTime();
-        return msg;
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("c_time",System.currentTimeMillis());
+//        map.put("c_time",1703691000000L);
+        map.put("e_category","common");
+        map.put("e_type","db_access");
+        map.put("o_svr_ip","192.168.52.103");
+        map.put("o_svr_port",13306);
+        map.put("o_statement","select * from user;");
+        map.put("r_risk",2);
+        map.put("f_affected",101);
+//        map.put("e_cap_dev_type","test");
+        map.put("b_action","select");
+//        map.put("s_db_user","user"+System.currentTimeMillis());
+        map.put("s_db_user","mysql");
+        map.put("o_type","rdstest");
+        map.put("o_object","ASSERT_DS_BASE");
+        map.put("o_schema","ASSET_DSM0");
+        map.put("o_standard","select * from ASSERT_DS_BASE");
+        return JSON.toJSONString(map);
     }
 
 

@@ -1,8 +1,11 @@
 package com.runner.queueAndMap;
 
+import com.runner.queueAndMap.dto.DelayDTO;
 import org.junit.Test;
 
 import java.time.LocalTime;
+import java.util.concurrent.DelayQueue;
+import java.util.concurrent.Delayed;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
@@ -39,6 +42,15 @@ public class QueueTest {
         System.out.println(LocalTime.now());
     }
 
+    @Test
+    public void test02() throws Exception {
+        DelayQueue<DelayDTO> queue = new DelayQueue<>();
+
+
+
+
+
+    }
 
 
 
