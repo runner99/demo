@@ -18,9 +18,9 @@ public class JucMapTest {
         HashMap<String, List<String>> map = new HashMap<>();
         for (int i=0;i<10;i++){
 //            如果不存在 i这个key则创建
-            map.computeIfAbsent(i+"",k->new ArrayList<String>());
-            map.get(""+i).add("list"+i);
+            map.computeIfAbsent(i+"",k->new ArrayList<String>()).add("list"+i);
         }
+        System.out.println(map);
 
 //        map.computeIfPresent()
     }
