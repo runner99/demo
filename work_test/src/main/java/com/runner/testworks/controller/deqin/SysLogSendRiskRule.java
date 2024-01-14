@@ -58,7 +58,7 @@ public class SysLogSendRiskRule {
                         syslog.log(SyslogConstants.LEVEL_INFO, String.join("\n", messages));
 
                         Thread.sleep(1000L);
-                        break;
+//                        break;
                     }
                 } catch (Exception e) {
                     log.error("" + e);
@@ -83,11 +83,11 @@ public class SysLogSendRiskRule {
 //        map.put("c_time",1703691000000L);
         map.put("e_category","common");
         map.put("e_type","db_access");
-        map.put("o_svr_ip","192.168.52.103");
+        map.put("o_svr_ip","192.168.52.7");
         map.put("o_svr_port",13306);
         map.put("o_statement","select * from user;");
-        map.put("r_risk",2);
-        map.put("f_affected",101);
+        map.put("r_risk",0);
+        map.put("f_affected",1000000);
 //        map.put("e_cap_dev_type","test");
         map.put("b_action","select");
 //        map.put("s_db_user","user"+System.currentTimeMillis());
