@@ -1,5 +1,6 @@
 package com.runner.testworks.controller.quzhou;
 
+import com.alibaba.fastjson.JSON;
 import com.runner.testworks.controller.suzhou.utils.TimeFormatEnum;
 import com.runner.testworks.controller.suzhou.utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -7,8 +8,13 @@ import org.graylog2.syslog4j.Syslog;
 import org.graylog2.syslog4j.SyslogConstants;
 import org.graylog2.syslog4j.SyslogIF;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author weizhenqiang
@@ -18,50 +24,84 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class SysLogSendQuzhou {
 
-    private static final String HOST = "192.168.52.201";
+    private static final String HOST = "192.168.52.186";
     private static final int PORT = 1468;
+
+    private static final int BATCH_SIZE=99;
+
+    private static SyslogIF syslog = null;
+
 
     public static void main(String[] args) {
 
         Integer core = 1;
-        SyslogIF syslog = Syslog.getInstance(SyslogConstants.TCP);
+        syslog = Syslog.getInstance(SyslogConstants.TCP);
         syslog.getConfig().setHost(HOST);
         syslog.getConfig().setPort(PORT);
         syslog.getConfig().setMaxMessageLength(1024000);
+        syslog.getConfig().setTruncateMessage(Boolean.FALSE);
+        syslog.getConfig().setSendLocalName(Boolean.FALSE);
+
+
+        AtomicInteger count = new AtomicInteger(0);
 
         ExecutorService executorService = Executors.newFixedThreadPool(core);
 
         for (int i = 0; i < core; i++) {
             executorService.execute(() -> {
-
                 try {
-                    while (true) {
-                        //  标准化测试数据
-                        long currented = System.currentTimeMillis();
-//                        十月数据
-//                        long currented = 1696435200000L;
-//                        十一月数据
-//                        long currented = 1700496000000L;
+                    while (!Thread.currentThread().isInterrupted()) {
+                        List<String> messages = new ArrayList<>();
+                        for (int j = 0; j < BATCH_SIZE; j++) {
+                            String msg = buildMessage();
+                            messages.add(msg);
+                            count.incrementAndGet();
+                        }
+                        syslog.log(SyslogConstants.LEVEL_INFO, String.join("\n", messages));
 
-//                        告警事件 o_standard_id
-                        String msg = "{\"o_standard_id\":\"testsqlid\",\"o_name\":\"zhang1\",\"o_schema\":\"\",\"s_identity\":\"\",\"tenant_id\":\"\",\"r_risk_description\":\"正常\",\"e_cap_dev_id\":\"\",\"o_svr_ip\":\"192.168.61.14\",\"r_risk\":2,\"f_err\":\"999\",\"c_time\":" + currented + ",\"e_time\":" + currented + ",\"review_status\":2,\"s_db_user\":\"ASSET\",\"e_cap_dev_name\":\"devd2\",\"o_variable\":\"\",\"s_app_name\":\"LIBMYSQL\",\"s_dev_port\":56939,\"s_t_app_name\":\"LIBMYSQL\",\"o_type\":\"MySQL\",\"e_cap_dev_type\":\"dfd2\",\"f_running_time\":0,\"f_err_description\":\"失败\",\"s_dev_mac\":\"\",\"o_svr_port\":3309,\"o_object\":\"\",\"e_type\":\"db_logon\",\"s_dev_ip\":\"192.168.11.19\",\"b_action\":\"\",\"b_action_category\":\"DDL\",\"s_os_user\":\"\",\"c_session\":\"9003_1607664577657508\",\"f_affected\":100,\"s_t_account\":\"ASSET\",\"s_dev_name\":\"\",\"o_standard\":\"select * from zhang.zhangmc_api_info\",\"e_category\":\"alert\",\"r_risk_type\":\"数据泄露11\",\"r_matched_name\":\"\",\"o_statement\":\"select * from user\",\"r_response\":\"通过\"}\n";
-//                        普通事件
-//                        String msg = "{\"o_name\":\"zhang1\",\"o_schema\":\"\",\"s_identity\":\"\",\"tenant_id\":\"\",\"r_risk_description\":\"正常\",\"e_cap_dev_id\":\"\",\"o_svr_ip\":\"192.168.61.14\",\"r_risk\":0,\"f_err\":\"999\",\"c_time\":" + currented + ",\"e_time\":" + currented + ",\"review_status\":2,\"s_db_user\":\"ASSET\",\"e_cap_dev_name\":\"devd2\",\"o_variable\":\"\",\"s_app_name\":\"LIBMYSQL\",\"s_dev_port\":56939,\"s_t_app_name\":\"LIBMYSQL\",\"o_type\":\"MySQL\",\"e_cap_dev_type\":\"dfd2\",\"f_running_time\":0,\"f_err_description\":\"失败\",\"s_dev_mac\":\"\",\"o_svr_port\":3309,\"o_object\":\"\",\"e_type\":\"db_access\",\"s_dev_ip\":\"192.168.11.19\",\"b_action\":\"select\",\"b_action_category\":\"DML\",\"s_os_user\":\"\",\"c_session\":\"9003_1607664577657508\",\"f_affected\":100,\"s_t_account\":\"ASSET\",\"s_dev_name\":\"\",\"o_standard\":\"select * from zhang.zhangmc_api_info\",\"e_category\":\"common\",\"r_risk_type\":\"高危操作\",\"r_matched_name\":\"\",\"o_statement\":\"\",\"r_response\":\"通过\"}\n";
-                        syslog.log(0, msg);
-//                            log.info("成功发送消息:{} 碎觉碎觉", msg);
-//                break;
-                            Thread.sleep(1000L);
+                        Thread.sleep(1000L);
+                        break;
                     }
-
                 } catch (Exception e) {
                     log.error("" + e);
                 }
-
-
             });
         }
 
+        Integer interval=1;
 
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(()->{
+            int i = count.get();
+            count.getAndAdd(-i);
+            System.out.println("在过去"+interval+"秒内，发送消息数："+i);
+        },1,interval, TimeUnit.SECONDS);
+
+    }
+
+    private static String buildMessage() {
+
+        HashMap<String, Object> map = new HashMap<>();
+//        map.put("c_time",System.currentTimeMillis());
+        map.put("c_time",1702224000000L);
+        map.put("e_category","common");
+        map.put("e_type","db_access");
+        map.put("o_svr_ip","192.168.52.201");
+        map.put("o_svr_port",13306);
+        map.put("s_dev_ip","192.168.1.1");
+        map.put("s_dev_port",666);
+        map.put("o_statement","select * from test");
+        map.put("r_risk",2);
+        map.put("f_affected",100000);
+        map.put("b_action","SELECT");
+        map.put("s_db_user","root");
+        map.put("o_type","rdstest");
+        map.put("o_object","ASSERT_DS_BASE");
+        map.put("o_schema","ASSET_DSM0");
+//        map.put("o_standard","select * from ASSERT_DS_BASE");
+//        map.put("o_standard","select * from ASSERT_DS_BASE");
+//        map.put("r_response","阻断连接");
+//        map.put("r_risk_type","大量拖库");
+        return JSON.toJSONString(map);
     }
 
 

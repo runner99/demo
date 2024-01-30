@@ -222,20 +222,27 @@ public class QuZhouController {
     }
 
 
-
-
     public static void main(String[] args) {
-// 假设给定的时间戳是当前时间的时间戳
-        long currentTimestamp = System.currentTimeMillis();
-        long[] time = getMSRangeBeforeTwoMonth(1675180800000L);
-        System.out.println(time[0]);
-        System.out.println(time[1]);
 
+        Long currentDayHour = getCurrentDayHour(System.currentTimeMillis());
+        System.out.println(currentDayHour);
 
 
     }
 
-    private static long[] getMSRangeBeforeTwoQuarter(Long currentTimestamp){
+    public static Long getCurrentDayHour(Long timeStamp) {
+
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        return calendar.getTimeInMillis();
+    }
+
+    private static long[] getMSRangeBeforeTwoQuarter(Long currentTimestamp) {
 
         long[] msRange = new long[2];
 
@@ -276,14 +283,14 @@ public class QuZhouController {
                 .toEpochMilli();
 
 
-        msRange[0]=startOfPreviousTwoQuartersTimestamp;
-        msRange[1]=endOfPreviousTwoQuartersTimestamp+1000;
+        msRange[0] = startOfPreviousTwoQuartersTimestamp;
+        msRange[1] = endOfPreviousTwoQuartersTimestamp + 1000;
 
         return msRange;
 
     }
 
-    public static long[] getMSRangeBeforeTwoMonth(Long decemberTimestamp){
+    public static long[] getMSRangeBeforeTwoMonth(Long decemberTimestamp) {
 
         long[] msRange = new long[2];
 
@@ -312,12 +319,13 @@ public class QuZhouController {
                 .toInstant()
                 .toEpochMilli();
 
-        msRange[0]=startOfOctoberTimestamp;
-        msRange[1]=endOfOctoberTimestamp+1000;
+        msRange[0] = startOfOctoberTimestamp;
+        msRange[1] = endOfOctoberTimestamp + 1000;
 
         return msRange;
 
     }
+
     private static String formatDouble(Long a, Long b) {
         if (b.intValue() == 0) {
             return String.format("%.2f", 0D) + "%";
