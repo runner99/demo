@@ -24,25 +24,37 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class SysLogSendQuzhou {
 
-    private static final String HOST = "192.168.52.186";
+    /**
+     * dsc设备地址
+     */
+    private static final String HOST = "192.168.52.180";
+//        private static final String HOST = "192.168.52.204";
+
     private static final int PORT = 1468;
 
-    private static final int BATCH_SIZE=99;
+
+    /**
+     * 一批消息数量
+     */
+    private static final int BATCH_SIZE=3;
 
     private static SyslogIF syslog = null;
 
 
     public static void main(String[] args) {
 
-        Integer core = 1;
+        Integer core = 3;
         syslog = Syslog.getInstance(SyslogConstants.TCP);
         syslog.getConfig().setHost(HOST);
         syslog.getConfig().setPort(PORT);
-        syslog.getConfig().setMaxMessageLength(1024000);
+        syslog.getConfig().setMaxMessageLength(Integer.MAX_VALUE);
         syslog.getConfig().setTruncateMessage(Boolean.FALSE);
         syslog.getConfig().setSendLocalName(Boolean.FALSE);
 
 
+        /**
+         * 一个间隔发送的数据量
+         */
         AtomicInteger count = new AtomicInteger(0);
 
         ExecutorService executorService = Executors.newFixedThreadPool(core);
@@ -59,8 +71,11 @@ public class SysLogSendQuzhou {
                         }
                         syslog.log(SyslogConstants.LEVEL_INFO, String.join("\n", messages));
 
-                        Thread.sleep(1000L);
-                        break;
+                        /**
+                         * 是否只发一次
+                         */
+                        Thread.sleep(500L);
+//                        break;
                     }
                 } catch (Exception e) {
                     log.error("" + e);
@@ -78,25 +93,52 @@ public class SysLogSendQuzhou {
 
     }
 
+
+    /**
+     * 消息体
+     * @return
+     */
     private static String buildMessage() {
 
         HashMap<String, Object> map = new HashMap<>();
-//        map.put("c_time",System.currentTimeMillis());
-        map.put("c_time",1702224000000L);
-        map.put("e_category","common");
+        map.put("c_time",System.currentTimeMillis());
+//        map.put("c_time",1704263441000L);
+        map.put("e_category","alert");
         map.put("e_type","db_access");
-        map.put("o_svr_ip","192.168.52.201");
+//        map.put("e_type","db_logon");
+
+
+
+//
+        map.put("o_svr_ip","192.168.52.188");
         map.put("o_svr_port",13306);
-        map.put("s_dev_ip","192.168.1.1");
+        map.put("o_statement","select * from ddac.analysis_sample");
+        map.put("o_object","analysis_sample");
+        map.put("o_schema","ddac");
+
+
+
+
+        map.put("s_dev_ip","192.12.12.12");
         map.put("s_dev_port",666);
-        map.put("o_statement","select * from test");
-        map.put("r_risk",2);
-        map.put("f_affected",100000);
-        map.put("b_action","SELECT");
-        map.put("s_db_user","root");
+        map.put("r_risk",0);
+        map.put("f_affected",10000);
+        map.put("b_action","select");
         map.put("o_type","rdstest");
-        map.put("o_object","ASSERT_DS_BASE");
-        map.put("o_schema","ASSET_DSM0");
+//        map.put("r_response","阻断连接");
+
+
+
+
+
+        map.put("s_db_user","MINGANTEST");
+
+//        map.put("s_t_account","yewutest");
+//        map.put("s_t_account","yunwei");
+
+
+
+//        map.put("s_app_name","asdfasdf");
 //        map.put("o_standard","select * from ASSERT_DS_BASE");
 //        map.put("o_standard","select * from ASSERT_DS_BASE");
 //        map.put("r_response","阻断连接");
