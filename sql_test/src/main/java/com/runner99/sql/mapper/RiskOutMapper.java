@@ -20,9 +20,13 @@ public interface RiskOutMapper {
     int insert(RiskOut record);
 
     int insertSelective(RiskOut record);
+    int insertBatch(List<RiskOut> list);
 
     RiskOut selectByPrimaryKey(Long id);
     List<RiskOut> selectByName(@Param(value = "name") String name);
+    List<RiskOut> selectTestLength(@Param(value = "names") String names);
+
+    List<RiskOut> selectzTestLength(List<String> names);
 
     int updateByPrimaryKeySelective(RiskOut record);
 

@@ -60,14 +60,14 @@ public class RiskOut implements Serializable {
     /**
      * 
      */
-    @TableField(value = "createTime")
-    private Date createtime;
+    @TableField(value = "create_time")
+    private Date createTime;
 
     /**
      * 
      */
-    @TableField(value = "updateTime")
-    private Date updatetime;
+    @TableField(value = "update_time")
+    private Date updateTime;
 
     /**
      * 
@@ -115,8 +115,8 @@ public class RiskOut implements Serializable {
             && (this.getOutPort() == null ? other.getOutPort() == null : this.getOutPort().equals(other.getOutPort()))
             && (this.getOutProtocol() == null ? other.getOutProtocol() == null : this.getOutProtocol().equals(other.getOutProtocol()))
             && (this.getEnable() == null ? other.getEnable() == null : this.getEnable().equals(other.getEnable()))
-            && (this.getCreatetime() == null ? other.getCreatetime() == null : this.getCreatetime().equals(other.getCreatetime()))
-            && (this.getUpdatetime() == null ? other.getUpdatetime() == null : this.getUpdatetime().equals(other.getUpdatetime()))
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getOutTemplateId() == null ? other.getOutTemplateId() == null : this.getOutTemplateId().equals(other.getOutTemplateId()))
             && (this.getCron() == null ? other.getCron() == null : this.getCron().equals(other.getCron()))
             && (this.getDataRangeStart() == null ? other.getDataRangeStart() == null : this.getDataRangeStart().equals(other.getDataRangeStart()))
@@ -134,8 +134,8 @@ public class RiskOut implements Serializable {
         result = prime * result + ((getOutPort() == null) ? 0 : getOutPort().hashCode());
         result = prime * result + ((getOutProtocol() == null) ? 0 : getOutProtocol().hashCode());
         result = prime * result + ((getEnable() == null) ? 0 : getEnable().hashCode());
-        result = prime * result + ((getCreatetime() == null) ? 0 : getCreatetime().hashCode());
-        result = prime * result + ((getUpdatetime() == null) ? 0 : getUpdatetime().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getOutTemplateId() == null) ? 0 : getOutTemplateId().hashCode());
         result = prime * result + ((getCron() == null) ? 0 : getCron().hashCode());
         result = prime * result + ((getDataRangeStart() == null) ? 0 : getDataRangeStart().hashCode());
@@ -156,8 +156,8 @@ public class RiskOut implements Serializable {
         sb.append(", outPort=").append(outPort);
         sb.append(", outProtocol=").append(outProtocol);
         sb.append(", enable=").append(enable);
-        sb.append(", createtime=").append(createtime);
-        sb.append(", updatetime=").append(updatetime);
+        sb.append(", createtime=").append(createTime);
+        sb.append(", updatetime=").append(updateTime);
         sb.append(", outTemplateId=").append(outTemplateId);
         sb.append(", cron=").append(cron);
         sb.append(", dataRangeStart=").append(dataRangeStart);

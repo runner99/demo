@@ -8,9 +8,9 @@ CREATE TABLE if NOT EXISTS risk_out
     out_port         varchar(255)             null,
     out_protocol     varchar(255)             null,
     enable           tinyint(1)               null,
-    createTime       datetime default (now()) not null,
-    updateTime       datetime default (now()) not null,
-    out_template_id  int                      null,
+    create_time       datetime default (now()) not null,
+    update_time       datetime default (now()) not null,
+    out_template_id  bigint                      null,
     cron             varchar(255)             null,
     data_range_start int                      null,
     data_range_end   int                      null
