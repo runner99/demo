@@ -27,8 +27,8 @@ public class SysLogSendQuzhou {
     /**
      * dsc设备地址
      */
-    private static final String HOST = "192.168.52.180";
-//        private static final String HOST = "192.168.52.204";
+//    private static final String HOST = "192.168.52.180";
+    private static final String HOST = "192.168.52.204";
 
     private static final int PORT = 1468;
 
@@ -36,14 +36,14 @@ public class SysLogSendQuzhou {
     /**
      * 一批消息数量
      */
-    private static final int BATCH_SIZE=3;
+    private static final int BATCH_SIZE = 1;
 
     private static SyslogIF syslog = null;
 
 
     public static void main(String[] args) {
 
-        Integer core = 3;
+        Integer core = 1;
         syslog = Syslog.getInstance(SyslogConstants.TCP);
         syslog.getConfig().setHost(HOST);
         syslog.getConfig().setPort(PORT);
@@ -74,8 +74,8 @@ public class SysLogSendQuzhou {
                         /**
                          * 是否只发一次
                          */
-                        Thread.sleep(500L);
-//                        break;
+//                        Thread.sleep(500L);
+                        break;
                     }
                 } catch (Exception e) {
                     log.error("" + e);
@@ -83,59 +83,55 @@ public class SysLogSendQuzhou {
             });
         }
 
-        Integer interval=1;
+        Integer interval = 1;
 
-        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(()->{
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
             int i = count.get();
             count.getAndAdd(-i);
-            System.out.println("在过去"+interval+"秒内，发送消息数："+i);
-        },1,interval, TimeUnit.SECONDS);
+            System.out.println("在过去" + interval + "秒内，发送消息数：" + i);
+        }, 1, interval, TimeUnit.SECONDS);
 
     }
 
 
     /**
      * 消息体
+     *
      * @return
      */
     private static String buildMessage() {
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("c_time",System.currentTimeMillis());
+        map.put("c_time", System.currentTimeMillis());
 //        map.put("c_time",1704263441000L);
-        map.put("e_category","alert");
-        map.put("e_type","db_access");
+        map.put("e_category", "alert");
+        map.put("e_type", "db_access");
 //        map.put("e_type","db_logon");
 
 
-
 //
-        map.put("o_svr_ip","192.168.52.188");
-        map.put("o_svr_port",13306);
-        map.put("o_statement","select * from ddac.analysis_sample");
-        map.put("o_object","analysis_sample");
-        map.put("o_schema","ddac");
+        map.put("o_svr_ip", "192.168.52.188");
+        map.put("o_svr_port", 13306);
+        map.put("o_statement", "select * from test;");
+        map.put("o_object", "analysis_sample");
+        map.put("o_schema", "ddac");
 
 
+        map.put("s_dev_ip", "192.12.12.12");
+        map.put("s_dev_port", 666);
+        map.put("r_risk", 0);
+//        map.put("r_risk_type", "ggggggg");
 
-
-        map.put("s_dev_ip","192.12.12.12");
-        map.put("s_dev_port",666);
-        map.put("r_risk",0);
-        map.put("f_affected",10000);
-        map.put("b_action","select");
-        map.put("o_type","rdstest");
+        map.put("f_affected", 10000);
+        map.put("b_action", "select");
+        map.put("o_type", "rdstest");
 //        map.put("r_response","阻断连接");
 
 
-
-
-
-        map.put("s_db_user","MINGANTEST");
+        map.put("s_db_user", "TEST666");
 
 //        map.put("s_t_account","yewutest");
 //        map.put("s_t_account","yunwei");
-
 
 
 //        map.put("s_app_name","asdfasdf");

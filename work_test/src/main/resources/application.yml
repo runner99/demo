@@ -1,0 +1,17 @@
+#  #设置单个文件大小，单位MB和KB都可以
+#spring.servlet.multipart.max-file-size=200MB
+#  #设置总上传的数据大小，单位MB和KB都可以
+#spring.servlet.multipart.max-request-size=200MB
+
+server:
+  port: 8088
+spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+logging:
+  config: classpath:log4j2-spring.xml
+
+chunan:
+  scheduling: "0/10 * * * * ?"
