@@ -58,7 +58,6 @@ public class WangzhuanController {
     }
 
 
-
     @PostMapping("/import")
     public List<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
 
@@ -68,13 +67,37 @@ public class WangzhuanController {
 
 
     @PostMapping("/test")
-    public void test(@RequestBody List<Integer> list){
-        list.stream().forEach(obj->{
+    public void test(@RequestBody List<Integer> list) {
+        list.stream().forEach(obj -> {
             System.out.println(obj);
         });
 
         System.out.println("aaaaaaa");
 
+    }
+
+
+    public static void main(String[] args) {
+        String msg = "告警时间: %s" +
+                "<br>详情: %s（ip：%s）设备触发%s运行异常告警，请进行排查。" +
+                "<br>告警类型: 设备告警" +
+                "<br>事件描述: %s（ip：%s）设备在%s触发告警类型为 '设备告警' 的告警,请进行排查。";
+
+        List<String> strs = new ArrayList<String>(){{
+            add("222");
+
+            add("222");
+            add("222");
+            add("222");
+
+            add("222");
+            add("222");
+            add("222");
+
+        }};
+
+        String format = String.format(msg, strs.stream().toArray(String[]::new));
+        System.out.println(format);
     }
 
 }

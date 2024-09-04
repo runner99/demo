@@ -22,7 +22,7 @@ public class Productor {
 
 
         Properties props = new Properties();
-        props.put("bootstrap.servers", "192.168.52.201:9092");
+        props.put("bootstrap.servers", "192.168.52.204:9092");
         props.put("acks", "1");
         props.put("linger.ms", 0);
         props.put("key.serializer",

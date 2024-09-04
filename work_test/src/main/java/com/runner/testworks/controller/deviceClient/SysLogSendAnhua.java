@@ -18,7 +18,7 @@ import java.util.concurrent.*;
 @Slf4j
 public class SysLogSendAnhua {
 
-    private static final String HOST = "192.168.52.201";
+    private static final String HOST = "192.168.52.180";
     private static final int PORT = 1468;
 
     public static void main(String[] args) {

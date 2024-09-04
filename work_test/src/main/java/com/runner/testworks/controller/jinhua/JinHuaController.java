@@ -5,6 +5,7 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONArray;
 import com.runner.testworks.config.RestTemplateConfig;
 import com.runner.testworks.config.Result;
 
@@ -521,8 +522,30 @@ public class JinHuaController {
     }
 
     public static void main(String[] args) {
-        String msg="2023%2F04&amp;start=0&amp;end=9";
-        System.out.println(StringEscapeUtils.unescapeHtml4(msg));
+
+
+//        JSONArray jsonArray = new JSONArray("asdf");
+
+        HashSet<String> authIds = new HashSet<>();
+        authIds.add("12");
+        authIds.add("13");
+
+        ArrayList<com.alibaba.fastjson2.JSONObject> jsonObjects = new ArrayList<>();
+        jsonObjects.add(new com.alibaba.fastjson2.JSONObject(new HashMap<String,Object>(){{
+            put("dataPermissionId","12");
+        }}));
+        jsonObjects.add(new com.alibaba.fastjson2.JSONObject(new HashMap<String,Object>(){{
+            put("dataPermissionId","13");
+        }}));
+        jsonObjects.add(new com.alibaba.fastjson2.JSONObject(new HashMap<String,Object>(){{
+            put("dataPermissionId","14");
+        }}));
+        JSONArray jsonArray = new JSONArray(jsonObjects);
+
+        System.out.println("过滤前"+jsonArray.toString());
+        jsonArray.removeIf(obj -> !authIds.contains(((com.alibaba.fastjson2.JSONObject) obj).getString("dataPermissionId")));
+        System.out.println("过滤后"+jsonArray.toString());
+
     }
 
 

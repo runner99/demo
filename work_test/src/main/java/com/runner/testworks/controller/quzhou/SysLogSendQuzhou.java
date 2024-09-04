@@ -104,7 +104,7 @@ public class SysLogSendQuzhou {
         HashMap<String, Object> map = new HashMap<>();
         map.put("c_time", System.currentTimeMillis());
 //        map.put("c_time",1704263441000L);
-        map.put("e_category", "alert");
+        map.put("e_category", "common");
         map.put("e_type", "db_access");
 //        map.put("e_type","db_logon");
 
@@ -112,23 +112,23 @@ public class SysLogSendQuzhou {
 //
         map.put("o_svr_ip", "192.168.52.188");
         map.put("o_svr_port", 13306);
-        map.put("o_statement", "select * from test;");
+//        map.put("o_statement", "select * from test;");
         map.put("o_object", "analysis_sample");
         map.put("o_schema", "ddac");
 
 
         map.put("s_dev_ip", "192.12.12.12");
         map.put("s_dev_port", 666);
-        map.put("r_risk", 0);
+        map.put("r_risk", 1);
 //        map.put("r_risk_type", "ggggggg");
 
-        map.put("f_affected", 10000);
-        map.put("b_action", "select");
-        map.put("o_type", "rdstest");
+//        map.put("f_affected", 10000);
+//        map.put("b_action", "select");
+//        map.put("o_type", "rdstest");
 //        map.put("r_response","阻断连接");
 
 
-        map.put("s_db_user", "TEST666");
+//        map.put("s_db_user", "TEST666");
 
 //        map.put("s_t_account","yewutest");
 //        map.put("s_t_account","yunwei");

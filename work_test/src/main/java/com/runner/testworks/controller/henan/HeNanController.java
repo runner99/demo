@@ -1,4 +1,4 @@
-package com.runner.testworks.controller.deviceClient;
+package com.runner.testworks.controller.henan;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -17,17 +17,14 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author weizhenqiang
- * @date 2023/6/30 15:43
+ * @date 2024/8/22 13:37
  */
 
 @Slf4j
-public class SysLogSend {
+public class HeNanController {
 
-    /**
-     * dsc设备地址
-     */
-//    private static final String HOST = "192.168.52.180";
-    private static final String HOST = "192.168.238.149";
+    private static final String HOST = "192.168.52.180";
+//    private static final String HOST = "192.168.52.191";
 
     private static final int PORT = 1468;
 
@@ -35,7 +32,7 @@ public class SysLogSend {
     /**
      * 一批消息数量
      */
-    private static final int BATCH_SIZE = 1;
+    private static final int BATCH_SIZE = 10000;
 
     private static SyslogIF syslog = null;
 
@@ -78,8 +75,8 @@ public class SysLogSend {
                         /**
                          * 是否只发一次
                          */
-//                        Thread.sleep(500L);
-                        break;
+                        Thread.sleep(500L);
+//                        break;
                     }
                 } catch (Exception e) {
                     log.error("" + e);
@@ -110,19 +107,19 @@ public class SysLogSend {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("c_time", System.currentTimeMillis());
-//        map.put("c_time",1713937707000L);
-//        map.put("e_category", "alert");
-        map.put("e_category", "common");
+//        map.put("c_time",1724401017259L);
+        map.put("e_category", "alert");
+//        map.put("e_category", "common");
         map.put("e_type", "db_access");
 //        map.put("e_type","db_logon");
 
 
 //  192.168.52.201:13306
-        map.put("o_svr_ip", "192.168.52.204");
+        map.put("o_svr_ip", "192.168.52.20111");
         map.put("o_svr_port", 13306);
-        map.put("o_statement", "select * from Aassert_account");
+        map.put("o_statement", "select * from Aassert_account"+System.currentTimeMillis());
         map.put("o_object", "ASSERT_ACCOUNT");
-        map.put("o_schema", "initten_soc");
+        map.put("o_schema", "initten_so"+System.currentTimeMillis());
 
 
         map.put("s_dev_ip", "192.168.52.100");
@@ -130,13 +127,13 @@ public class SysLogSend {
         map.put("r_risk", 3);
         map.put("r_risk_type", "ggggggg");
 
-        map.put("f_affected", 1000000);
+        map.put("f_affected", 100000);
         map.put("b_action", "SELECT");
         map.put("o_type", "asdfasdf");
 //        map.put("r_response","阻断连接");
 
 
-        map.put("s_db_user", "渣渣辉");
+        map.put("s_db_user", "渣渣辉aaaa");
 
 //        map.put("s_t_account","yewutest");
 //        map.put("s_t_account","yunwei");
