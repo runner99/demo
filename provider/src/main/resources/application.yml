@@ -1,5 +1,0 @@
-server:
-  port: 9001
-zookeeper:
-  address: 192.168.224.128:2181
-  timeout: 5000
