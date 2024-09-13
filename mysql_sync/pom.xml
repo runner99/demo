@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.runner99</groupId>
-    <artifactId>sql_test</artifactId>
+    <artifactId>mysql_sync</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>sql_test</name>
     <description>sql_test</description>
