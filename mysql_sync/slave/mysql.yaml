@@ -1,0 +1,15 @@
+name: devsoft
+services:
+  mysqla:
+    image: mysql:8.0.31
+    restart: always
+    container_name: mysqlslave
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - '3306:3306'
+      - '33070:33060'
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./mysql/conf/my.cnf:/etc/my.cnf:ro
+      - ./mysql/data:/var/lib/mysql:rw

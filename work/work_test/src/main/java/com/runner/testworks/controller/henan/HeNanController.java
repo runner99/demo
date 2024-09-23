@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Slf4j
 public class HeNanController {
 
-    private static final String HOST = "192.168.52.180";
+    private static final String HOST = "192.168.238.149";
 //    private static final String HOST = "192.168.52.191";
 
     private static final int PORT = 1468;
@@ -32,7 +32,7 @@ public class HeNanController {
     /**
      * 一批消息数量
      */
-    private static final int BATCH_SIZE = 10000;
+    private static final int BATCH_SIZE = 1;
 
     private static SyslogIF syslog = null;
 
@@ -75,7 +75,7 @@ public class HeNanController {
                         /**
                          * 是否只发一次
                          */
-                        Thread.sleep(500L);
+                        Thread.sleep(1000L);
 //                        break;
                     }
                 } catch (Exception e) {
@@ -108,15 +108,15 @@ public class HeNanController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("c_time", System.currentTimeMillis());
 //        map.put("c_time",1724401017259L);
-        map.put("e_category", "alert");
-//        map.put("e_category", "common");
+//        map.put("e_category", "alert");
+        map.put("e_category", "common");
         map.put("e_type", "db_access");
 //        map.put("e_type","db_logon");
 
 
 //  192.168.52.201:13306
         map.put("o_svr_ip", "192.168.52.20111");
-        map.put("o_svr_port", 13306);
+        map.put("o_svr_port", 637944);
         map.put("o_statement", "select * from Aassert_account"+System.currentTimeMillis());
         map.put("o_object", "ASSERT_ACCOUNT");
         map.put("o_schema", "initten_so"+System.currentTimeMillis());
