@@ -62,3 +62,4 @@ SHOW SLAVE STATUS;
 
 当Slave_IO_Runing和Slave_SQL_Running都是 **Yes**的时候说明同步成功
 
+test
