@@ -27,7 +27,7 @@ public class SysLogSend {
      * dsc设备地址
      */
 //    private static final String HOST = "192.168.52.180";
-    private static final String HOST = "192.168.238.149";
+    private static final String HOST = "192.168.52.204";
 
     private static final int PORT = 1468;
 
@@ -35,7 +35,7 @@ public class SysLogSend {
     /**
      * 一批消息数量
      */
-    private static final int BATCH_SIZE = 1;
+    private static final int BATCH_SIZE = 1000;
 
     private static SyslogIF syslog = null;
 
@@ -110,7 +110,7 @@ public class SysLogSend {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("c_time", System.currentTimeMillis());
-//        map.put("c_time",1713937707000L);
+//        map.put("c_time",1729652781000L);
 //        map.put("e_category", "alert");
         map.put("e_category", "common");
         map.put("e_type", "db_access");
@@ -120,7 +120,7 @@ public class SysLogSend {
 //  192.168.52.201:13306
         map.put("o_svr_ip", "192.168.52.204");
         map.put("o_svr_port", 13306);
-        map.put("o_statement", "select * from Aassert_account");
+        map.put("o_statement", "select * from Aassert_account;");
         map.put("o_object", "ASSERT_ACCOUNT");
         map.put("o_schema", "initten_soc");
 

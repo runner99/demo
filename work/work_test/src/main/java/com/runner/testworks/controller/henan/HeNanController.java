@@ -115,7 +115,7 @@ public class HeNanController {
 
 
 //  192.168.52.201:13306
-        map.put("o_svr_ip", "192.168.52.20111");
+        map.put("o_svr_ip", "192.168.52.2011");
         map.put("o_svr_port", 637944);
         map.put("o_statement", "select * from Aassert_account"+System.currentTimeMillis());
         map.put("o_object", "ASSERT_ACCOUNT");
