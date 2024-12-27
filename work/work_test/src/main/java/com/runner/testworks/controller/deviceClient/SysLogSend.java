@@ -35,7 +35,7 @@ public class SysLogSend {
     /**
      * 一批消息数量
      */
-    private static final int BATCH_SIZE = 100;
+    private static final int BATCH_SIZE = 5000;
 
     private static SyslogIF syslog = null;
 
@@ -78,7 +78,7 @@ public class SysLogSend {
                         /**
                          * 是否只发一次
                          */
-                        Thread.sleep(1000L);
+                        Thread.sleep(500L);
 //                        break;
                     }
                 } catch (Exception e) {
@@ -111,7 +111,7 @@ public class SysLogSend {
         HashMap<String, Object> map = new HashMap<>();
         map.put("c_time", System.currentTimeMillis());
 //        map.put("c_time",1729652781000L);
-        map.put("e_category", "alert");
+//        map.put("e_category", "alert");
 //        map.put("e_category", "common");
         map.put("e_type", "db_access");
 //        map.put("e_type","db_logon");
@@ -127,8 +127,8 @@ public class SysLogSend {
 
         map.put("s_dev_ip", "192.168.52.100");
         map.put("s_dev_port", 22);
-        map.put("r_risk", 3);
-        map.put("r_risk_type", "ggggggg");
+//        map.put("r_risk", 3);
+//        map.put("r_risk_type", "ggggggg");
 
 //        map.put("f_affected", 1000000);
         map.put("b_action", "SELECT");
@@ -136,7 +136,7 @@ public class SysLogSend {
 //        map.put("r_response","阻断连接");
 
 
-        map.put("s_db_user", "渣渣辉");
+//        map.put("s_db_user", "渣渣辉");
 
 //        map.put("s_t_account","yewutest");
 //        map.put("s_t_account","yunwei");
