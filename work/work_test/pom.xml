@@ -51,7 +51,11 @@
             <version>2.7.0</version> <!-- 使用您想要的版本号 -->
         </dependency>
 
-
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>2.9.3</version>
+        </dependency>
 
 
         <dependency>
@@ -120,7 +124,11 @@
         </dependency>
 
 
-
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>8.11.2</version> <!-- 你可以根据需要选择合适的版本 -->
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
@@ -131,9 +139,14 @@
 <!--            <version>2.2.4</version>-->
 <!--        </dependency>-->
         <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.10</version>
+        </dependency>
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.73</version>
+            <version>1.2.83</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
