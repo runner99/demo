@@ -23,7 +23,7 @@ public class NingboController {
      * @param request
      */
     @PostMapping("/japi/v1/management/processor")
-    public JSONObject test(@RequestBody JSONArray jsonObject, HttpServletRequest request){
+    public JSONObject test(@RequestBody JSONObject jsonObject, HttpServletRequest request){
 
         String header = request.getHeader("appToken");
 
@@ -38,7 +38,7 @@ public class NingboController {
                 "    \"data\": [\n" +
                 "      {\n" +
                 "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
+//                "        \"projectName\": \"项目名称示例1\",\n" +
                 "        \"systemList\": [\n" +
                 "          {\n" +
                 "            \"systemId\": \"1\",\n" +
@@ -49,225 +49,10 @@ public class NingboController {
                 "            \"systemName\": \"系统名称1-2\"\n" +
                 "          }\n" +
                 "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"1231111111111\",\n" +
-                "        \"projectName\": \"项目名称示例1\",\n" +
-                "        \"systemList\": [\n" +
-                "          {\n" +
-                "            \"systemId\": \"1\",\n" +
-                "            \"systemName\": \"系统名称1-1\"\n" +
-                "          },\n" +
-                "          {\n" +
-                "            \"systemId\": 2,\n" +
-                "            \"systemName\": \"系统名称1-2\"\n" +
-                "          }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"projectId\": \"124\",\n" +
-                "        \"projectName\": \"项目名称示例2\",\n" +
-//                "        \"systemList\": []\n" +
                 "      },\n" +
                 "      {\n" +
                 "        \"projectId\": \"125\",\n" +
-                "        \"projectName\": \"项目名称示例3\",\n" +
+//                "        \"projectName\": \"项目名称示例3\",\n" +
                 "        \"systemList\": [\n" +
                 "          {\n" +
                 "            \"systemId\": 3,\n" +

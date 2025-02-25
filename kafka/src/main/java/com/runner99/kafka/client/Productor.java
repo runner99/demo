@@ -13,7 +13,7 @@ import java.util.Properties;
 @Slf4j
 public class Productor {
 
-    public static final String KAFKA_IP="192.168.52.183:9092";
+    public static final String KAFKA_IP="192.168.52.192:9092";
 
 
     public static final String TOPIC ="test66666";
@@ -36,11 +36,11 @@ public class Productor {
 
 
         //        认证配置
-//        props.setProperty("security.protocol", "SASL_PLAINTEXT");
-//        props.setProperty("sasl.mechanism", "PLAIN");
-//        props.put("sasl.jaas.config",
-//                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"" + username
-//                        + "\" password=\"" + passwd + "\";");
+        props.setProperty("security.protocol", "SASL_PLAINTEXT");
+        props.setProperty("sasl.mechanism", "PLAIN");
+        props.put("sasl.jaas.config",
+                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"" + username
+                        + "\" password=\"" + passwd + "\";");
 
 
         KafkaProducer<String, byte[]> producer = new KafkaProducer<String, byte[]>(props);
@@ -57,8 +57,8 @@ public class Productor {
 
             try {
                 producer.send(new ProducerRecord<String, byte[]>(TOPIC, msg.getBytes()));
-//                System.out.println("发送消息:"+msg);
-                Thread.sleep(5000);
+                System.out.println("发送消息:"+msg);
+//                Thread.sleep(1000);
 //                break;
             } catch (Throwable e) {
                 log.error("消息发送异常"+e.getMessage());

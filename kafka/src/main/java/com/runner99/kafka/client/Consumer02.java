@@ -15,7 +15,7 @@ import java.util.Properties;
  * @date 2023/10/9 18:14
  */
 @Slf4j
-public class Consumer {
+public class Consumer02 {
 
 
 
@@ -33,7 +33,7 @@ public class Consumer {
 
 
         props.put("bootstrap.servers", Productor.KAFKA_IP);
-        props.put("group.id", "id01");
+        props.put("group.id", "id02");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
         props.put("session.timeout.ms", "30000");
