@@ -78,7 +78,7 @@ public class SysLogSendAnPuTe {
 
     private static String buildMessage() {
         // 你的消息构建逻辑
-        String msg = "{\"notify_time\":\"2025-03-11 12:42:14\",\"notify_type\":\"ALERT\",\"alert_time\":\"2023-10-24 12:30:00\",\"risk_name\":\"磁盘使用率超限\",\"channel\":\"default\",\"level\":\"midw\",\"content\":\"[11,0,33,2]\",\"data\":\"{\\\"IP\\\":\\\"172.31.34.201\\\"}]\",\"exp\":\"600\"}";
+        String msg = "{\"notify_time\":\"2025-03-19 17:42:14\",\"notify_type\":\"ALERT\",\"alert_time\":\"2023-10-24 12:30:00\",\"risk_name\":\"磁盘使用率超限\",\"channel\":\"default\",\"level\":\"midw\",\"content\":\"[11,0,33,2]\",\"data\":\"{\\\"IP\\\":\\\"172.31.34.201\\\"}]\",\"exp\":\"600\"}";
 
         return msg;
     }
