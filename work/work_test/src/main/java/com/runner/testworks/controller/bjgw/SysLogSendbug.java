@@ -22,10 +22,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class SysLogSendbug {
 
-    private static final String HOST = "192.168.52.204";
+    private static final String HOST = "192.168.52.186";
     private static final int PORT = 1468;
 
-    private static final int BATCH_SIZE=10000;
+    private static final int BATCH_SIZE=1;
 
     private static SyslogIF syslog = null;
 
@@ -82,8 +82,8 @@ public class SysLogSendbug {
                 + "|客户端操作系统用户:userTEST1"
                 + "|主机名:GGGG"
                 + "|应用用户:AAAA"
-                + "|服务器IP:192.168.52.186"
-                + "|服务器端口:13306"
+                + "|服务器IP:1.1.1.1"
+                + "|服务器端口:2"
 //                + "|访问对象:OBJECT"
                 + "|数据库名:USER1"
                 + System.nanoTime();
