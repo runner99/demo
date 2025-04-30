@@ -8,8 +8,8 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="${PATTERN}"/>
         </Console>
-        <RollingFile name="SocFile" fileName="${LOGDIR}/kafka.log"
-                     filePattern="${LOGDIR}/kafka-%i.log" append="true">
+        <RollingFile name="SocFile" fileName="${LOGDIR}/sass.log"
+                     filePattern="${LOGDIR}/sass-%i.log" append="true">
             <PatternLayout pattern="${PATTERN}"/>
             <DefaultRolloverStrategy max="10"/>
             <Policies>
@@ -22,7 +22,6 @@
         <logger name="java.sql.Connection" level="DEBUG"/>
         <logger name="java.sql.Statement" level="DEBUG"/>
         <logger name="java.sql.PreparedStatement" level="DEBUG"/>
-
 
         <Logger name="com.runner99" level="INFO" />
         <Root level="INFO">

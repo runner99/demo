@@ -1,4 +1,4 @@
-package com.runner99.kafka.client;
+package com.runner99.kafka.cluster;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -15,30 +15,22 @@ import java.util.Properties;
  * @date 2023/10/9 18:14
  */
 @Slf4j
-public class Consumer02 {
+public class ConsumerPar {
 
 
 
     public static void main(String[] args) {
         Properties props = new Properties();
 
-//      kafka认证配置
-        String username="alice";
-        String passwd="hzmc456";
-        props.setProperty("security.protocol", "SASL_PLAINTEXT");
-        props.setProperty("sasl.mechanism", "PLAIN");
-        props.put("sasl.jaas.config",
-                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"" + username
-                        + "\" password=\"" + passwd + "\";");
 
 
-        props.put("bootstrap.servers", Productor.KAFKA_IP);
-        props.put("group.id", "id02");
+        props.put("bootstrap.servers", ProductorPar.KAFKA_IP);
+        props.put("group.id", "id01");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
         props.put("session.timeout.ms", "30000");
         props.put("max.poll.records", 1000);
-        props.put("auto.offset.reset", "earliest");
+        props.put("auto.offset.reset", "latest");
         props.put("key.deserializer", StringDeserializer.class.getName());
         props.put("value.deserializer", ByteArrayDeserializer.class.getName());
 
@@ -46,21 +38,22 @@ public class Consumer02 {
         KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<String, byte[]>(props);
 
 
-        consumer.subscribe(Arrays.asList(Productor.TOPIC));
+        consumer.subscribe(Arrays.asList(ProductorPar.TOPIC));
 
         while (true){
             ConsumerRecords<String, byte[]> records=consumer.poll(1000);
             for (ConsumerRecord<String, byte[]> record : records){
                 System.out.println("接收key:"+record.key());
-                System.out.println("接收value:"+new String(record.value()));
-//                String s = new String(record.value());
-//                System.out.println(s);
+                String data = new String(record.value());
+                System.out.println("接收value:"+data);
+                System.out.println("接收value字节长度："+data.getBytes().length);
+
             }
-            try {
-                Thread.sleep(1000L);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+//            try {
+//                Thread.sleep(1000L);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
         }
 
 

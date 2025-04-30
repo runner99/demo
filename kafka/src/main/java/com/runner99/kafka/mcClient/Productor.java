@@ -1,4 +1,4 @@
-package com.runner99.kafka.client;
+package com.runner99.kafka.mcClient;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!--
+    cacheEnabled：该配置项用于指定是否启用 MyBatis 的二级缓存。默认情况下为 true，表示启用二级缓存。如果设置为 false，则禁用二级缓存。
+
+    lazyLoadingEnabled：该配置项用于指定是否启用 MyBatis 的懒加载特性。默认情况下为 true，表示启用懒加载。如果设置为 false，则禁用懒加载，查询结果将会立即加载完整对象。
+
+    logImpl 配置项用于指定 MyBatis 日志的实现方式。具体来说，STDOUT_LOGGING 表示将日志输出到标准输出流（stdout），即控制台。这样配置后，MyBatis 的日志信息将直接输出到控制台，便于开发人员在调试和查看日志时进行观察和分析。
+
+    aggressiveLazyLoading：该配置项用于指定是否使用积极的懒加载方式。默认情况下为 false。
+    当启用积极懒加载时，MyBatis 在加载关联对象时会尽可能地使用懒加载。这可以减少内存消耗和数据库查询次数，但可能会导致懒加载的对象过多，造成性能问题。
+    比如n+1问题
+
+    -->
+    <settings>
+        <setting name="cacheEnabled" value="false"/>
+        <setting name="lazyLoadingEnabled" value="false"/>
+        <setting name="aggressiveLazyLoading" value="true"/>
+
+<!--
+SLF4J：表示使用 SLF4J（Simple Logging Facade for Java）作为日志实现。这是最常用的选项，通常与 Logback 或者 Log4j2 等日志框架结合使用。
+COMMONS_LOGGING：表示使用 Apache Commons Logging 作为日志实现。
+STDOUT_LOGGING：表示将日志输出到标准输出（控制台）。这对于调试和快速查看日志信息很有用，但不适用于生产环境。
+LOG4J：表示使用 Log4j 1.x 作为日志实现。
+LOG4J2：表示使用 Log4j 2.x 作为日志实现。
+JDK_LOGGING：表示使用 JDK 自带的日志框架作为日志实现。通常不推荐在实际项目中使用，因为它的功能相对较弱。
+这些选项中，SLF4J 是最常用的，并且是推荐的选项之一，因为它可以与多种日志框架结合使用，而且对性能影响较小。
+
+-->
+
+
+<!--只打印到本地控制台 本地使用-->
+<!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+
+<!--    生产环境使用，但测试失败了    -->
+<!--        <setting name="logImpl" value="LOG4J2"/>-->
+
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+</configuration>
+

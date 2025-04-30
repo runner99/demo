@@ -1,4 +1,4 @@
-package com.runner.testworks.controller.henan;
+package com.runner.testworks.controller.dongyang;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -21,12 +21,12 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 
 @Slf4j
-public class SysLogSendDlp {
+public class SysLogSendUdpBv2 {
 
     /**
      * dsc设备地址
      */
-    private static final String HOST = "192.168.238.132";
+    private static final String HOST = "192.168.52.204";
 
     private static final int PORT = 1468;
 
@@ -106,49 +106,10 @@ public class SysLogSendDlp {
      * @return
      */
     private static String buildMessage() {
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("c_time", System.currentTimeMillis());
-//        map.put("c_time",1737255885000L);
-//        map.put("e_category", "alert");
-        map.put("e_category", "common");
-        map.put("e_type", "db_access");
-//        map.put("e_type","db_logon");
-
-
-//  192.168.52.201:13306
-        map.put("o_svr_ip", "192.168.52.3");
-        map.put("o_svr_port", 13306);
-        map.put("o_statement", "select * from Aassert_account;");
-        map.put("o_object", "ASSERT_ACCOUNT");
-        map.put("o_schema", "initten_soc");
-
-
-        map.put("s_dev_ip", "192.168.52.100");
-        map.put("s_dev_port", 22);
-        map.put("r_risk", 3);
-        map.put("r_risk_type", "ggggggg");
-
-        map.put("f_affected", 1);
-        map.put("b_action", "SELECT");
-        map.put("o_type", "aaa");
-//        map.put("r_response","阻断连接");
-
-
-//        map.put("s_db_user", "渣渣辉");
-
-//        map.put("s_t_account","yewutest");
-//        map.put("s_t_account","yunwei");
-
-
-//        map.put("s_app_name","asdfasdf");
-//        map.put("o_standard","SELECT * from assert_account");
-//        map.put("o_standard","select * from ASSERT_DS_BASE");
-//        map.put("r_response","阻断连接");
-//        map.put("r_risk_type","大量拖库");
-        map.put("r_matched_name","basdffdsa");
-//        System.out.println(JSON.toJSONString(map));
-        return JSON.toJSONString(map);
+        String msg="Tag {\"userName\": \"xxxx\",\"name\": \"xx\",\"rankID\": x,\"logType\": x,\"result\": x,\n" +
+                "     * \"date\": \"yyyy-mm-dd hh:mm:ss\",\"operateType\": \"xxxxxx\",\n" +
+                "     * \"sourceIP\": \"x.x.x.x\",\"operateContent\": \" root@10.50.82.196:22 success\"}";
+        return JSON.toJSONString(msg);
     }
 
 

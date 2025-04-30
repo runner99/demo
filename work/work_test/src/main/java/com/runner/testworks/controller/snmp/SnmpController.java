@@ -39,8 +39,8 @@ public class SnmpController {
     }
 
     public static void main(String[] args) {
-        String ipAddress = "192.168.52.204";
-        DeviceSnmpInfo deviceSnmpInfo = SnmpUtil.getDeviceSnmpInfo(ipAddress);
+        String ipAddress = "192.168.238.132";
+        DeviceSnmpInfo deviceSnmpInfo = SnmpUtilBk.getDeviceSnmpInfo(ipAddress);
 
         System.out.println(deviceSnmpInfo.toString());
 
