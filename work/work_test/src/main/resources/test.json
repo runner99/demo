@@ -1,0 +1,38 @@
+{
+  "databaseName": "资产名称",
+  "identityInfos": [
+    {
+      "appName": "应用用户",
+      "appSign": "应用签名",
+      "certificate": "证书",
+      "clientIp": "客户端ip:port",
+      "databaseUser": "数据库用户",
+      "hostName": "资产ip:port",
+      "identityName": "应用身份",
+      "macAddr": "mac地址",
+      "osUser": "操作系统用户",
+      "userName": "用户名"
+    }
+  ],
+  "ownerPhone": "",
+  "periodValidity": "处置预案",
+  "richsqlContents": [],
+  "serviceType": "风险处置",
+  "sqlInfos": [],
+  "sqlTransfer": [
+    "涉及资产"
+  ],
+  "riskDisposal": [
+    {
+      "type": "风险类型",
+      "level": "风险等级",
+      "rule": "风险规则",
+      "alarmCount": "告警此时",
+      "lastTime": "最后时间",
+      "address": "发生地区",
+      "action": "操作翻译",
+      "actionClass": "操作分类",
+      "actionType": "操作类型"
+    }
+  ]
+}

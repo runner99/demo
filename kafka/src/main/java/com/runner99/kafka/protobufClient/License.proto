@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package license;
+option java_package = "com.example.license";
+option java_outer_classname = "LicenseProto";
+
+message License {
+  string license_id = 1;
+  string product_name = 2;
+  string customer_name = 3;
+}
