@@ -80,7 +80,7 @@ public class SysLogSend {
                         /**
                          * 是否只发一次
                          */
-                        Thread.sleep(1L);
+                        Thread.sleep(1000L);
 //                        break;
                     }
                 } catch (Exception e) {
@@ -119,15 +119,15 @@ public class SysLogSend {
         HashMap<String, Object> map = new HashMap<>();
         map.put("c_time", System.currentTimeMillis());
 //        map.put("c_time",1747623600000L);
-        map.put("e_category", "alert");
-//        map.put("e_category", "common");
+//        map.put("e_category", "alert");
+        map.put("e_category", "common");
         map.put("e_type", "db_access");
 //        map.put("e_type","db_logon");
 
 
 //  192.168.52.201:13306
-        map.put("o_svr_ip", "192.168.202.222");
-        map.put("o_svr_port", assetPort);
+        map.put("o_svr_ip", "192.168.202.2");
+        map.put("o_svr_port", 11);
         map.put("o_statement", "select * from Aassert_account;");
         map.put("o_object", "ASSERT_ACCOUNT");
         map.put("o_schema", "initten_soc");
@@ -140,7 +140,7 @@ public class SysLogSend {
 
         map.put("f_affected", 999999);
         map.put("b_action", "SELECT");
-        map.put("o_type", "aaa");
+        map.put("o_type", "mysql");
         map.put("r_response","行为风险");
 
 
@@ -150,7 +150,7 @@ public class SysLogSend {
 //        map.put("s_t_account","yunwei");
 
 
-        map.put("s_app_name","MYSQL");
+        map.put("s_app_name","nameaaaaaa");
         map.put("o_standard","SELECT * from assert_account");
         map.put("r_matched_name","asdffdsa1");
         map.put("f_err","0");
