@@ -19,6 +19,8 @@ public class RedisTestController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+
+//    lua实现最终版本
     @GetMapping("testLockLua")
     public void testLockLua() {
         //1 声明一个uuid ,将做为一个value 放入我们的key所对应的值中
@@ -70,6 +72,8 @@ public class RedisTestController {
         }
     }
 
+
+//    没有原子操作的版本，会导致误删除其他锁
     @GetMapping("testLock")
     public void testLock(){
         String uuid = UUID.randomUUID().toString();
@@ -89,6 +93,7 @@ public class RedisTestController {
             //2.4释放锁，del
             //判断比较uuid值是否一样
             String lockUuid = (String)redisTemplate.opsForValue().get("lock");
+//            中间的这段时间可能锁到期自动删除，然后下面的代码删了别的服务的锁！！！
             if(lockUuid.equals(uuid)) {
                 redisTemplate.delete("lock");
             }
@@ -104,12 +109,4 @@ public class RedisTestController {
     }
 
 
-    @GetMapping
-    public String testRedis() {
-        //设置值到redis
-        redisTemplate.opsForValue().set("name","lucy");
-        //从redis获取值
-        String name = (String)redisTemplate.opsForValue().get("name");
-        return name;
-    }
 }
