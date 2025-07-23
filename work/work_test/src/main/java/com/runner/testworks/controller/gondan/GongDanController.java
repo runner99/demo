@@ -24,31 +24,59 @@ public class GongDanController {
 
     public static void main(String[] args) {
 
-        Cache<String, String> manualCache = Caffeine.newBuilder()
-                .expireAfterWrite(1, TimeUnit.SECONDS)
+        Cache<String, HashMap<String,String>> cache = Caffeine.newBuilder()
+                .expireAfterWrite(1, TimeUnit.MINUTES)
                 .maximumSize(10)
                 .build();
 
 
-        manualCache.put("aaa","bbbbbbbbb");
-        manualCache.put("bbb","bbbbbbbbb");
-        manualCache.put("ccc","bbbbbbbbb");
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        manualCache.put("ddd","bbbbbbbbb");
+        String tenantId="initten";
 
-        while (true){
-            System.out.println(manualCache.getIfPresent("aaa"));
-            try {
-                Thread.sleep(1000L);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("111","222");
+        cache.put(tenantId,map);
+
+
+        String key="aaaa";
+        String value="bbbb";
+
+
+        HashMap<String, String> workDtoHashMap = cache.getIfPresent(tenantId);
+
+        if (workDtoHashMap==null){
+            workDtoHashMap = new HashMap<>();
+            workDtoHashMap.put(key,value);
+            cache.put(tenantId,workDtoHashMap);
+        }else {
+            workDtoHashMap.put(key,value);
         }
 
+
+        HashMap<String, String> aaa = cache.getIfPresent(tenantId);
+
+
+        System.out.println(1);
+//
+//        manualCache.put("aaa","bbbbbbbbb");
+//        manualCache.put("bbb","bbbbbbbbb");
+//        manualCache.put("ccc","bbbbbbbbb");
+//        try {
+//            Thread.sleep(1000L);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//        manualCache.put("ddd","bbbbbbbbb");
+//
+//        while (true){
+//            System.out.println(manualCache.getIfPresent("aaa"));
+//            try {
+//                Thread.sleep(1000L);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//
 
 
     }

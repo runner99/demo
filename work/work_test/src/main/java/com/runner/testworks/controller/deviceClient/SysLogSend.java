@@ -108,13 +108,7 @@ public class SysLogSend {
      *
      * @return
      */
-
-    private static Integer assetPort=1;
     private static String buildMessage() {
-
-        assetPort++;
-
-        System.out.println("port:"+assetPort);
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("c_time", System.currentTimeMillis());
@@ -125,36 +119,36 @@ public class SysLogSend {
 //        map.put("e_type","db_logon");
 
 
-//  192.168.52.201:13306
-        map.put("o_svr_ip", "192.168.202.2");
-        map.put("o_svr_port", 11);
-        map.put("o_statement", "select * from Aassert_account;");
-        map.put("o_object", "ASSERT_ACCOUNT");
-        map.put("o_schema", "initten_soc");
+
+        map.put("o_svr_ip", "192.168.52.201");
+        map.put("o_svr_port", 13306);
+//        map.put("o_statement", "select * from Aassert_account;");
+//        map.put("o_object", "ASSERT_ACCOUNT");
+//        map.put("o_schema", "initten_soc");
 
 
         map.put("s_dev_ip", "192.168.52.100");
-        map.put("s_dev_port", 111);
-        map.put("r_risk", 3);
-        map.put("r_risk_type", "ggggggg");
+//        map.put("s_dev_port", 111);
+//        map.put("r_risk", 3);
+//        map.put("r_risk_type", "ggggggg");
+//
+//        map.put("f_affected", 999999);
+//        map.put("b_action", "SELECT");
+        map.put("o_type", "MySql");
+//        map.put("r_response","行为风险");
 
-        map.put("f_affected", 999999);
-        map.put("b_action", "SELECT");
-        map.put("o_type", "mysql");
-        map.put("r_response","行为风险");
 
+//        map.put("s_db_user", "渣渣辉");
 
-        map.put("s_db_user", "渣渣辉");
-
-        map.put("s_t_account","yewutest");
+//        map.put("s_t_account","yewutest");
 //        map.put("s_t_account","yunwei");
 
 
-        map.put("s_app_name","nameaaaaaa");
-        map.put("o_standard","SELECT * from assert_account");
-        map.put("r_matched_name","asdffdsa1");
-        map.put("f_err","0");
-        map.put("f_running_time",100000);
+//        map.put("s_app_name","nameaaaaaa");
+//        map.put("o_standard","/afdsa/asdfdsa/asdf");
+//        map.put("r_matched_name","asdffdsa1");
+//        map.put("f_err","0");
+//        map.put("f_running_time",100000);
         return JSON.toJSONString(map);
     }
 

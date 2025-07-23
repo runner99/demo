@@ -25,7 +25,7 @@ public class SysLogSendAnhua {
     private static final String HOST = "192.168.52.204";
     private static final int PORT = 1468;
 
-    private static final int BATCH_SIZE = 1;
+    private static final int BATCH_SIZE = 10;
 
     private static SyslogIF syslog = null;
 
@@ -57,8 +57,8 @@ public class SysLogSendAnhua {
                         }
                         syslog.log(SyslogConstants.LEVEL_INFO, String.join("\n", messages));
 
-//                        Thread.sleep(500L);
-                        break;
+                        Thread.sleep(500L);
+//                        break;
                     }
                 } catch (Exception e) {
                     log.error("" + e);
@@ -78,17 +78,41 @@ public class SysLogSendAnhua {
 
     private static String buildMessage() {
         // 你的消息构建逻辑
-        String msg = "2022-11-01T14:06:31+08:00 DBSEC_DAS DBSEC" +
-                "数据库名称:  " +
-                "#012用户名:sysadmin  " +
-                "#012用户IP:10.10.24.30  " +
-                "#012描述:系统登录  " +
-                "#012发生时间:2025-03-19 16:06:31  " +
-                "#012动作:系统登录  " +
-                "#012功能:通用  " +
-                "#012更新前:N/A  " +
-                "#012更新后:N/A  " +
-                "#012结果:成功 ";
+        String msg = "影响对象:mysql.A.TEST01; " +
+                "#012SQL标识:12816206170203243825 " +
+                "#012应答错误号:0 " +
+                "#012应答错误信息: " +
+                "#012影响行数:1 " +
+                "#012响应时间:46   结果集: " +
+                "#012执行结果:成功 " +
+                "#012风险类型:违反操作规则 " +
+                "#012风险级别:高 " +
+                "#012规则名称:select规则 " +
+                "#012应用客户端IP: " +
+                "#012应用客户端端口:0" +
+                "#012应用用户名: " +
+                "#012应用会话标识: " +
+                "#012被保护数据库:测试mysql " +
+                "#012流水标识:2211011316420011058 " +
+                "#012捕获时间:2025-7-18 10:40:46 " +
+                "#012SQL:/* ApplicationName=DBeaver 22.2.3 - SQLEditor <Script-34.sql> */SELECT DATABASE()   #012操作类型:SELECT " +
+                "#012语句长度:86 " +
+                "#012会话标识:4049961760031000000" +
+                "#012会话开始时间:2025-7-18 10:40:46 " +
+                "#012客户端IP:10.10.24.30 " +
+                "#012客户端端口:58359 " +
+                "#012客户端MAC:30B0377A7D89 " +
+                "#012数据库用户:ROOT " +
+                "#012客户端工具:MySQL Connector/J " +
+                "#012客户端主机名称:nwonknu " +
+                "#012操作系统用户:nwonknu " +
+                "#012数据库IP:192.168.52.201 " +
+                "#012数据库端口:13306 " +
+                "#012数据库MAC:000C29108DB5 " +
+                "#012数据库名称:SYS " +
+                "#012登录信息:aaa " +
+                "#012服务(实例)名:mysql " +
+                "#012被保护数据库类型:MySQL";
         return msg;
     }
 
